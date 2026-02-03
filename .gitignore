@@ -1,0 +1,29 @@
+# Flutter Build Files
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# IDE Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+flutter.log
+flutter2.log
+server.log
+
+# Temporary Files
+*.tmp
+nohup.out

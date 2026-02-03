@@ -1,0 +1,152 @@
+[
+  {
+    "card_number": 1,
+    "name_ko": "운명 (열쇠)",
+    "planet": "None",
+    "advice": "결정적인 해결책이나 기회가 다가오고 있습니다. 운명의 문이 열립니다."
+  },
+  {
+    "card_number": 2,
+    "name_ko": "남자의 별",
+    "planet": "Sun",
+    "advice": "질문자 본인 혹은 주변 남성의 강한 영향력이 작용하는 시기입니다."
+  },
+  {
+    "card_number": 3,
+    "name_ko": "여자의 별",
+    "planet": "Moon",
+    "advice": "질문자 본인 혹은 주변 여성의 직관과 감성이 중요한 역할을 합니다."
+  },
+  {
+    "card_number": 4,
+    "name_ko": "행운",
+    "planet": "Jupiter",
+    "advice": "긍정적인 에너지가 흐릅니다. 확장과 성장의 기회를 잡으세요."
+  },
+  {
+    "card_number": 5,
+    "name_ko": "사랑",
+    "planet": "Venus",
+    "advice": "사랑과 관계에서 조화로운 시간입니다. 마음을 열어보세요."
+  },
+  {
+    "card_number": 6,
+    "name_ko": "선물/축복",
+    "planet": "None",
+    "advice": "예상치 못한 선물이나 축복이 찾아올 것입니다. 감사하는 마음을 가지세요."
+  },
+  {
+    "card_number": 7,
+    "name_ko": "편지/소식",
+    "planet": "Mercury",
+    "advice": "중요한 소식이나 메시지가 전해질 것입니다. 소통에 집중하세요."
+  },
+  {
+    "card_number": 8,
+    "name_ko": "상실/슬픔",
+    "planet": "Saturn",
+    "advice": "어려운 시기이지만 이 또한 지나갈 것입니다. 인내심을 가지세요."
+  },
+  {
+    "card_number": 9,
+    "name_ko": "질병/고통",
+    "planet": "None",
+    "advice": "건강이나 정신적 회복이 필요합니다. 자신을 돌보는 시간을 가지세요."
+  },
+  {
+    "card_number": 10,
+    "name_ko": "돈/재물",
+    "planet": "None",
+    "advice": "재정적인 변화가 있을 것입니다. 실용적인 결정이 필요합니다."
+  },
+  {
+    "card_number": 11,
+    "name_ko": "적/위협",
+    "planet": "Mars",
+    "advice": "갈등이나 도전이 있을 수 있습니다. 현명하게 대처하세요."
+  },
+  {
+    "card_number": 12,
+    "name_ko": "여행/이동",
+    "planet": "None",
+    "advice": "물리적 또는 정신적 여행의 시기입니다. 새로운 경험을 받아들이세요."
+  },
+  {
+    "card_number": 13,
+    "name_ko": "변화/전환",
+    "planet": "Uranus",
+    "advice": "급격한 변화가 올 것입니다. 유연하게 대응하세요."
+  },
+  {
+    "card_number": 14,
+    "name_ko": "사업/프로젝트",
+    "planet": "None",
+    "advice": "새로운 프로젝트나 사업 기회가 있습니다. 계획적으로 접근하세요."
+  },
+  {
+    "card_number": 15,
+    "name_ko": "희망/기쁨",
+    "planet": "None",
+    "advice": "희망적인 시기입니다. 긍정적인 마음을 유지하세요."
+  },
+  {
+    "card_number": 16,
+    "name_ko": "결혼/결합",
+    "planet": "None",
+    "advice": "관계의 깊은 결합이나 약속의 시기입니다."
+  },
+  {
+    "card_number": 17,
+    "name_ko": "선택/결정",
+    "planet": "None",
+    "advice": "중요한 결정을 내려야 합니다. 신중하게 고려하세요."
+  },
+  {
+    "card_number": 18,
+    "name_ko": "법/정의",
+    "planet": "None",
+    "advice": "공정한 판단과 진실이 드러날 것입니다."
+  },
+  {
+    "card_number": 19,
+    "name_ko": "성공/성취",
+    "planet": "None",
+    "advice": "노력의 결실을 맺을 시기입니다. 자신을 믿으세요."
+  },
+  {
+    "card_number": 20,
+    "name_ko": "가족/집",
+    "planet": "None",
+    "advice": "가정과 가족이 중요한 역할을 합니다. 안정을 추구하세요."
+  },
+  {
+    "card_number": 21,
+    "name_ko": "배신/거짓",
+    "planet": "Neptune",
+    "advice": "진실과 환상을 구분하세요. 명확함이 필요합니다."
+  },
+  {
+    "card_number": 22,
+    "name_ko": "시작/새로움",
+    "planet": "None",
+    "advice": "새로운 시작의 에너지가 있습니다. 용기를 내세요."
+  },
+  {
+    "card_number": 23,
+    "name_ko": "끝/완성",
+    "planet": "Pluto",
+    "advice": "한 주기가 끝나고 새로운 주기가 시작됩니다. 변화를 받아들이세요."
+  },
+  {
+    "card_number": 24,
+    "name_ko": "지혜/가르침",
+    "planet": "None",
+    "advice": "경험에서 배우세요. 지혜가 당신을 인도할 것입니다."
+  },
+  {
+    "card_number": 25,
+    "name_ko": "직관/내면",
+    "planet": "None",
+    "advice": "내면의 목소리에 귀 기울이세요. 직관을 믿으세요."
+  }
+]

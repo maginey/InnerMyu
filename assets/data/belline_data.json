@@ -1,0 +1,314 @@
+[
+  {
+    "card_number": 1,
+    "name_ko": "운명 (열쇠)",
+    "planet": "None",
+    "advice": "결정적인 해결책이나 기회가 다가오고 있습니다. 운명의 문이 열립니다."
+  },
+  {
+    "card_number": 2,
+    "name_ko": "남자의 별",
+    "planet": "Sun",
+    "advice": "질문자 본인 혹은 주변 남성의 강한 영향력이 작용하는 시기입니다."
+  },
+  {
+    "card_number": 3,
+    "name_ko": "여자의 별",
+    "planet": "Moon",
+    "advice": "여성 에너지가 중요한 역할을 합니다. 직관과 감성을 믿으세요."
+  },
+  {
+    "card_number": 4,
+    "name_ko": "변화",
+    "planet": "Mercury",
+    "advice": "변화와 소통이 필요한 시기입니다. 유연하게 대처하세요."
+  },
+  {
+    "card_number": 5,
+    "name_ko": "사랑",
+    "planet": "Venus",
+    "advice": "사랑과 조화가 당신의 삶에 들어옵니다. 마음을 여세요."
+  },
+  {
+    "card_number": 6,
+    "name_ko": "행운",
+    "planet": "Jupiter",
+    "advice": "확장과 풍요의 기운이 함께합니다. 긍정적으로 나아가세요."
+  },
+  {
+    "card_number": 7,
+    "name_ko": "불행",
+    "planet": "Saturn",
+    "advice": "시련은 성장의 기회입니다. 인내심을 가지고 극복하세요."
+  },
+  {
+    "card_number": 8,
+    "name_ko": "출발",
+    "planet": "Uranus",
+    "advice": "새로운 시작을 두려워하지 마세요. 혁신이 필요한 시기입니다."
+  },
+  {
+    "card_number": 9,
+    "name_ko": "정의",
+    "planet": "Mars",
+    "advice": "공정함과 용기가 필요합니다. 당당하게 맞서세요."
+  },
+  {
+    "card_number": 10,
+    "name_ko": "선물",
+    "planet": "Neptune",
+    "advice": "예상치 못한 선물이나 영감이 찾아올 것입니다."
+  },
+  {
+    "card_number": 11,
+    "name_ko": "생각",
+    "planet": "Mercury",
+    "advice": "명확한 사고와 소통이 중요합니다. 말과 생각을 정리하세요."
+  },
+  {
+    "card_number": 12,
+    "name_ko": "물",
+    "planet": "Moon",
+    "advice": "감정의 흐름을 받아들이세요. 정화와 치유의 시간입니다."
+  },
+  {
+    "card_number": 13,
+    "name_ko": "불",
+    "planet": "Sun",
+    "advice": "열정과 행동력이 필요합니다. 적극적으로 나아가세요."
+  },
+  {
+    "card_number": 14,
+    "name_ko": "공기",
+    "planet": "Mercury",
+    "advice": "새로운 아이디어와 소통이 해결책입니다. 자유롭게 생각하세요."
+  },
+  {
+    "card_number": 15,
+    "name_ko": "흙",
+    "planet": "Saturn",
+    "advice": "현실적이고 실용적인 접근이 필요합니다. 기반을 다지세요."
+  },
+  {
+    "card_number": 16,
+    "name_ko": "청원",
+    "planet": "Jupiter",
+    "advice": "도움을 요청하고 협력을 구하세요. 혼자가 아닙니다."
+  },
+  {
+    "card_number": 17,
+    "name_ko": "실망",
+    "planet": "Saturn",
+    "advice": "실망을 극복하는 힘을 기르세요. 이 또한 지나갈 것입니다."
+  },
+  {
+    "card_number": 18,
+    "name_ko": "병",
+    "planet": "Neptune",
+    "advice": "휴식과 치유가 필요합니다. 몸과 마음을 돌보세요."
+  },
+  {
+    "card_number": 19,
+    "name_ko": "편지",
+    "planet": "Mercury",
+    "advice": "중요한 메시지나 소식이 올 것입니다. 주의 깊게 들으세요."
+  },
+  {
+    "card_number": 20,
+    "name_ko": "여행",
+    "planet": "Uranus",
+    "advice": "새로운 경험과 변화가 기다립니다. 모험을 떠나세요."
+  },
+  {
+    "card_number": 21,
+    "name_ko": "시골",
+    "planet": "Venus",
+    "advice": "자연과 평화로운 환경이 당신에게 필요합니다."
+  },
+  {
+    "card_number": 22,
+    "name_ko": "상점",
+    "planet": "Mercury",
+    "advice": "거래와 교환이 이루어집니다. 신중하게 결정하세요."
+  },
+  {
+    "card_number": 23,
+    "name_ko": "선물/기쁨",
+    "planet": "Venus",
+    "advice": "기쁨과 보상이 찾아옵니다. 감사함을 표현하세요."
+  },
+  {
+    "card_number": 24,
+    "name_ko": "도둑",
+    "planet": "Mars",
+    "advice": "주의가 필요합니다. 소중한 것을 지키세요."
+  },
+  {
+    "card_number": 25,
+    "name_ko": "금발 여성",
+    "planet": "Venus",
+    "advice": "밝고 긍정적인 여성 에너지가 도움이 됩니다."
+  },
+  {
+    "card_number": 26,
+    "name_ko": "갈색머리 여성",
+    "planet": "Moon",
+    "advice": "지혜롭고 신중한 여성의 조언을 구하세요."
+  },
+  {
+    "card_number": 27,
+    "name_ko": "금발 남성",
+    "planet": "Sun",
+    "advice": "활동적이고 낙관적인 남성이 영향을 줄 것입니다."
+  },
+  {
+    "card_number": 28,
+    "name_ko": "갈색머리 남성",
+    "planet": "Saturn",
+    "advice": "신중하고 책임감 있는 남성의 도움이 있을 것입니다."
+  },
+  {
+    "card_number": 29,
+    "name_ko": "적",
+    "planet": "Mars",
+    "advice": "갈등이나 경쟁을 현명하게 다루세요. 방어보다 이해를 선택하세요."
+  },
+  {
+    "card_number": 30,
+    "name_ko": "돈",
+    "planet": "Jupiter",
+    "advice": "재정적 기회가 옵니다. 현명하게 관리하세요."
+  },
+  {
+    "card_number": 31,
+    "name_ko": "기대",
+    "planet": "Neptune",
+    "advice": "희망을 가지고 기다리세요. 좋은 일이 다가오고 있습니다."
+  },
+  {
+    "card_number": 32,
+    "name_ko": "우정",
+    "planet": "Venus",
+    "advice": "진실한 우정이 당신을 지지합니다. 함께하세요."
+  },
+  {
+    "card_number": 33,
+    "name_ko": "프로젝트",
+    "planet": "Mars",
+    "advice": "계획을 실행에 옮길 시간입니다. 행동하세요."
+  },
+  {
+    "card_number": 34,
+    "name_ko": "행복",
+    "planet": "Sun",
+    "advice": "진정한 행복이 가까이 있습니다. 현재를 즐기세요."
+  },
+  {
+    "card_number": 35,
+    "name_ko": "혼인",
+    "planet": "Venus",
+    "advice": "결합과 헌신의 시기입니다. 관계를 소중히 하세요."
+  },
+  {
+    "card_number": 36,
+    "name_ko": "상속",
+    "planet": "Saturn",
+    "advice": "과거로부터 받은 것을 현명하게 활용하세요."
+  },
+  {
+    "card_number": 37,
+    "name_ko": "축복",
+    "planet": "Jupiter",
+    "advice": "우주의 축복이 당신과 함께합니다. 감사하세요."
+  },
+  {
+    "card_number": 38,
+    "name_ko": "늦음",
+    "planet": "Saturn",
+    "advice": "인내가 필요합니다. 때가 되면 이루어질 것입니다."
+  },
+  {
+    "card_number": 39,
+    "name_ko": "시기",
+    "planet": "Mars",
+    "advice": "부정적 감정을 놓아주세요. 비교하지 마세요."
+  },
+  {
+    "card_number": 40,
+    "name_ko": "사기",
+    "planet": "Neptune",
+    "advice": "진실을 구분하세요. 직관을 믿으세요."
+  },
+  {
+    "card_number": 41,
+    "name_ko": "무관심",
+    "planet": "Saturn",
+    "advice": "열정을 되찾으세요. 관심을 기울일 가치가 있습니다."
+  },
+  {
+    "card_number": 42,
+    "name_ko": "울음",
+    "planet": "Moon",
+    "advice": "감정을 표현하세요. 울음은 정화의 시작입니다."
+  },
+  {
+    "card_number": 43,
+    "name_ko": "행복한 사건",
+    "planet": "Jupiter",
+    "advice": "기쁜 소식이 곧 도착합니다. 마음을 열어두세요."
+  },
+  {
+    "card_number": 44,
+    "name_ko": "불행한 사건",
+    "planet": "Saturn",
+    "advice": "어려움을 지혜로 바꾸세요. 이겨낼 수 있습니다."
+  },
+  {
+    "card_number": 45,
+    "name_ko": "재판",
+    "planet": "Jupiter",
+    "advice": "공정한 결과가 나올 것입니다. 정의를 믿으세요."
+  },
+  {
+    "card_number": 46,
+    "name_ko": "사고",
+    "planet": "Uranus",
+    "advice": "예상치 못한 상황에 대비하세요. 주의가 필요합니다."
+  },
+  {
+    "card_number": 47,
+    "name_ko": "재산",
+    "planet": "Venus",
+    "advice": "풍요와 안정이 찾아옵니다. 감사하며 누리세요."
+  },
+  {
+    "card_number": 48,
+    "name_ko": "어린이",
+    "planet": "Moon",
+    "advice": "순수함과 새로운 시작이 필요합니다. 마음을 열으세요."
+  },
+  {
+    "card_number": 49,
+    "name_ko": "잃어버림",
+    "planet": "Neptune",
+    "advice": "잃은 것에 집착하지 마세요. 새로운 것이 올 것입니다."
+  },
+  {
+    "card_number": 50,
+    "name_ko": "보상",
+    "planet": "Jupiter",
+    "advice": "노력에 대한 보상이 옵니다. 자신을 자랑스러워하세요."
+  },
+  {
+    "card_number": 51,
+    "name_ko": "군인",
+    "planet": "Mars",
+    "advice": "용기와 결단력이 필요합니다. 전사의 마음으로 나아가세요."
+  },
+  {
+    "card_number": 52,
+    "name_ko": "놀람",
+    "planet": "Uranus",
+    "advice": "예상치 못한 놀라운 일이 일어날 것입니다. 유연하게 받아들이세요."
+  }
+]
