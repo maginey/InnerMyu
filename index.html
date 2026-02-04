@@ -3,72 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnerMyu | 당신의 이야기를 뮤지컬로</title>
+    <title>InnerMu | 당신의 이야기를 노래로</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #1a1a2e; color: #e9e9e9; font-family: 'serif'; text-align: center; margin: 0; padding: 0; }
-        .hero { padding: 60px 20px; background: linear-gradient(to bottom, #16213e, #1a1a2e); }
+        body { 
+            background-color: #0f0c29; 
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            color: #e9e9e9; 
+            font-family: 'Noto Serif KR', serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh;
+        }
+        .hero { 
+            padding: 80px 20px; 
+            background: rgba(0, 0, 0, 0.3); 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        h1 { font-family: 'Cinzel', serif; font-size: 3em; margin-bottom: 10px; color: #ffecd2; text-shadow: 0 0 10px rgba(255,236,210,0.5); }
+        p { font-size: 1.1em; opacity: 0.8; margin-bottom: 30px; }
+        
+        /* 사연 신청 버튼 (CTA) */
         .cta-button { 
-            display: inline-block; padding: 15px 30px; background-color: #e94560; color: white; 
-            text-decoration: none; border-radius: 30px; font-weight: bold; margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+            display: inline-block; padding: 15px 35px; 
+            background: linear-gradient(45deg, #ff416c, #ff4b2b); 
+            color: white; 
+            text-decoration: none; border-radius: 50px; 
+            font-weight: bold; font-size: 1.1em;
+            box-shadow: 0 5px 20px rgba(255, 75, 43, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.6); }
+
+        /* 카드 컨테이너 */
+        .card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+        
+        /* 카드 디자인 */
         .card { 
-            width: 150px; height: 220px; background: #0f3460; border-radius: 15px; 
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            border: 2px solid #533483; transition: transform 0.3s;
+            width: 160px; height: 240px; 
+            background: linear-gradient(135deg, #2c3e50, #4ca1af); 
+            border-radius: 15px; 
+            cursor: pointer; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            position: relative; overflow: hidden;
         }
-        .card:hover { transform: translateY(-10px); background: #533483; }
-        #result-section { display: none; padding: 40px; background: #16213e; margin: 20px auto; max-width: 800px; border-radius: 20px; }
-        iframe { width: 100%; max-width: 560px; height: 315px; border-radius: 15px; border: none; margin-top: 20px; }
+        .card::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.2); }
+        .card:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 15px 30px rgba(76, 161, 175, 0.4); z-index: 10; }
+        .card span { position: relative; font-family: 'Cinzel', serif; font-size: 1.5em; color: rgba(255,255,255,0.8); z-index: 2; }
+        
+        /* 결과 화면 */
+        #result-section { 
+            display: none; 
+            padding: 50px 30px; 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px);
+            margin: 30px auto; 
+            max-width: 700px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        
+        #card-title { font-family: 'Cinzel', serif; color: #ffecd2; margin-bottom: 20px; }
+        #card-text { font-size: 1.2em; line-height: 1.8; margin-bottom: 30px; word-break: keep-all; }
+        
+        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .reset-btn { margin-top:30px; background:none; color: #aaa; border: 1px solid #aaa; padding: 10px 20px; border-radius: 20px; cursor:pointer; transition: 0.3s; }
+        .reset-btn:hover { color: white; border-color: white; background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
     <div class="hero">
         <h1>InnerMu</h1>
-        <p>발신인 불명의 메시지와 당신을 위한 음악</p>
-        <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" class="cta-button">💌 나만의 노래 사연 신청하기</a>
+        <p>발신인 불명의 메시지, 그리고 당신을 위한 선율</p>
+        <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="cta-button">💌 나만의 노래 사연 신청하기</a>
     </div>
 
     <div class="card-container" id="deck">
         </div>
 
     <div id="result-section">
-        <h2 id="card-title">메시지를 읽는 중...</h2>
+        <h2 id="card-title">메시지</h2>
         <p id="card-text"></p>
         <div id="youtube-container"></div>
-        <button onclick="location.reload()" style="margin-top:20px; background:none; color:gray; border:none; cursor:pointer;">[ 다시 뽑기 ]</button>
+        <button onclick="location.reload()" class="reset-btn">↻ 다른 카드 뽑기</button>
     </div>
 
     <script>
-        // 여기에 네 유튜브 ID와 메시지를 채우면 돼!
+        /* [아빠의 팁] 
+           1. ytId에는 유튜브 주소 전체가 아니라 뒤에 있는 ID값만 넣어야 해!
+              (예: https://youtu.be/dQw4w9WgXcQ 라면 'dQw4w9WgXcQ'만 입력)
+           2. 카드를 더 늘리고 싶으면 중괄호 {} 덩어리를 복사해서 밑에 붙여넣으렴.
+        */
         const cardData = [
-            { id: 1, title: "치유의 선율", text: "당신의 아픔이 곧 빛이 될 거예요.", ytId: "@InnerMyu/videos" },
-            { id: 2, title: "새로운 시작", text: "문이 닫히면 새로운 창문이 열립니다.", ytId: "dQw4w9WgXcQ" },
-            { id: 3, title: "기다림의 끝", text: "곧 당신이 원하던 소식이 들려올 거예요.", ytId: "dQw4w9WgXcQ" }
-             { id: 4, title: "치유의 선율", text: "당신의 아픔이 곧 빛이 될 거예요.", ytId: "dQw4w9WgXcQ" },
-            { id: 5, title: "새로운 시작", text: "문이 닫히면 새로운 창문이 열립니다.", ytId: "dQw4w9WgXcQ" },
-            { id: 6, title: "기다림의 끝", text: "곧 당신이 원하던 소식이 들려올 거예요.", ytId: "dQw4w9WgXcQ" }
-            { id: 7, title: "치유의 선율", text: "당신의 아픔이 곧 빛이 될 거예요.", ytId: "dQw4w9WgXcQ" },
-            { id: 8, title: "새로운 시작", text: "문이 닫히면 새로운 창문이 열립니다.", ytId: "dQw4w9WgXcQ" },
-            { id: 9, title: "기다림의 끝", text: "곧 당신이 원하던 소식이 들려올 거예요.", ytId: "dQw4w9WgXcQ" }
-            { id: 9, title: "기다림의 끝", text: "곧 당신이 원하던 소식이 들려올 거예요.", ytId: "dQw4w9WgXcQ" }
-            // 10개까지 복사해서 늘리면 된단다!
+            { id: 1, title: "치유의 선율", text: "당신의 아픔이 곧 빛이 될 거예요. 잠시 눈을 감고 음악에 몸을 맡겨보세요.", ytId: "dQw4w9WgXcQ", color: "#4ca1af" },
+            { id: 2, title: "새로운 시작", text: "문이 닫히면 반드시 새로운 창문이 열립니다. 두려워하지 마세요.", ytId: "dQw4w9WgXcQ", color: "#ff4b1f" },
+            { id: 3, title: "기다림의 끝", text: "오래 기다려온 소식이 곧 당신을 찾아올 것입니다.", ytId: "dQw4w9WgXcQ", color: "#16a085" },
+            { id: 4, title: "고요한 위로", text: "말하지 않아도 알아요. 오늘은 그저 쉬어가도 괜찮습니다.", ytId: "dQw4w9WgXcQ", color: "#7b4397" },
+            { id: 5, title: "내면의 빛", text: "당신 안에는 아직 발견되지 않은 눈부신 빛이 숨어있습니다.", ytId: "dQw4w9WgXcQ", color: "#cc2b5e" },
+            { id: 6, title: "용기의 날개", text: "망설임을 멈추고 한 발자국만 내딛어보세요.", ytId: "dQw4w9WgXcQ", color: "#2193b0" },
+            { id: 7, title: "추억의 향기", text: "지나간 시간은 사라지는 것이 아니라, 당신을 지탱하는 뿌리가 됩니다.", ytId: "dQw4w9WgXcQ", color: "#de6262" },
+            { id: 8, title: "사랑의 파동", text: "당신은 충분히 사랑받을 자격이 있는 사람입니다.", ytId: "dQw4w9WgXcQ", color: "#ee9ca7" },
+            { id: 9, title: "새벽의 약속", text: "가장 어두운 시간은 해가 뜨기 직전임을 잊지 마세요.", ytId: "dQw4w9WgXcQ", color: "#1f4037" },
+            { id: 10, title: "운명의 수레바퀴", text: "변화의 바람이 불어옵니다. 그 바람을 타고 날아오를 시간입니다.", ytId: "dQw4w9WgXcQ", color: "#bdc3c7" }
         ];
 
         const deck = document.getElementById('deck');
         const resultSection = document.getElementById('result-section');
 
-        cardData.forEach(data => {
+        cardData.forEach((data, index) => {
             const card = document.createElement('div');
             card.className = 'card';
-            card.innerText = 'Select';
+            // 카드마다 미묘하게 다른 색상 적용 (디자인 포인트!)
+            card.style.background = `linear-gradient(135deg, #2c3e50, ${data.color})`; 
+            
+            // 카드 위에 번호 표시
+            const cardNum = document.createElement('span');
+            cardNum.innerText = index + 1; 
+            card.appendChild(cardNum);
+
             card.onclick = () => {
+                // 클릭 시 상단으로 스크롤 이동
+                window.scrollTo({ top: document.querySelector('.hero').offsetHeight, behavior: 'smooth' });
+
                 document.getElementById('card-title').innerText = data.title;
                 document.getElementById('card-text').innerText = data.text;
                 document.getElementById('youtube-container').innerHTML = 
-                    `<iframe src="https://www.youtube.com/embed/${data.ytId}" allowfullscreen></iframe>`;
+                    `<iframe src="https://www.youtube.com/embed/${data.ytId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                
                 deck.style.display = 'none';
                 resultSection.style.display = 'block';
             };
