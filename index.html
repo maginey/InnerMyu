@@ -108,6 +108,10 @@
             <div class="menu-desc">할까 말까? 명쾌한 한 장의 대답</div>
         </div>
 
+        <div class="menu-btn" onclick="startMode('tarot')">...</div>
+        <div class="menu-btn" onclick="startMode('belline')">...</div>
+
+
         <a href="https://www.youtube.com/playlist?list=PLVHQVjb061BhLKhBFilofYFlbilqxWqAJ" target="_blank" class="music-link">
             <div class="menu-btn music">
                 <div class="menu-title">🎧 뮤너의 음악듣기</div>
@@ -145,7 +149,29 @@
 
     <script>
         // [풍성해진 리딩 데이터베이스]
-        const tarotMajor22 = [
+       
+        const oracleData = [
+            { title: "열쇠 (La Clé)", text: "해결책은 이미 당신의 손안에 있습니다. 막혀있던 문을 열고 나아갈 운명의 열쇠를 쥐셨군요.", yt: "VUeD3MgTxn4" },
+            { title: "성공 (La Réussite)", text: "당신의 노력이 드디어 결실을 맺습니다. 인정과 보상이 따르는 찬란한 시기입니다.", yt: "VUeD3MgTxn4" },
+            { title: "변화 (Le Changement)", text: "새로운 흐름이 들어오고 있습니다. 익숙한 것을 버릴 때 더 큰 세상이 열립니다.", yt: "SnhospKd5mU" },
+            { title: "선물 (Les Présents)", text: "우주가 당신에게 뜻밖의 기회를 선물합니다. 감사한 마음으로 이 행운을 받으세요.", yt: "DW2-a_Mdous" },
+            { title: "지혜 (L'Intelligence)", text: "지금은 행동보다 생각이 필요한 때입니다. 당신의 직관과 지혜가 길을 안내할 것입니다.", yt: "DW2-a_Mdous" },
+            { title: "은총 (La Grâce)", text: "보이지 않는 힘이 당신을 지켜주고 있습니다. 두려움을 내려놓으세요. 모든 것이 순조롭습니다.", yt: "DW2-a_Mdous" },
+            { title: "발견 (La Découverte)", text: "몰랐던 진실이나 새로운 재능을 발견하게 됩니다. 주의 깊게 관찰하세요.", yt: "SnhospKd5mU" },
+            { title: "미 (La Beauté)", text: "당신의 삶에 아름다움과 조화가 깃듭니다. 예술적인 영감이나 사랑이 찾아올 수 있습니다.", yt: "SnhospKd5mU" }
+        ];
+
+        const yesNoData = [
+            { title: "THE SUN (YES!)", text: "강력한 긍정입니다! 태양처럼 밝은 결과가 기다리고 있으니 직진하세요.", yt: "dQw4w9WgXcQ" },
+            { title: "THE WORLD (YES)", text: "완벽한 성공입니다. 하나의 챕터가 아름답게 완성될 것입니다.", yt: "dQw4w9WgXcQ" },
+            { title: "ACE of CUPS (YES)", text: "감정적으로 충만한 결과가 있을 거예요. 마음이 흐르는 대로 따라가세요.", yt: "dQw4w9WgXcQ" },
+            { title: "THE TOWER (NO)", text: "지금은 멈추세요. 무리하게 진행하면 공든 탑이 무너질 수 있습니다. 재점검이 필요합니다.", yt: "dQw4w9WgXcQ" },
+            { title: "10 of SWORDS (NO)", text: "지금은 이 일을 덮어두고 충분한 휴식을 취하는 것이 현명합니다.", yt: "dQw4w9WgXcQ" },
+            { title: "THE HANGED MAN (WAIT)", text: "잠시 멈춰서 다른 시각으로 바라보세요. 인내가 필요한 시점입니다.", yt: "dQw4w9WgXcQ" },
+            { title: "THE HIGH PRIESTESS (WAIT)", text: "아직 드러나지 않은 비밀이 있습니다. 조금 더 상황을 지켜보세요.", yt: "dQw4w9WgXcQ" }
+        ];
+
+         const tarotMajor22 = [
 {
 title: "0. THE FOOL (바보)",
 text: `심해의 마녀, 뮤너가 전해드립니다.
@@ -594,26 +620,6 @@ text: `답은 이미
 ];
 
 
-        const oracleData = [
-            { title: "열쇠 (La Clé)", text: "해결책은 이미 당신의 손안에 있습니다. 막혀있던 문을 열고 나아갈 운명의 열쇠를 쥐셨군요.", yt: "VUeD3MgTxn4" },
-            { title: "성공 (La Réussite)", text: "당신의 노력이 드디어 결실을 맺습니다. 인정과 보상이 따르는 찬란한 시기입니다.", yt: "VUeD3MgTxn4" },
-            { title: "변화 (Le Changement)", text: "새로운 흐름이 들어오고 있습니다. 익숙한 것을 버릴 때 더 큰 세상이 열립니다.", yt: "SnhospKd5mU" },
-            { title: "선물 (Les Présents)", text: "우주가 당신에게 뜻밖의 기회를 선물합니다. 감사한 마음으로 이 행운을 받으세요.", yt: "DW2-a_Mdous" },
-            { title: "지혜 (L'Intelligence)", text: "지금은 행동보다 생각이 필요한 때입니다. 당신의 직관과 지혜가 길을 안내할 것입니다.", yt: "DW2-a_Mdous" },
-            { title: "은총 (La Grâce)", text: "보이지 않는 힘이 당신을 지켜주고 있습니다. 두려움을 내려놓으세요. 모든 것이 순조롭습니다.", yt: "DW2-a_Mdous" },
-            { title: "발견 (La Découverte)", text: "몰랐던 진실이나 새로운 재능을 발견하게 됩니다. 주의 깊게 관찰하세요.", yt: "SnhospKd5mU" },
-            { title: "미 (La Beauté)", text: "당신의 삶에 아름다움과 조화가 깃듭니다. 예술적인 영감이나 사랑이 찾아올 수 있습니다.", yt: "SnhospKd5mU" }
-        ];
-
-        const yesNoData = [
-            { title: "THE SUN (YES!)", text: "강력한 긍정입니다! 태양처럼 밝은 결과가 기다리고 있으니 직진하세요.", yt: "dQw4w9WgXcQ" },
-            { title: "THE WORLD (YES)", text: "완벽한 성공입니다. 하나의 챕터가 아름답게 완성될 것입니다.", yt: "dQw4w9WgXcQ" },
-            { title: "ACE of CUPS (YES)", text: "감정적으로 충만한 결과가 있을 거예요. 마음이 흐르는 대로 따라가세요.", yt: "dQw4w9WgXcQ" },
-            { title: "THE TOWER (NO)", text: "지금은 멈추세요. 무리하게 진행하면 공든 탑이 무너질 수 있습니다. 재점검이 필요합니다.", yt: "dQw4w9WgXcQ" },
-            { title: "10 of SWORDS (NO)", text: "지금은 이 일을 덮어두고 충분한 휴식을 취하는 것이 현명합니다.", yt: "dQw4w9WgXcQ" },
-            { title: "THE HANGED MAN (WAIT)", text: "잠시 멈춰서 다른 시각으로 바라보세요. 인내가 필요한 시점입니다.", yt: "dQw4w9WgXcQ" },
-            { title: "THE HIGH PRIESTESS (WAIT)", text: "아직 드러나지 않은 비밀이 있습니다. 조금 더 상황을 지켜보세요.", yt: "dQw4w9WgXcQ" }
-        ];
 
         let currentMode = '';
 
@@ -642,29 +648,34 @@ text: `답은 이미
         }
 
         function showResult() {
-            let resultData = (currentMode === 'yesno') ? 
-                yesNoData[Math.floor(Math.random() * yesNoData.length)] : 
-                oracleData[Math.floor(Math.random() * oracleData.length)];
+    let resultData;
 
-            document.getElementById('deck-screen').style.display = 'none';
-            document.getElementById('result-screen').style.display = 'block';
-            document.getElementById('res-title').innerText = resultData.title;
-            document.getElementById('res-text').innerText = resultData.text;
-            
-            const ytContainer = document.getElementById('yt-embed');
-            if (currentMode !== 'yesno') {
-                ytContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${resultData.yt}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-                ytContainer.style.display = 'block';
-            } else {
-                ytContainer.style.display = 'none';
-            }
-                      } else if (currentMode === 'tarot') {
-            resultData = tarotMajor22[Math.floor(Math.random() * tarotMajor22.length)];
-          } else if (currentMode === 'belline') {
-            resultData = belline52[Math.floor(Math.random() * belline52.length)];
-          } else {
-            resultData = oracleData[Math.floor(Math.random() * oracleData.length)];
-        }
+    if (currentMode === 'yesno') {
+        resultData = yesNoData[Math.floor(Math.random() * yesNoData.length)];
+    } 
+    else if (currentMode === 'tarot') {
+        resultData = tarotMajor22[Math.floor(Math.random() * tarotMajor22.length)];
+    } 
+    else if (currentMode === 'belline') {
+        resultData = belline52[Math.floor(Math.random() * belline52.length)];
+    } 
+    else {
+        resultData = oracleData[Math.floor(Math.random() * oracleData.length)];
+    }
+
+    if (!resultData) {
+        alert("카드 데이터를 불러오지 못했습니다.");
+        return;
+    }
+
+    document.getElementById('deck-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('res-title').innerText = resultData.title;
+    document.getElementById('res-text').innerText = resultData.text;
+
+    document.getElementById('yt-embed').innerHTML = '';
+}
+
 
 
         function goHome() {
