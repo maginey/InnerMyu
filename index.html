@@ -3,146 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnerMu | 당신의 이야기를 노래로</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500&display=swap" rel="stylesheet">
+    <title>InnerMyu | 당신의 내면을 읽는 시간</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 1. 기본 스타일 */
         body { 
-            background-color: #0f0c29; 
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #e9e9e9; 
             font-family: 'Noto Serif KR', serif; 
             text-align: center; 
-            margin: 0; 
-            padding: 0; 
+            margin: 0; padding: 0; 
             min-height: 100vh;
+            overflow-x: hidden;
         }
-        .hero { 
-            padding: 80px 20px; 
-            background: rgba(0, 0, 0, 0.3); 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        h1 { font-family: 'Cinzel', serif; font-size: 3em; margin-bottom: 10px; color: #ffecd2; text-shadow: 0 0 10px rgba(255,236,210,0.5); }
-        p { font-size: 1.1em; opacity: 0.8; margin-bottom: 30px; }
         
-        /* 사연 신청 버튼 (CTA) */
-        .cta-button { 
-            display: inline-block; padding: 15px 35px; 
-            background: linear-gradient(45deg, #ff416c, #ff4b2b); 
-            color: white; 
-            text-decoration: none; border-radius: 50px; 
-            font-weight: bold; font-size: 1.1em;
-            box-shadow: 0 5px 20px rgba(255, 75, 43, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 75, 43, 0.6); }
+        /* 2. 메인 로비 (홈 화면) */
+        #home-screen { padding: 60px 20px; animation: fadeIn 1s; }
+        .logo { font-family: 'Cinzel', serif; font-size: 3.5em; color: #ffecd2; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,236,210,0.4); }
+        .subtitle { font-size: 1.1em; opacity: 0.8; margin-bottom: 50px; }
 
-        /* 카드 컨테이너 */
-        .card-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
-        
-        /* 카드 디자인 */
+        /* 메뉴 버튼 그리드 */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 800px; margin: 0 auto; }
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px; border-radius: 15px; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .menu-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); border-color: #ffecd2; }
+        .menu-title { font-size: 1.4em; font-weight: bold; margin-bottom: 10px; color: #ffecd2; }
+        .menu-desc { font-size: 0.9em; opacity: 0.7; }
+
+        /* DM 버튼 (강조) */
+        .dm-link { text-decoration: none; color: inherit; width: 100%; }
+        .menu-btn.dm { background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); border: none; }
+        .menu-btn.dm .menu-title { color: white; }
+
+        /* 3. 카드 선택 화면 (공통) */
+        #deck-screen { display: none; padding: 50px 20px; }
+        .back-btn { background: none; border: 1px solid #aaa; color: #aaa; padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-bottom: 30px; }
+        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
         .card { 
-            width: 160px; height: 240px; 
-            background: linear-gradient(135deg, #2c3e50, #4ca1af); 
-            border-radius: 15px; 
-            cursor: pointer; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border: 1px solid rgba(255,255,255,0.2); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.4s ease;
-            position: relative; overflow: hidden;
+            width: 100px; height: 160px; background: #1a1a2e; border: 2px solid #533483; 
+            border-radius: 10px; cursor: pointer; transition: transform 0.3s;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* 패턴 예시 */
         }
-        .card::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.2); }
-        .card:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 15px 30px rgba(76, 161, 175, 0.4); z-index: 10; }
-        .card span { position: relative; font-family: 'Cinzel', serif; font-size: 1.5em; color: rgba(255,255,255,0.8); z-index: 2; }
+        .card:hover { transform: translateY(-10px); border-color: #ffecd2; }
+
+        /* 4. 결과 화면 */
+        #result-screen { display: none; padding: 40px 20px; max-width: 600px; margin: 0 auto; }
+        .result-box { background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .res-title { font-family: 'Cinzel', serif; color: #ffecd2; font-size: 2em; margin-bottom: 20px; }
+        .res-text { font-size: 1.2em; line-height: 1.6; margin-bottom: 30px; word-break: keep-all; }
         
-        /* 결과 화면 */
-        #result-section { 
-            display: none; 
-            padding: 50px 30px; 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px);
-            margin: 30px auto; 
-            max-width: 700px; 
-            border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: fadeIn 0.5s ease-out;
+        iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 10px; margin-bottom: 20px; }
+
+        /* 사연 신청 CTA (하단 고정) */
+        .fixed-cta {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #e94560; color: white; padding: 12px 25px; border-radius: 30px;
+            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(233,69,96,0.5);
+            z-index: 100;
         }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-        
-        #card-title { font-family: 'Cinzel', serif; color: #ffecd2; margin-bottom: 20px; }
-        #card-text { font-size: 1.2em; line-height: 1.8; margin-bottom: 30px; word-break: keep-all; }
-        
-        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        .reset-btn { margin-top:30px; background:none; color: #aaa; border: 1px solid #aaa; padding: 10px 20px; border-radius: 20px; cursor:pointer; transition: 0.3s; }
-        .reset-btn:hover { color: white; border-color: white; background: rgba(255,255,255,0.1); }
+
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>InnerMu</h1>
-        <p>발신인 불명의 메시지, 그리고 당신을 위한 선율</p>
-        <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="cta-button">💌 나만의 노래 사연 신청하기</a>
-    </div>
+    <div id="home-screen">
+        <div class="logo">InnerMyu</div>
+        <div class="subtitle">음악과 카드로 만나는 당신의 내면</div>
 
-    <div class="card-container" id="deck">
+        <div class="menu-grid">
+            <div class="menu-btn" onclick="startMode('today')">
+                <div class="menu-title">🌙 오늘의 운세</div>
+                <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
+            </div>
+            <div class="menu-btn" onclick="startMode('oracle')">
+                <div class="menu-title">🔮 오라클 조언</div>
+                <div class="menu-desc">지금 내 고민에 대한 신비로운 답</div>
+            </div>
+            <div class="menu-btn" onclick="startMode('yesno')">
+                <div class="menu-title">⚖️ Yes or No</div>
+                <div class="menu-desc">할까 말까? 명쾌한 한 장의 대답</div>
+            </div>
+            <a href="https://instagram.com/innermyu" target="_blank" class="dm-link">
+                <div class="menu-btn dm">
+                    <div class="menu-title">💌 1:1 리딩 요청</div>
+                    <div class="menu-desc">더 깊은 상담을 원하시나요? (DM)</div>
+                </div>
+            </a>
         </div>
-
-    <div id="result-section">
-        <h2 id="card-title">메시지</h2>
-        <p id="card-text"></p>
-        <div id="youtube-container"></div>
-        <button onclick="location.reload()" class="reset-btn">↻ 다른 카드 뽑기</button>
     </div>
+
+    <div id="deck-screen">
+        <button class="back-btn" onclick="goHome()">← 처음으로</button>
+        <h2 id="mode-title" style="margin-bottom: 30px;">카드를 한 장 선택하세요</h2>
+        <div class="card-grid" id="card-deck">
+            </div>
+    </div>
+
+    <div id="result-screen">
+        <div class="result-box">
+            <h2 class="res-title" id="res-title"></h2>
+            <p class="res-text" id="res-text"></p>
+            <div id="yt-embed"></div>
+            <button class="back-btn" onclick="goHome()" style="margin-top:20px;">메인으로 돌아가기</button>
+        </div>
+    </div>
+
+    <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="fixed-cta">📝 사연 신청하기</a>
 
     <script>
-        /* [아빠의 팁] 
-           1. ytId에는 유튜브 주소 전체가 아니라 뒤에 있는 ID값만 넣어야 해!
-              (예: https://youtu.be/dQw4w9WgXcQ 라면 'dQw4w9WgXcQ'만 입력)
-           2. 카드를 더 늘리고 싶으면 중괄호 {} 덩어리를 복사해서 밑에 붙여넣으렴.
-        */
-        const cardData = [
-            { id: 1, title: "치유의 선율", text: "당신의 아픔이 곧 빛이 될 거예요. 잠시 눈을 감고 음악에 몸을 맡겨보세요.", ytId: "dQw4w9WgXcQ", color: "#4ca1af" },
-            { id: 2, title: "새로운 시작", text: "문이 닫히면 반드시 새로운 창문이 열립니다. 두려워하지 마세요.", ytId: "dQw4w9WgXcQ", color: "#ff4b1f" },
-            { id: 3, title: "기다림의 끝", text: "오래 기다려온 소식이 곧 당신을 찾아올 것입니다.", ytId: "dQw4w9WgXcQ", color: "#16a085" },
-            { id: 4, title: "고요한 위로", text: "말하지 않아도 알아요. 오늘은 그저 쉬어가도 괜찮습니다.", ytId: "dQw4w9WgXcQ", color: "#7b4397" },
-            { id: 5, title: "내면의 빛", text: "당신 안에는 아직 발견되지 않은 눈부신 빛이 숨어있습니다.", ytId: "dQw4w9WgXcQ", color: "#cc2b5e" },
-            { id: 6, title: "용기의 날개", text: "망설임을 멈추고 한 발자국만 내딛어보세요.", ytId: "dQw4w9WgXcQ", color: "#2193b0" },
-            { id: 7, title: "추억의 향기", text: "지나간 시간은 사라지는 것이 아니라, 당신을 지탱하는 뿌리가 됩니다.", ytId: "dQw4w9WgXcQ", color: "#de6262" },
-            { id: 8, title: "사랑의 파동", text: "당신은 충분히 사랑받을 자격이 있는 사람입니다.", ytId: "dQw4w9WgXcQ", color: "#ee9ca7" },
-            { id: 9, title: "새벽의 약속", text: "가장 어두운 시간은 해가 뜨기 직전임을 잊지 마세요.", ytId: "dQw4w9WgXcQ", color: "#1f4037" },
-            { id: 10, title: "운명의 수레바퀴", text: "변화의 바람이 불어옵니다. 그 바람을 타고 날아오를 시간입니다.", ytId: "dQw4w9WgXcQ", color: "#bdc3c7" }
+        // --- 1. 데이터 베이스 (여기를 수정하면 내용이 바뀜!) ---
+        
+        // [오늘의 운세 & 오라클 데이터]
+        // [오라클 벨린 & 타로 조언 데이터]
+        const oracleData = [
+            { title: "열쇠 (La Clé)", text: "해결책은 이미 당신의 손안에 있습니다. 막혀있던 문을 열고 나아갈 운명의 열쇠를 쥐셨군요.", yt: "VUeD3MgTxn4" },
+            { title: "성공 (La Réussite)", text: "당신의 노력이 드디어 결실을 맺습니다. 인정과 보상이 따르는 찬란한 시기입니다.", yt: "VUeD3MgTxn4" },
+            { title: "변화 (Le Changement)", text: "새로운 흐름이 들어오고 있습니다. 익숙한 것을 버리고 변화를 받아들일 때, 더 큰 세상이 열립니다.", yt: "SnhospKd5mU" },
+            { title: "선물 (Les Présents)", text: "우주가 당신에게 뜻밖의 기회를 선물합니다. 감사한 마음으로 이 행운을 받으세요.", yt: "DW2-a_Mdous" },
+            { title: "지혜 (L'Intelligence)", text: "지금은 행동보다 생각이 필요한 때입니다. 당신의 직관과 지혜가 올바른 길을 안내할 것입니다.", yt: "DW2-a_Mdous" },
+            { title: "가정 (Les Penates)", text: "마음의 안식처가 필요하군요. 당신의 뿌리를 단단히 하고, 내면의 평화를 찾는 것이 우선입니다.", yt: "DW2-a_Mdous" },
+            { title: "명예 (La Renommée)", text: "당신의 이름이 널리 알려지고 능력을 인정받게 됩니다. 자신감을 가져도 좋습니다.", yt: "dQw4w9WgXcQ" },
+            { title: "은총 (La Grâce)", text: "보이지 않는 힘이 당신을 지켜주고 있습니다. 두려움을 내려놓으세요. 모든 것이 순조롭습니다.", yt: "DW2-a_Mdous" },
+            { title: "발견 (La Découverte)", text: "몰랐던 진실이나 새로운 재능을 발견하게 됩니다. 주의 깊게 관찰하세요.", yt: "SnhospKd5mU" },
+            { title: "미 (La Beauté)", text: "당신의 삶에 아름다움과 조화가 깃듭니다. 예술적인 영감이나 사랑이 찾아올 수 있습니다.", yt: "SnhospKd5mU" }
         ];
+    
 
-        const deck = document.getElementById('deck');
-        const resultSection = document.getElementById('result-section');
-
-        cardData.forEach((data, index) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            // 카드마다 미묘하게 다른 색상 적용 (디자인 포인트!)
-            card.style.background = `linear-gradient(135deg, #2c3e50, ${data.color})`; 
+      // [Yes or No (유니버셜 웨이트 기반) 데이터]
+        const yesNoData = [
+            { title: "THE SUN (YES!)", text: "강력한 긍정입니다! 태양처럼 밝은 결과가 기다리고 있으니 망설이지 말고 직진하세요.", yt: "dQw4w9WgXcQ" },
+            { title: "THE WORLD (YES)", text: "완벽한 성공입니다. 하나의 챕터가 아름답게 완성될 것입니다.", yt: "dQw4w9WgXcQ" },
+            { title: "ACE of CUPS (YES)", text: "마음이 흘러넘치는 긍정입니다. 감정적으로 충만한 결과가 있을 거예요.", yt: "dQw4w9WgXcQ" },
+            { title: "THE CHARIOT (YES)", text: "승리의 전차처럼 돌진하세요. 주도권을 잡고 밀고 나간다면 결과는 당신의 것입니다.", yt: "dQw4w9WgXcQ" },
+            { title: "WHEEL of FORTUNE (YES)", text: "운명의 수레바퀴가 당신 편으로 돌기 시작했습니다. 흐름에 몸을 맡기세요.", yt: "dQw4w9WgXcQ" },
             
-            // 카드 위에 번호 표시
-            const cardNum = document.createElement('span');
-            cardNum.innerText = index + 1; 
-            card.appendChild(cardNum);
+            { title: "THE TOWER (NO)", text: "지금은 멈추세요. 무리하게 진행하면 공든 탑이 무너질 수 있습니다. 재점검이 필요합니다.", yt: "dQw4w9WgXcQ" },
+            { title: "10 of SWORDS (NO)", text: "생각보다 상처받을 수 있습니다. 지금은 이 일을 덮어두고 휴식을 취하는 게 낫습니다.", yt: "dQw4w9WgXcQ" },
+            { title: "5 of PENTACLES (NO)", text: "손실이 예상됩니다. 현실적인 여건이 갖춰지지 않았으니 무리하지 마세요.", yt: "dQw4w9WgXcQ" },
+            
+            { title: "THE HANGED MAN (WAIT)", text: "잠시 멈춰서 다른 시각으로 바라봐야 합니다. 지금은 행동할 때가 아니라 인내할 때입니다.", yt: "dQw4w9WgXcQ" },
+            { title: "THE HIGH PRIESTESS (WAIT)", text: "아직 드러나지 않은 비밀이 있습니다. 직관을 믿고 조금 더 상황을 지켜보세요.", yt: "dQw4w9WgXcQ" }
+        ];
+        let currentMode = '';
 
-            card.onclick = () => {
-                // 클릭 시 상단으로 스크롤 이동
-                window.scrollTo({ top: document.querySelector('.hero').offsetHeight, behavior: 'smooth' });
+        // --- 2. 기능 로직 ---
 
-                document.getElementById('card-title').innerText = data.title;
-                document.getElementById('card-text').innerText = data.text;
-                document.getElementById('youtube-container').innerHTML = 
-                    `<iframe src="https://www.youtube.com/embed/${data.ytId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-                
-                deck.style.display = 'none';
-                resultSection.style.display = 'block';
+        function startMode(mode) {
+            currentMode = mode;
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('deck-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const deckContainer = document.getElementById('card-deck');
+            deckContainer.innerHTML = ''; // 기존 카드 초기화
+            
+            // 모드별 제목 설정
+            const titleMap = {
+                'today': '🌙 오늘의 운세 카드를 뽑아주세요',
+                'oracle': '🔮 고민을 생각하며 카드를 선택하세요',
+                'yesno': '⚖️ 질문을 던지고 카드를 한 장 뽑으세요'
             };
-            deck.appendChild(card);
-        });
+            document.getElementById('mode-title').innerText = titleMap[mode];
+
+            // 카드 생성 (10장 깔기)
+            for(let i=0; i<10; i++) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => showResult();
+                deckContainer.appendChild(card);
+            }
+        }
+
+        function showResult() {
+            // 랜덤으로 결과 뽑기
+            let resultData;
+            if (currentMode === 'yesno') {
+                resultData = yesNoData[Math.floor(Math.random() * yesNoData.length)];
+            } else {
+                resultData = oracleData[Math.floor(Math.random() * oracleData.length)];
+            }
+
+            // 결과 화면 표시
+            document.getElementById('deck-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('res-title').innerText = resultData.title;
+            document.getElementById('res-text').innerText = resultData.text;
+            
+            // Yes/No가 아닐 때만 유튜브 영상 보여주기 (원하면 Yes/No에도 넣어도 됨)
+            const ytContainer = document.getElementById('yt-embed');
+            if (currentMode !== 'yesno') {
+                ytContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${resultData.yt}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                ytContainer.style.display = 'block';
+            } else {
+                ytContainer.style.display = 'none'; // Yes/No는 결과만 심플하게
+            }
+        }
+
+        function goHome() {
+            document.getElementById('home-screen').style.display = 'block';
+            document.getElementById('deck-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            // 영상 끄기 위해 내용 비움
+            document.getElementById('yt-embed').innerHTML = ''; 
+        }
     </script>
 </body>
 </html>
