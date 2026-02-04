@@ -11,8 +11,8 @@
             /* 1. 배경 이미지/GIF 설정 */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* 명도 조절 (0.5를 낮추면 더 밝아짐) */
                               url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3RhNGJ2ZHhrazBldTQyenMxcGp2cHJtb2U1MDNmZHR0emhrNnQyMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7DAA3MG4N3aRYl9Mxj/giphy.gif'); 
-            
-           body { 
+         
+            /* [1. 전체 배경 및 기본 설정] */
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #e9e9e9; 
             font-family: 'Noto Serif KR', serif; 
@@ -20,78 +20,81 @@
             margin: 0; padding: 0; 
             min-height: 100vh;
             overflow-x: hidden;
-            /* 내용이 많아지면 자연스럽게 아래로 늘어나도록 설정 */
-            display: block; 
+            display: block; /* 자연스러운 흐름 */
         }
         
-        /* [2. 모든 화면 섹션 공통 설정 - 하단 여백 핵심!] */
+        /* [2. 화면 섹션 설정 - 중앙 정렬 복구 & 하단 여백 추가] */
         #home-screen, #deck-screen, #result-screen { 
-            padding-top: 80px;      /* 위쪽 여백 */
-            padding-bottom: 250px;  /* ★ 아래쪽 여백을 250px로 대폭 늘림 (이게 스크롤 공간을 만듦) */
-            padding-left: 20px;
-            padding-right: 20px;
+            padding: 100px 20px 300px 20px; /* 위 100px, 아래 300px로 확실히 벌림 */
             box-sizing: border-box;
-            min-height: 100vh;      /* 각 화면이 최소한 브라우저 높이만큼은 차지하게 함 */
-            width: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* 내용물을 위에서부터 차례대로 배치 (중요!) */
+            align-items: center;    /* 가로 중앙 정렬 복구! */
+            justify-content: flex-start; /* 위에서부터 차곡차곡 */
+            width: 100%;
         }
 
-        /* [3. 로고 및 텍스트 스타일] */
-        .logo { font-family: 'Cinzel', serif; font-size: clamp(2.5em, 8vw, 4em); color: #ffecd2; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,236,210,0.4); }
-        .subtitle { font-size: 1.1em; opacity: 0.8; margin-bottom: 50px; }
+        /* [3. 로고 스타일] */
+        .logo { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(2.5em, 8vw, 4em); 
+            color: #ffecd2; 
+            margin-bottom: 10px; 
+            text-shadow: 0 0 15px rgba(255,236,210,0.4); 
+            width: 100%; /* 중앙 정렬 유지용 */
+        }
+        .subtitle { font-size: 1.1em; opacity: 0.8; margin-bottom: 50px; width: 100%; }
 
-        /* [4. 메뉴 그리드 및 버튼 디자인] */
+        /* [4. 메뉴 그리드 정렬 복구] */
         .menu-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 20px; 
+            gap: 25px; 
             max-width: 900px; 
             width: 100%;
-            margin-bottom: 100px; /* 그리드 아래에 추가 여백 */
+            margin: 0 auto; /* 그리드 자체를 중앙으로 */
         }
         
         .menu-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px; border-radius: 15px; cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center;
+            padding: 35px 20px; border-radius: 15px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .menu-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); border-color: #ffecd2; }
         .menu-title { font-size: 1.4em; font-weight: bold; margin-bottom: 10px; color: #ffecd2; }
         .menu-desc { font-size: 0.9em; opacity: 0.7; line-height: 1.5; }
 
-        /* 인스타그램 DM & 음악 버튼 강조 */
-        .dm-link, .music-link { text-decoration: none; color: inherit; width: 100%; }
+        /* 특수 버튼 스타일 */
+        .dm-link, .music-link { text-decoration: none; color: inherit; width: 100%; display: block; }
         .menu-btn.dm { background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); border: none; }
         .menu-btn.music { border: 1px solid #4facfe; background: rgba(79, 172, 254, 0.1); }
 
-        /* [5. 카드 및 결과창 디자인] */
-        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 50px; }
-        .card { width: 100px; height: 160px; background: #1a1a2e; border: 2px solid #533483; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); border-color: #ffecd2; }
-
-        .result-box { 
-            background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1); max-width: 600px; width: 100%;
-            margin-bottom: 100px; /* 결과박스 아래 여백 */
-        }
-        .res-title { font-family: 'Cinzel', serif; color: #ffecd2; font-size: 2em; margin-bottom: 20px; }
-        .res-text { font-size: 1.2em; line-height: 1.8; margin-bottom: 30px; word-break: keep-all; }
+        /* [5. 카드 및 결과창 스타일] */
+        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+        .card { width: 110px; height: 170px; background: #1a1a2e; border: 2px solid #533483; border-radius: 10px; cursor: pointer; }
         
-        iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 10px; margin-bottom: 20px; }
-        .back-btn { background: none; border: 1px solid #aaa; color: #aaa; padding: 10px 25px; border-radius: 30px; cursor: pointer; margin-top: 20px; }
+        .result-box { 
+            background: rgba(0,0,0,0.4); padding: 40px 20px; border-radius: 25px; 
+            border: 1px solid rgba(255,255,255,0.1); max-width: 650px; width: 100%;
+            margin: 0 auto;
+        }
+        .res-title { font-family: 'Cinzel', serif; color: #ffecd2; font-size: 2.2em; margin-bottom: 25px; }
+        .res-text { font-size: 1.25em; line-height: 1.8; margin-bottom: 35px; word-break: keep-all; }
+        
+        iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 15px; margin-bottom: 25px; }
+        .back-btn { background: none; border: 1px solid #aaa; color: #aaa; padding: 12px 30px; border-radius: 30px; cursor: pointer; margin-top: 20px; }
 
-        /* [6. 고정 사연 신청 버튼] */
+        /* [6. 고정 버튼] */
         .fixed-cta {
             position: fixed; bottom: 30px; right: 30px;
-            background: #e94560; color: white; padding: 15px 25px; border-radius: 30px;
-            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(233,69,96,0.5); z-index: 1000;
+            background: #e94560; color: white; padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(233,69,96,0.5); z-index: 9999;
         }
 
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
     </style>
+
 
 </head>
 <body>
