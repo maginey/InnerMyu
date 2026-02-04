@@ -26,7 +26,7 @@
             overflow-x: hidden;
         }
         
-        #home-screen { padding: 60px 20px; animation: fadeIn 1s; }
+        #home-screen { padding: 60px 20px 140px; animation: fadeIn 1s; }
         .logo { font-family: 'Cinzel', serif; font-size: clamp(2.5em, 8vw, 4em); color: #ffecd2; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,236,210,0.4); }
         .subtitle { font-size: 1.1em; opacity: 0.8; margin-bottom: 50px; }
 
@@ -53,7 +53,13 @@
         .menu-btn.music:hover { background: rgba(79, 172, 254, 0.2); border-color: #00f2fe; }
 
         /* 카드 선택 및 결과 스타일 유지 */
-        #deck-screen, #result-screen { display: none; padding: 50px 20px; max-width: 800px; margin: 0 auto; }
+       #deck-screen, #result-screen { 
+    display: none; 
+    padding: 50px 20px 140px; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
         .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
         .card { width: 100px; height: 160px; background: #1a1a2e; border: 2px solid #533483; border-radius: 10px; cursor: pointer; transition: 0.3s; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); }
         .card:hover { transform: translateY(-10px); border-color: #ffecd2; }
