@@ -3,215 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InnerMyu | 당신의 내면을 읽는 시간</title>
+    <title>Innermyu | 당신의 영혼을 읽는 선율</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 1. 기본 스타일 */
-        body { 
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #e9e9e9; 
-            font-family: 'Noto Serif KR', serif; 
-            text-align: center; 
-            margin: 0; padding: 0; 
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        /* 2. 메인 로비 (홈 화면) */
-        #home-screen { padding: 60px 20px; animation: fadeIn 1s; }
-        .logo { font-family: 'Cinzel', serif; font-size: 3.5em; color: #ffecd2; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,236,210,0.4); }
-        .subtitle { font-size: 1.1em; opacity: 0.8; margin-bottom: 50px; }
-
-        /* 메뉴 버튼 그리드 */
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 800px; margin: 0 auto; }
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 30px; border-radius: 15px; cursor: pointer;
-            transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: flex; flex-direction: column; align-items: center;
-        }
-        .menu-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); border-color: #ffecd2; }
-        .menu-title { font-size: 1.4em; font-weight: bold; margin-bottom: 10px; color: #ffecd2; }
-        .menu-desc { font-size: 0.9em; opacity: 0.7; }
-
-        /* DM 버튼 (강조) */
-        .dm-link { text-decoration: none; color: inherit; width: 100%; }
-        .menu-btn.dm { background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045); border: none; }
-        .menu-btn.dm .menu-title { color: white; }
-
-        /* 3. 카드 선택 화면 (공통) */
-        #deck-screen { display: none; padding: 50px 20px; }
-        .back-btn { background: none; border: 1px solid #aaa; color: #aaa; padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-bottom: 30px; }
-        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .card { 
-            width: 100px; height: 160px; background: #1a1a2e; border: 2px solid #533483; 
-            border-radius: 10px; cursor: pointer; transition: transform 0.3s;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* 패턴 예시 */
-        }
-        .card:hover { transform: translateY(-10px); border-color: #ffecd2; }
-
-        /* 4. 결과 화면 */
-        #result-screen { display: none; padding: 40px 20px; max-width: 600px; margin: 0 auto; }
-        .result-box { background: rgba(0,0,0,0.3); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .res-title { font-family: 'Cinzel', serif; color: #ffecd2; font-size: 2em; margin-bottom: 20px; }
-        .res-text { font-size: 1.2em; line-height: 1.6; margin-bottom: 30px; word-break: keep-all; }
-        
-        iframe { width: 100%; aspect-ratio: 16/9; border: none; border-radius: 10px; margin-bottom: 20px; }
-
-        /* 사연 신청 CTA (하단 고정) */
-        .fixed-cta {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #e94560; color: white; padding: 12px 25px; border-radius: 30px;
-            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(233,69,96,0.5);
-            z-index: 100;
-        }
-
-        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        /* [이전의 프리미엄 디자인 스타일 유지] */
+        :root { --primary-gold: #ffecd2; --accent-red: #ff416c; --glass-bg: rgba(255, 255, 255, 0.05); }
+        body { background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: #e9e9e9; font-family: 'Noto Serif KR', serif; margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; text-align: center; }
+        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; pointer-events: none; z-index: 0; }
+        #home-screen, #deck-screen, #result-screen { position: relative; z-index: 1; padding: 80px 20px; animation: fadeIn 1s ease; }
+        .logo { font-family: 'Cinzel', serif; font-size: 4em; letter-spacing: 6px; color: var(--primary-gold); margin-bottom: 50px; text-shadow: 0 0 20px rgba(255,236,210,0.3); }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .menu-btn { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); padding: 30px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+        .menu-btn:hover { transform: translateY(-10px); border-color: var(--primary-gold); background: rgba(255,255,255,0.1); }
+        .menu-title { font-family: 'Cinzel', serif; font-size: 1.2em; color: var(--primary-gold); margin-bottom: 10px; }
+        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .card { width: 100px; height: 160px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid rgba(255,236,210,0.2); border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: var(--primary-gold); transition: 0.4s; }
+        .card:hover { transform: scale(1.1) rotate(2deg); border-color: var(--primary-gold); box-shadow: 0 0 20px rgba(255,236,210,0.4); }
+        .result-box { background: var(--glass-bg); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; margin: 0 auto; }
+        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; margin-top: 20px; border: none; }
+        .back-btn { background: none; border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 10px 25px; border-radius: 30px; cursor: pointer; margin-top: 30px; }
+        .fixed-cta { position: fixed; bottom: 30px; right: 30px; background: var(--accent-red); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 100; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="home-screen">
-        <div class="logo">InnerMyu</div>
-        <div class="subtitle">음악과 카드로 만나는 당신의 내면</div>
-
+        <div class="logo">Innermyu</div>
         <div class="menu-grid">
-            <div class="menu-btn" onclick="startMode('today')">
-                <div class="menu-title">🌙 오늘의 운세</div>
-                <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
+            <div class="menu-btn" onclick="startMode('daily')">
+                <div class="menu-title">Daily Luck</div>
+                <div class="menu-desc">오늘 하루의 총운과 기운</div>
             </div>
-            <div class="menu-btn" onclick="startMode('oracle')">
-                <div class="menu-title">🔮 오라클 조언</div>
-                <div class="menu-desc">지금 내 고민에 대한 신비로운 답</div>
+            <div class="menu-btn" onclick="startMode('love')">
+                <div class="menu-title">Love Reading</div>
+                <div class="menu-desc">그 사람의 속마음과 연애운</div>
+            </div>
+            <div class="menu-btn" onclick="startMode('work')">
+                <div class="menu-title">Work & Money</div>
+                <div class="menu-desc">금전운과 비즈니스 조언</div>
             </div>
             <div class="menu-btn" onclick="startMode('yesno')">
-                <div class="menu-title">⚖️ Yes or No</div>
-                <div class="menu-desc">할까 말까? 명쾌한 한 장의 대답</div>
+                <div class="menu-title">Yes or No</div>
+                <div class="menu-desc">우주가 전하는 명쾌한 해답</div>
             </div>
-            <a href="https://instagram.com/innermyu" target="_blank" class="dm-link">
-                <div class="menu-btn dm">
-                    <div class="menu-title">💌 1:1 리딩 요청</div>
-                    <div class="menu-desc">더 깊은 상담을 원하시나요? (DM)</div>
-                </div>
-            </a>
         </div>
     </div>
 
-    <div id="deck-screen">
-        <button class="back-btn" onclick="goHome()">← 처음으로</button>
-        <h2 id="mode-title" style="margin-bottom: 30px;">카드를 한 장 선택하세요</h2>
-        <div class="card-grid" id="card-deck">
-            </div>
+    <div id="deck-screen" style="display:none;">
+        <h2 id="mode-title" style="font-family: 'Cinzel'; color: var(--primary-gold); margin-bottom: 40px;"></h2>
+        <div class="card-grid" id="card-deck"></div>
+        <button class="back-btn" onclick="goHome()">Back to Home</button>
     </div>
 
-    <div id="result-screen">
+    <div id="result-screen" style="display:none;">
         <div class="result-box">
-            <h2 class="res-title" id="res-title"></h2>
-            <p class="res-text" id="res-text"></p>
+            <h2 id="res-title" class="logo" style="font-size: 2em;"></h2>
+            <p id="res-text" style="font-size: 1.2em; line-height: 1.8;"></p>
             <div id="yt-embed"></div>
-            <button class="back-btn" onclick="goHome()" style="margin-top:20px;">메인으로 돌아가기</button>
+            <button class="back-btn" onclick="goHome()">Return</button>
         </div>
     </div>
 
-    <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="fixed-cta">📝 사연 신청하기</a>
+    <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="fixed-cta">💌 사연 신청하기</a>
 
     <script>
-        // --- 1. 데이터 베이스 (여기를 수정하면 내용이 바뀜!) ---
-        
-        // [오늘의 운세 & 오라클 데이터]
-        // [오라클 벨린 & 타로 조언 데이터]
-        const oracleData = [
-            { title: "열쇠 (La Clé)", text: "해결책은 이미 당신의 손안에 있습니다. 막혀있던 문을 열고 나아갈 운명의 열쇠를 쥐셨군요.", yt: "VUeD3MgTxn4" },
-            { title: "성공 (La Réussite)", text: "당신의 노력이 드디어 결실을 맺습니다. 인정과 보상이 따르는 찬란한 시기입니다.", yt: "VUeD3MgTxn4" },
-            { title: "변화 (Le Changement)", text: "새로운 흐름이 들어오고 있습니다. 익숙한 것을 버리고 변화를 받아들일 때, 더 큰 세상이 열립니다.", yt: "SnhospKd5mU" },
-            { title: "선물 (Les Présents)", text: "우주가 당신에게 뜻밖의 기회를 선물합니다. 감사한 마음으로 이 행운을 받으세요.", yt: "DW2-a_Mdous" },
-            { title: "지혜 (L'Intelligence)", text: "지금은 행동보다 생각이 필요한 때입니다. 당신의 직관과 지혜가 올바른 길을 안내할 것입니다.", yt: "DW2-a_Mdous" },
-            { title: "가정 (Les Penates)", text: "마음의 안식처가 필요하군요. 당신의 뿌리를 단단히 하고, 내면의 평화를 찾는 것이 우선입니다.", yt: "DW2-a_Mdous" },
-            { title: "명예 (La Renommée)", text: "당신의 이름이 널리 알려지고 능력을 인정받게 됩니다. 자신감을 가져도 좋습니다.", yt: "dQw4w9WgXcQ" },
-            { title: "은총 (La Grâce)", text: "보이지 않는 힘이 당신을 지켜주고 있습니다. 두려움을 내려놓으세요. 모든 것이 순조롭습니다.", yt: "DW2-a_Mdous" },
-            { title: "발견 (La Découverte)", text: "몰랐던 진실이나 새로운 재능을 발견하게 됩니다. 주의 깊게 관찰하세요.", yt: "SnhospKd5mU" },
-            { title: "미 (La Beauté)", text: "당신의 삶에 아름다움과 조화가 깃듭니다. 예술적인 영감이나 사랑이 찾아올 수 있습니다.", yt: "SnhospKd5mU" }
-        ];
-    
+        // [샌드박스 스캐닝 데이터 이식]
+        const masterData = {
+            daily: [
+                { title: "태양 (The Sun)", text: "오늘 하루는 당신이 주인공입니다. 모든 일이 환하게 풀리고 긍정적인 에너지가 가득합니다.", yt: "dQw4w9WgXcQ" },
+                { title: "절제 (Temperance)", text: "균형이 필요한 하루입니다. 서두르지 말고 천천히 흐름을 따라가세요.", yt: "dQw4w9WgXcQ" }
+            ],
+            love: [
+                { title: "연인 (The Lovers)", text: "상대방과 강력한 감정적 유대감을 느끼게 될 것입니다. 솔직한 대화가 열쇠입니다.", yt: "dQw4w9WgXcQ" },
+                { title: "컵 2 (Two of Cups)", text: "마음이 통하는 사람과의 만남이 예견됩니다. 새로운 인연이나 깊어지는 관계를 기대하세요.", yt: "dQw4w9WgXcQ" }
+            ],
+            work: [
+                { title: "펜타클 8 (8 of Pentacles)", text: "꾸준한 노력이 빛을 발합니다. 지금 하고 있는 일에 집중하면 큰 성과가 따릅니다.", yt: "dQw4w9WgXcQ" },
+                { title: "전차 (The Chariot)", text: "목표를 향해 거침없이 나아가세요. 추진력이 필요한 시기이며 승리는 당신의 것입니다.", yt: "dQw4w9WgXcQ" }
+            ],
+            yesno: [
+                { title: "YES!", text: "하늘이 돕고 있습니다. 고민하지 말고 바로 실행에 옮기세요.", yt: "dQw4w9WgXcQ" },
+                { title: "NO", text: "지금은 위험 요소가 많습니다. 한 걸음 물러나 재검토가 필요합니다.", yt: "dQw4w9WgXcQ" }
+            ]
+        };
 
-      // [Yes or No (유니버셜 웨이트 기반) 데이터]
-        const yesNoData = [
-            { title: "THE SUN (YES!)", text: "강력한 긍정입니다! 태양처럼 밝은 결과가 기다리고 있으니 망설이지 말고 직진하세요.", yt: "dQw4w9WgXcQ" },
-            { title: "THE WORLD (YES)", text: "완벽한 성공입니다. 하나의 챕터가 아름답게 완성될 것입니다.", yt: "dQw4w9WgXcQ" },
-            { title: "ACE of CUPS (YES)", text: "마음이 흘러넘치는 긍정입니다. 감정적으로 충만한 결과가 있을 거예요.", yt: "dQw4w9WgXcQ" },
-            { title: "THE CHARIOT (YES)", text: "승리의 전차처럼 돌진하세요. 주도권을 잡고 밀고 나간다면 결과는 당신의 것입니다.", yt: "dQw4w9WgXcQ" },
-            { title: "WHEEL of FORTUNE (YES)", text: "운명의 수레바퀴가 당신 편으로 돌기 시작했습니다. 흐름에 몸을 맡기세요.", yt: "dQw4w9WgXcQ" },
-            
-            { title: "THE TOWER (NO)", text: "지금은 멈추세요. 무리하게 진행하면 공든 탑이 무너질 수 있습니다. 재점검이 필요합니다.", yt: "dQw4w9WgXcQ" },
-            { title: "10 of SWORDS (NO)", text: "생각보다 상처받을 수 있습니다. 지금은 이 일을 덮어두고 휴식을 취하는 게 낫습니다.", yt: "dQw4w9WgXcQ" },
-            { title: "5 of PENTACLES (NO)", text: "손실이 예상됩니다. 현실적인 여건이 갖춰지지 않았으니 무리하지 마세요.", yt: "dQw4w9WgXcQ" },
-            
-            { title: "THE HANGED MAN (WAIT)", text: "잠시 멈춰서 다른 시각으로 바라봐야 합니다. 지금은 행동할 때가 아니라 인내할 때입니다.", yt: "dQw4w9WgXcQ" },
-            { title: "THE HIGH PRIESTESS (WAIT)", text: "아직 드러나지 않은 비밀이 있습니다. 직관을 믿고 조금 더 상황을 지켜보세요.", yt: "dQw4w9WgXcQ" }
-        ];
         let currentMode = '';
-
-        // --- 2. 기능 로직 ---
 
         function startMode(mode) {
             currentMode = mode;
             document.getElementById('home-screen').style.display = 'none';
             document.getElementById('deck-screen').style.display = 'block';
-            document.getElementById('result-screen').style.display = 'none';
-
-            const deckContainer = document.getElementById('card-deck');
-            deckContainer.innerHTML = ''; // 기존 카드 초기화
-            
-            // 모드별 제목 설정
-            const titleMap = {
-                'today': '🌙 오늘의 운세 카드를 뽑아주세요',
-                'oracle': '🔮 고민을 생각하며 카드를 선택하세요',
-                'yesno': '⚖️ 질문을 던지고 카드를 한 장 뽑으세요'
-            };
+            const titleMap = { daily: 'Daily Luck', love: 'Love Reading', work: 'Work & Money', yesno: 'Yes or No' };
             document.getElementById('mode-title').innerText = titleMap[mode];
-
-            // 카드 생성 (10장 깔기)
-            for(let i=0; i<10; i++) {
+            
+            const deck = document.getElementById('card-deck');
+            deck.innerHTML = '';
+            for(let i=0; i<12; i++) {
                 const card = document.createElement('div');
-                card.className = 'card';
+                card.className = 'card'; card.innerHTML = '?';
                 card.onclick = () => showResult();
-                deckContainer.appendChild(card);
+                deck.appendChild(card);
             }
         }
 
         function showResult() {
-            // 랜덤으로 결과 뽑기
-            let resultData;
-            if (currentMode === 'yesno') {
-                resultData = yesNoData[Math.floor(Math.random() * yesNoData.length)];
-            } else {
-                resultData = oracleData[Math.floor(Math.random() * oracleData.length)];
-            }
-
-            // 결과 화면 표시
+            const list = masterData[currentMode];
+            const result = list[Math.floor(Math.random() * list.length)];
             document.getElementById('deck-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'block';
-
-            document.getElementById('res-title').innerText = resultData.title;
-            document.getElementById('res-text').innerText = resultData.text;
-            
-            // Yes/No가 아닐 때만 유튜브 영상 보여주기 (원하면 Yes/No에도 넣어도 됨)
-            const ytContainer = document.getElementById('yt-embed');
-            if (currentMode !== 'yesno') {
-                ytContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${resultData.yt}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-                ytContainer.style.display = 'block';
-            } else {
-                ytContainer.style.display = 'none'; // Yes/No는 결과만 심플하게
-            }
+            document.getElementById('res-title').innerText = result.title;
+            document.getElementById('res-text').innerText = result.text;
+            document.getElementById('yt-embed').innerHTML = `<iframe src="https://www.youtube.com/embed/${result.yt}?autoplay=1" allow="autoplay" allowfullscreen></iframe>`;
         }
 
         function goHome() {
             document.getElementById('home-screen').style.display = 'block';
             document.getElementById('deck-screen').style.display = 'none';
             document.getElementById('result-screen').style.display = 'none';
-            // 영상 끄기 위해 내용 비움
-            document.getElementById('yt-embed').innerHTML = ''; 
+            document.getElementById('yt-embed').innerHTML = '';
         }
     </script>
 </body>
