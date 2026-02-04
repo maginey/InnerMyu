@@ -8,9 +8,22 @@
     <style>
         /* [기본 스타일 유지] */
         body { 
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #e9e9e9; font-family: 'Noto Serif KR', serif; 
-            text-align: center; margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden;
+            /* 1. 배경 이미지/GIF 설정 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* 명도 조절 (0.5를 낮추면 더 밝아짐) */
+                              url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3RhNGJ2ZHhrazBldTQyenMxcGp2cHJtb2U1MDNmZHR0emhrNnQyMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7DAA3MG4N3aRYl9Mxj/giphy.gif'); 
+            
+            /* 2. 배경 꽉 차게 만들기 */
+            background-size: cover;         /* 화면에 빈틈없이 꽉 채움 */
+            background-position: center;    /* 이미지 중심을 가운데로 */
+            background-repeat: no-repeat;   /* 반복되지 않게 */
+            background-attachment: fixed;   /* 스크롤 해도 배경은 고정 */
+
+            color: #e9e9e9; 
+            font-family: 'Noto Serif KR', serif; 
+            text-align: center; 
+            margin: 0; padding: 0; 
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
         #home-screen { padding: 60px 20px; animation: fadeIn 1s; }
@@ -63,9 +76,6 @@
 <body>
 
     <div id="home-screen">
-    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3RhNGJ2ZHhrazBldTQyenMxcGp2cHJtb2U1MDNmZHR0emhrNnQyMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7DAA3MG4N3aRYl9Mxj/giphy.gif" 
-        class="brand-image" alt="Innermyu Logo">
-    
     <div class="logo">Innermyu</div>
     <div class="subtitle">음악과 카드로 만나는 당신의 내면</div>
     ...
