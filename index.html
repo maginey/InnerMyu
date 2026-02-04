@@ -25,6 +25,17 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
+
+        /* 1. 화면마다 아래쪽에 넉넉한 여백(150px)을 준다 */
+        .container, #home-screen, #deck-screen, #result-screen { 
+        padding-bottom: 150px !important; 
+        }
+
+        /* 2. 바디가 내용에 따라 자연스럽게 늘어나도록 설정 */
+        body {
+        height: auto;
+        min-height: 100vh;
+        }
         
         #home-screen { padding: 60px 20px; animation: fadeIn 1s; }
         .logo { font-family: 'Cinzel', serif; font-size: clamp(2.5em, 8vw, 4em); color: #ffecd2; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,236,210,0.4); }
