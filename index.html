@@ -16,7 +16,6 @@ body {
     url('assets/innermyu_2.gif') center / cover fixed no-repeat;
   text-align: center;
 }
-
 .hidden { display: none; }
 
 .logo {
@@ -25,18 +24,14 @@ body {
   color: #ffecd2;
   margin-top: 80px;
 }
-
-.subtitle {
-  opacity: .8;
-  margin-bottom: 50px;
-}
+.subtitle { opacity: .85; margin-bottom: 50px; }
 
 .menu-grid {
   display: grid;
   gap: 20px;
   max-width: 900px;
   margin: auto;
-  padding: 0 20px;
+  padding: 0 20px 80px;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
 }
 
@@ -48,7 +43,6 @@ body {
   border: 1px solid rgba(255,255,255,.25);
   transition: .3s;
 }
-
 .menu-btn:hover {
   transform: translateY(-5px);
   border-color: #ffecd2;
@@ -60,17 +54,24 @@ body {
   margin-bottom: 10px;
 }
 
-#deck-screen {
-  padding: 80px 20px;
+.menu-btn.cta {
+  background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+  border: none;
+  color: white;
 }
 
+.menu-btn.music {
+  border-color: #4facfe;
+  background: rgba(79,172,254,.15);
+}
+
+#deck-screen { padding: 80px 20px; }
 .card-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
 }
-
 .card {
   width: 110px;
   height: 170px;
@@ -80,30 +81,38 @@ body {
   cursor: pointer;
   transition: .3s;
 }
-
 .card:hover {
   transform: translateY(-8px);
   border-color: #ffecd2;
 }
 
 .result-box {
-  max-width: 720px;
+  max-width: 760px;
   margin: 80px auto;
   padding: 35px;
   background: rgba(0,0,0,.35);
   border-radius: 20px;
 }
-
 .res-title {
   font-family: 'Cinzel', serif;
   color: #ffecd2;
   font-size: 2em;
   margin-bottom: 20px;
 }
-
 .res-text {
   font-size: 1.15em;
-  line-height: 1.7;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.youtube-box {
+  margin: 20px 0;
+}
+.youtube-box iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  border: none;
 }
 
 .back-btn {
@@ -126,15 +135,38 @@ body {
   <div class="subtitle">심해의 마녀, 뮤너가 전해드립니다</div>
 
   <div class="menu-grid">
+
+    <!-- 1:1 리딩 -->
+    <a href="카톡링크" target="_blank" style="text-decoration:none;">
+      <div class="menu-btn cta">
+        <div class="menu-title">💌 1:1 리딩 요청</div>
+        <div>뮤너와 직접 연결되는 깊은 상담</div>
+      </div>
+    </a>
+
+    <!-- 음악 -->
+    <a href="유튜브플레이리스트링크" target="_blank" style="text-decoration:none;">
+      <div class="menu-btn music">
+        <div class="menu-title">🎧 뮤너의 음악듣기</div>
+        <div>리딩과 함께 흐르는 심해의 선율</div>
+      </div>
+    </a>
+
     <div class="menu-btn" onclick="startMode('tarot')">
       <div class="menu-title">🃏 유니버셜 타로</div>
       <div>오늘 당신의 영혼이 고른 카드</div>
     </div>
 
     <div class="menu-btn" onclick="startMode('belline')">
-      <div class="menu-title">🔮 오라클 벨린</div>
-      <div>심해에서 건네는 조언</div>
+      <div class="menu-title">🔮 이너뮤 벨린</div>
+      <div>52장의 심해 조언</div>
     </div>
+
+    <div class="menu-btn">
+      <div class="menu-title">🌊 이너뮤 세계관 알아보기</div>
+      <div>심해의 마녀와 구슬의 기원 (준비중)</div>
+    </div>
+
   </div>
 </div>
 
@@ -150,85 +182,62 @@ body {
   <div class="result-box">
     <div class="res-title" id="res-title"></div>
     <div class="res-text" id="res-text"></div>
+
+    <div class="youtube-box" id="yt-box">
+      <iframe src="https://www.youtube.com/embed/영상ID" allowfullscreen></iframe>
+    </div>
+
     <button class="back-btn" onclick="goHome()">메인으로</button>
   </div>
 </div>
 
 <script>
-/* ===== 데이터 ===== */
-
 const tarotMajor22 = [
-{ title:"0. THE FOOL", text:"심해의 마녀 뮤너가 전해드립니다. 구슬은 아직 이름 붙지 않은 가능성을 노래하고 있어요. 두려움 없이 첫 발을 내딛으세요." },
-{ title:"1. THE MAGICIAN", text:"당신의 손에는 이미 모든 도구가 있습니다. 의심을 거두면, 현실은 즉시 반응할 거예요." },
-{ title:"2. THE HIGH PRIESTESS", text:"답은 바깥이 아닌 침묵 속에 있습니다. 오늘은 듣는 쪽을 선택하세요." },
-{ title:"3. THE EMPRESS", text:"돌봄과 창조의 에너지가 흐릅니다. 당신이 키운 것은 반드시 자랍니다." },
-{ title:"4. THE EMPEROR", text:"지금은 감정보다 구조가 필요합니다. 경계를 세우는 것도 사랑입니다." },
-{ title:"5. THE HIEROPHANT", text:"전통과 배움이 당신을 보호합니다. 혼자가 아니라는 사실을 기억하세요." },
-{ title:"6. THE LOVERS", text:"선택의 순간입니다. 마음과 가치가 일치하는 쪽을 고르세요." },
-{ title:"7. THE CHARIOT", text:"흔들려도 멈추지 마세요. 방향을 잃지 않는 한, 속도는 중요하지 않아요." },
-{ title:"8. STRENGTH", text:"부드러움이 가장 강한 힘입니다. 억누르지 말고 다독이세요." },
-{ title:"9. THE HERMIT", text:"잠시 물러나도 괜찮아요. 고요 속에서 진짜 빛이 보입니다." },
-{ title:"10. WHEEL OF FORTUNE", text:"흐름이 바뀌고 있습니다. 저항하지 말고 올라타세요." },
-{ title:"11. JUSTICE", text:"균형이 필요합니다. 진실은 언제나 양쪽에 있습니다." },
-{ title:"12. THE HANGED MAN", text:"멈춤은 후퇴가 아닙니다. 다른 시야를 얻는 시간이에요." },
-{ title:"13. DEATH", text:"끝은 곧 시작입니다. 놓아야 새로운 숨을 쉴 수 있어요." },
-{ title:"14. TEMPERANCE", text:"섞고, 기다리고, 조율하세요. 급할수록 천천히." },
-{ title:"15. THE DEVIL", text:"묶인 것은 상황이 아니라 생각일 수 있어요." },
-{ title:"16. THE TOWER", text:"진실은 무너짐 속에서 드러납니다. 피할 수 없는 각성입니다." },
-{ title:"17. THE STAR", text:"아직 희망은 꺼지지 않았어요. 구슬은 은은히 빛나고 있습니다." },
-{ title:"18. THE MOON", text:"불안은 그림자일 뿐. 지금은 확인보다 믿음이 필요해요." },
-{ title:"19. THE SUN", text:"숨기지 마세요. 당신은 충분히 밝습니다." },
-{ title:"20. JUDGEMENT", text:"과거가 당신을 부르고 있습니다. 이제 응답할 시간이에요." },
-{ title:"21. THE WORLD", text:"완성입니다. 당신은 이 여정을 잘 마쳤어요." }
+{ title:"THE FOOL", text:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 아직 이름 없는 가능성을 노래하고 있어요. 두려워 말고 첫 발을 내딛으세요." }
 ];
 
 const belline52 = [
-{ title:"행운", text:"우연처럼 보이지만 필연입니다. 지금 흐름은 당신 편이에요." },
-{ title:"성공", text:"결실의 시기입니다. 결과를 받아도 괜찮아요." },
-{ title:"지혜", text:"서두르지 않는 선택이 결국 가장 빠릅니다." },
-{ title:"변화", text:"움직임을 두려워 마세요. 정체가 더 위험합니다." }
+{ title:"행운", text:"뮤너가 속삭입니다. 이 흐름은 우연이 아니에요. 지금의 선택은 당신을 보호합니다." },
+{ title:"성공", text:"구슬은 밝게 울리고 있어요. 결과를 받아도 되는 시점입니다." },
+{ title:"변화", text:"심해의 조류가 바뀌고 있습니다. 멈춰 있으면 오히려 삼켜질지도 몰라요." },
+{ title:"지혜", text:"지금은 서두르지 않는 용기가 필요해요. 침묵 속에서 답이 떠오릅니다." }
 ];
-
-/* ===== 로직 ===== */
 
 let currentMode = '';
 
-function startMode(mode) {
+function startMode(mode){
   currentMode = mode;
-  document.getElementById('home-screen').classList.add('hidden');
-  document.getElementById('deck-screen').classList.remove('hidden');
-  document.getElementById('result-screen').classList.add('hidden');
+  home-screen.classList.add('hidden');
+  deck-screen.classList.remove('hidden');
+  result-screen.classList.add('hidden');
 
-  const deck = document.getElementById('card-deck');
-  deck.innerHTML = '';
-
-  for (let i = 0; i < 12; i++) {
-    const c = document.createElement('div');
-    c.className = 'card';
-    c.onclick = showResult;
-    deck.appendChild(c);
+  card-deck.innerHTML = '';
+  for(let i=0;i<12;i++){
+    const c=document.createElement('div');
+    c.className='card';
+    c.onclick=showResult;
+    card-deck.appendChild(c);
   }
 }
 
-function showResult() {
-  let data =
-    currentMode === 'tarot'
-      ? tarotMajor22[Math.floor(Math.random()*tarotMajor22.length)]
-      : belline52[Math.floor(Math.random()*belline52.length)];
+function showResult(){
+  const data = currentMode==='tarot'
+    ? tarotMajor22[Math.floor(Math.random()*tarotMajor22.length)]
+    : belline52[Math.floor(Math.random()*belline52.length)];
 
-  document.getElementById('deck-screen').classList.add('hidden');
-  document.getElementById('result-screen').classList.remove('hidden');
-
-  document.getElementById('res-title').innerText = data.title;
-  document.getElementById('res-text').innerText = data.text;
+  deck-screen.classList.add('hidden');
+  result-screen.classList.remove('hidden');
+  res-title.innerText=data.title;
+  res-text.innerText=data.text;
 }
 
-function goHome() {
-  document.getElementById('home-screen').classList.remove('hidden');
-  document.getElementById('deck-screen').classList.add('hidden');
-  document.getElementById('result-screen').classList.add('hidden');
+function goHome(){
+  home-screen.classList.remove('hidden');
+  deck-screen.classList.add('hidden');
+  result-screen.classList.add('hidden');
 }
 </script>
 
 </body>
 </html>
+
