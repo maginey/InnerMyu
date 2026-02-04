@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>InnerMu - 당신을 향한 발신인 불명의 메시지</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --navy: #1a1a2e;
+            --deep-purple: #16213e;
+            --mystic-purple: #533483;
+            --pastel-pink: #e8b4bc;
+            --pastel-lavender: #c8b8db;
+            --pastel-mint: #b8d8d8;
+            --gold: #d4af37;
+            --text-light: #f5f5f5;
+            --text-dark: #2d2d2d;
+        }
+        
+        body {
+            font-family: 'Noto Serif KR', serif;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--deep-purple) 50%, var(--mystic-purple) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Starry Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 90%, white, transparent),
+                radial-gradient(1px 1px at 15% 80%, white, transparent);
+            background-size: 200% 200%;
+            animation: twinkle 8s ease-in-out infinite;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(232, 180, 188, 0.3);
+        }
+        
+        .hero p {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* Card Deck Section */
+        .deck-section {
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 40px;
+            letter-spacing: 0.05em;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .oracle-card {
+            aspect-ratio: 2/3;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .oracle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+        
+        .oracle-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .oracle-card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Unique Card Gradients */
+        .oracle-card:nth-child(1)::before { background: linear-gradient(135deg, #e8b4bc, #c8b8db); }
+        .oracle-card:nth-child(2)::before { background: linear-gradient(135deg, #c8b8db, #b8d8d8); }
+        .oracle-card:nth-child(3)::before { background: linear-gradient(135deg, #b8d8d8, #d4af37); }
+        .oracle-card:nth-child(4)::before { background: linear-gradient(135deg, #d4af37, #e8b4bc); }
+        .oracle-card:nth-child(5)::before { background: linear-gradient(135deg, #533483, #c8b8db); }
+        .oracle-card:nth-child(6)::before { background: linear-gradient(135deg, #e8b4bc, #533483); }
+        .oracle-card:nth-child(7)::before { background: linear-gradient(135deg, #b8d8d8, #533483); }
+        .oracle-card:nth-child(8)::before { background: linear-gradient(135deg, #d4af37, #533483); }
+        .oracle-card:nth-child(9)::before { background: linear-gradient(135deg, #c8b8db, #e8b4bc); }
+        .oracle-card:nth-child(10)::before { background: linear-gradient(135deg, #533483, #d4af37); }
+        
+        /* Result Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, var(--deep-purple), var(--mystic-purple));
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .result-message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            text-align: center;
+            opacity: 0.95;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+        
+        /* Archive Section */
+        .archive-section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .archive-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .archive-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(8px);
+        }
+        
+        .archive-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .archive-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Floating CTA Button */
+        .floating-cta {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--mystic-purple));
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(232, 180, 188, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        .floating-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(232, 180, 188, 0.6);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 16px;
+            }
+            
+            .oracle-card {
+                padding: 16px;
+            }
+            
+            .card-icon {
+                font-size: 2.5rem;
+            }
+            
+            .modal-content {
+                padding: 24px;
+            }
+            
+            .floating-cta {
+                bottom: 20px;
+                right: 20px;
+                padding: 14px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>InnerMu</h1>
+            <p>당신을 향한 발신인 불명의 메시지와 선율</p>
+        </section>
+
+        <!-- Card Deck Section -->
+        <section class="deck-section">
+            <h2 class="section-title">카드를 선택하세요</h2>
+            <div class="card-grid" id="cardGrid"></div>
+        </section>
+
+        <!-- Archive Section -->
+        <section class="archive-section">
+            <h2 class="section-title">발신인 불명의 기록 (Archive)</h2>
+            <div class="archive-list" id="archiveList"></div>
+        </section>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-message" id="resultMessage"></p>
+            <div class="video-container">
+                <iframe id="youtubePlayer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating CTA Button -->
+    <a href="#" class="floating-cta" id="ctaButton">💌 나만의 노래 사연 신청하기</a>
+
+    <script>
+        // ========================================
+        // CONFIGURATION OBJECT
+        // ========================================
+        const CONFIG = {
+            // Google Form Link (Replace with your actual form URL)
+            googleFormUrl: 'https://forms.gle/YOUR_FORM_ID_HERE',
+            
+            // Oracle Cards Data
+            cards: [
+                {
+                    id: 1,
+                    title: '운명의 속삭임',
+                    icon: '🌙',
+                    message: '당신이 기다려온 순간이 다가오고 있습니다. 우주는 이미 당신을 위한 길을 준비했습니다. 믿음을 가지고 한 걸음 나아가세요.',
+                    youtubeId: 'dQw4w9WgXcQ'
+                },
+                {
+                    id: 2,
+                    title: '별빛의 안내',
+                    icon: '⭐',
+                    message: '어둠 속에서도 빛은 존재합니다. 지금 당신이 느끼는 불안은 곧 희망으로 변할 것입니다. 별들이 당신의 길을 비추고 있습니다.',
+                    youtubeId: 'jNQXAC9IVRw'
+                },
+                {
+                    id: 3,
+                    title: '시간의 강',
+                    icon: '⏳',
+                    message: '모든 것은 흐르고 변합니다. 과거에 집착하지 말고, 미래를 두려워하지 마세요. 현재의 순간을 온전히 느끼며 살아가세요.',
+                    youtubeId: '9bZkp7q19f0'
+                },
+                {
+                    id: 4,
+                    title: '사랑의 메아리',
+                    icon: '💜',
+                    message: '당신이 보낸 사랑은 결코 사라지지 않습니다. 그것은 메아리처럼 돌아와 당신을 감싸줄 것입니다. 사랑하는 용기를 잃지 마세요.',
+                    youtubeId: 'kJQP7kiw5Fk'
+                },
+                {
+                    id: 5,
+                    title: '침묵의 지혜',
+                    icon: '🤫',
+                    message: '때로는 말보다 침묵이 더 많은 것을 전합니다. 고요 속에서 당신의 내면을 들어보세요. 진정한 답은 이미 당신 안에 있습니다.',
+                    youtubeId: 'fJ9rUzIMcZQ'
+                },
+                {
+                    id: 6,
+                    title: '용기의 불꽃',
+                    icon: '🔥',
+                    message: '두려움은 성장의 신호입니다. 당신 안의 용기를 믿으세요. 작은 불꽃이 큰 빛이 되듯, 당신의 용기는 세상을 밝힐 것입니다.',
+                    youtubeId: 'y6120QOlsfU'
+                },
+                {
+                    id: 7,
+                    title: '꿈의 정원',
+                    icon: '🌸',
+                    message: '당신의 꿈은 정원의 씨앗과 같습니다. 정성껏 가꾸면 아름다운 꽃을 피울 것입니다. 포기하지 말고 계속 물을 주세요.',
+                    youtubeId: 'L0MK7qz13bU'
+                },
+                {
+                    id: 8,
+                    title: '변화의 바람',
+                    icon: '🍃',
+                    message: '변화는 성장의 증거입니다. 익숙함에서 벗어나는 것이 두렵더라도, 바람을 따라 새로운 곳으로 날아가세요. 더 넓은 세상이 기다립니다.',
+                    youtubeId: 'CevxZvSJLk8'
+                },
+                {
+                    id: 9,
+                    title: '치유의 비',
+                    icon: '🌧️',
+                    message: '상처는 시간이 아니라 치유의 과정이 낫게 합니다. 슬픔을 억누르지 말고 흘려보내세요. 비가 그친 후 무지개가 뜨듯, 당신도 다시 빛날 것입니다.',
+                    youtubeId: 'RgKAFK5djSk'
+                },
+                {
+                    id: 10,
+                    title: '영원한 순간',
+                    icon: '✨',
+                    message: '이 순간은 다시 오지 않습니다. 소중한 사람과의 시간, 아름다운 풍경, 당신의 감정을 온전히 느끼세요. 영원은 지금 이 순간에 있습니다.',
+                    youtubeId: '60ItHLz5WEA'
+                }
+            ],
+            
+            // Archive Messages
+            archiveMessages: [
+                {
+                    date: '2024.12.15',
+                    text: '"당신은 생각보다 강합니다. 지금까지 견뎌온 모든 순간이 그 증거입니다."'
+                },
+                {
+                    date: '2024.11.28',
+                    text: '"사랑은 소유가 아닌 존재입니다. 상대의 행복을 진심으로 바랄 수 있다면, 그것이 진정한 사랑입니다."'
+                },
+                {
+                    date: '2024.10.03',
+                    text: '"완벽하지 않아도 괜찮습니다. 당신의 불완전함이 당신을 더 아름답게 만듭니다."'
+                },
+                {
+                    date: '2024.09.17',
+                    text: '"혼자가 아닙니다. 우주는 항상 당신 곁에서 당신을 응원하고 있습니다."'
+                }
+            ]
+        };
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCards();
+            initializeArchive();
+            initializeCTA();
+        });
+
+        // Initialize Card Grid
+        function initializeCards() {
+            const cardGrid = document.getElementById('cardGrid');
+            CONFIG.cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'oracle-card';
+                cardElement.onclick = () => showResult(card);
+                cardElement.innerHTML = `
+                    <div class="card-content">
+                        <div class="card-icon">${card.icon}</div>
+                        <div class="card-title">${card.title}</div>
+                    </div>
+                `;
+                cardGrid.appendChild(cardElement);
+            });
+        }
+
+        // Initialize Archive List
+        function initializeArchive() {
+            const archiveList = document.getElementById('archiveList');
+            CONFIG.archiveMessages.forEach(message => {
+                const archiveItem = document.createElement('div');
+                archiveItem.className = 'archive-item';
+                archiveItem.innerHTML = `
+                    <div class="archive-date">${message.date}</div>
+                    <div class="archive-text">${message.text}</div>
+                `;
+                archiveList.appendChild(archiveItem);
+            });
+        }
+
+        // Initialize CTA Button
+        function initializeCTA() {
+            const ctaButton = document.getElementById('ctaButton');
+            ctaButton.href = CONFIG.googleFormUrl;
+            ctaButton.target = '_blank';
+            ctaButton.rel = 'noopener noreferrer';
+        }
+
+        // Show Result Modal
+        function showResult(card) {
+            const modal = document.getElementById('resultModal');
+            const title = document.getElementById('resultTitle');
+            const message = document.getElementById('resultMessage');
+            const player = document.getElementById('youtubePlayer');
+
+            title.textContent = `${card.icon} ${card.title}`;
+            message.textContent = card.message;
+            player.src = `https://www.youtube.com/embed/${card.youtubeId}?autoplay=1`;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeModal() {
+            const modal = document.getElementById('resultModal');
+            const player = document.getElementById('youtubePlayer');
+
+            modal.classList.remove('active');
+            player.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('resultModal').addEventListener('click', (e) => {
+            if (e.target.id === 'resultModal') {
+                closeModal();
+            }
+        });
+
+        // Keyboard support (ESC to close)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
