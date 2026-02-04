@@ -4,87 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Innermyu | 당신의 영혼을 읽는 선율</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+KR:wght@300;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
-        /* [이전의 프리미엄 디자인 스타일 유지] */
-        :root { --primary-gold: #ffecd2; --accent-red: #ff416c; --glass-bg: rgba(255, 255, 255, 0.05); }
-        body { background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%); color: #e9e9e9; font-family: 'Noto Serif KR', serif; margin: 0; padding: 0; min-height: 100vh; overflow-x: hidden; text-align: center; }
-        body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.3; pointer-events: none; z-index: 0; }
-        #home-screen, #deck-screen, #result-screen { position: relative; z-index: 1; padding: 80px 20px; animation: fadeIn 1s ease; }
-        .logo { font-family: 'Cinzel', serif; font-size: 4em; letter-spacing: 6px; color: var(--primary-gold); margin-bottom: 50px; text-shadow: 0 0 20px rgba(255,236,210,0.3); }
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
-        .menu-btn { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); padding: 30px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
-        .menu-btn:hover { transform: translateY(-10px); border-color: var(--primary-gold); background: rgba(255,255,255,0.1); }
-        .menu-title { font-family: 'Cinzel', serif; font-size: 1.2em; color: var(--primary-gold); margin-bottom: 10px; }
-        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .card { width: 100px; height: 160px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid rgba(255,236,210,0.2); border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: var(--primary-gold); transition: 0.4s; }
-        .card:hover { transform: scale(1.1) rotate(2deg); border-color: var(--primary-gold); box-shadow: 0 0 20px rgba(255,236,210,0.4); }
-        .result-box { background: var(--glass-bg); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; margin: 0 auto; }
-        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 15px; margin-top: 20px; border: none; }
-        .back-btn { background: none; border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 10px 25px; border-radius: 30px; cursor: pointer; margin-top: 30px; }
-        .fixed-cta { position: fixed; bottom: 30px; right: 30px; background: var(--accent-red); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 100; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root {
+            --primary-gold: #ffecd2;
+            --accent-red: #ff416c;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            background: #0f0c29;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: #e9e9e9; 
+            font-family: 'Noto Serif KR', serif; 
+            margin: 0; padding: 0; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* 신비로운 별가루 배경 */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.2; pointer-events: none; z-index: 0;
+        }
+
+        /* 공통 섹션 스타일 */
+        .container { 
+            position: relative; z-index: 1; padding: 80px 20px; 
+            max-width: 1000px; width: 100%; box-sizing: border-box;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .logo { 
+            font-family: 'Cinzel', serif; font-size: clamp(2.5em, 8vw, 4.5em); letter-spacing: 10px;
+            color: var(--primary-gold); margin-bottom: 10px; text-align: center;
+            text-shadow: 0 0 20px rgba(255,236,210,0.3);
+        }
+        
+        .subtitle { 
+            font-family: 'Playfair Display', serif; font-style: italic;
+            font-size: 1.1em; letter-spacing: 3px; opacity: 0.5; margin-bottom: 60px; text-align: center;
+        }
+
+        /* 메인 메뉴 그리드 */
+        .menu-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 30px; margin-top: 40px;
+        }
+
+        .menu-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 50px 20px; border-radius: 24px; cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            text-align: center;
+        }
+
+        .menu-card:hover { 
+            background: rgba(255, 255, 255, 0.08); 
+            transform: translateY(-15px); 
+            border-color: var(--primary-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .menu-card i { font-size: 2.5em; display: block; margin-bottom: 20px; filter: grayscale(1); }
+        .menu-title { font-family: 'Cinzel', serif; font-size: 1.4em; color: var(--primary-gold); margin-bottom: 15px; letter-spacing: 2px; }
+        .menu-desc { font-size: 0.85em; opacity: 0.5; line-height: 1.7; word-break: keep-all; }
+
+        /* 카드 선택 화면 */
+        .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
+        .card { 
+            width: 130px; height: 200px; 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(255,236,210,0.2); 
+            border-radius: 15px; cursor: pointer; 
+            transition: all 0.4s ease;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Cinzel', serif; color: var(--primary-gold); font-size: 1.5em;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .card:hover { 
+            transform: rotateY(15deg) translateY(-15px); 
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 30px rgba(255,236,210,0.3);
+        }
+
+        /* 결과 박스 */
+        .result-box { 
+            background: var(--glass-bg); backdrop-filter: blur(25px);
+            padding: clamp(30px, 5vw, 60px); border-radius: 35px; border: 1px solid var(--glass-border);
+            max-width: 750px; margin: 0 auto; text-align: center;
+        }
+        .res-title { font-family: 'Cinzel', serif; color: var(--primary-gold); font-size: 2.2em; margin-bottom: 20px; }
+        .res-text { font-size: 1.25em; line-height: 1.9; margin-bottom: 40px; font-weight: 300; opacity: 0.9; }
+        
+        iframe { width: 100%; aspect-ratio: 16/9; border-radius: 20px; border: none; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
+
+        .btn { 
+            background: none; border: 1px solid var(--primary-gold); color: var(--primary-gold); 
+            padding: 12px 35px; border-radius: 40px; cursor: pointer; margin-top: 40px;
+            font-family: 'Cinzel', serif; font-size: 0.9em; letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn:hover { background: var(--primary-gold); color: #0f0c29; font-weight: bold; }
+
+        .fixed-cta {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--accent-red); color: white; padding: 15px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 0.9em;
+            box-shadow: 0 10px 30px rgba(255,65,108,0.4);
+            z-index: 100; transition: 0.3s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .container { padding: 40px 15px; }
+            .card { width: 100px; height: 160px; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="home-screen">
+    <div id="home-screen" class="container">
         <div class="logo">Innermyu</div>
+        <div class="subtitle">Whispers of the Soul through Melody</div>
+
         <div class="menu-grid">
-            <div class="menu-btn" onclick="startMode('daily')">
+            <div class="menu-card" onclick="startMode('daily')">
                 <div class="menu-title">Daily Luck</div>
-                <div class="menu-desc">오늘 하루의 총운과 기운</div>
+                <div class="menu-desc">오늘 당신을 감싸는 운명의 기운과 조언</div>
             </div>
-            <div class="menu-btn" onclick="startMode('love')">
-                <div class="menu-title">Love Reading</div>
-                <div class="menu-desc">그 사람의 속마음과 연애운</div>
+            <div class="menu-card" onclick="startMode('love')">
+                <div class="menu-title">Love</div>
+                <div class="menu-desc">상대방의 속마음과 당신을 위한 연애 조언</div>
             </div>
-            <div class="menu-btn" onclick="startMode('work')">
-                <div class="menu-title">Work & Money</div>
-                <div class="menu-desc">금전운과 비즈니스 조언</div>
+            <div class="menu-card" onclick="startMode('work')">
+                <div class="menu-title">Success</div>
+                <div class="menu-desc">금전의 흐름과 비즈니스를 위한 통찰</div>
             </div>
-            <div class="menu-btn" onclick="startMode('yesno')">
+            <div class="menu-card" onclick="startMode('yesno')">
                 <div class="menu-title">Yes or No</div>
-                <div class="menu-desc">우주가 전하는 명쾌한 해답</div>
+                <div class="menu-desc">고민에 대한 우주의 명쾌하고 간결한 해답</div>
             </div>
         </div>
-    </div>
-
-    <div id="deck-screen" style="display:none;">
-        <h2 id="mode-title" style="font-family: 'Cinzel'; color: var(--primary-gold); margin-bottom: 40px;"></h2>
-        <div class="card-grid" id="card-deck"></div>
-        <button class="back-btn" onclick="goHome()">Back to Home</button>
-    </div>
-
-    <div id="result-screen" style="display:none;">
-        <div class="result-box">
-            <h2 id="res-title" class="logo" style="font-size: 2em;"></h2>
-            <p id="res-text" style="font-size: 1.2em; line-height: 1.8;"></p>
-            <div id="yt-embed"></div>
-            <button class="back-btn" onclick="goHome()">Return</button>
+        
+        <div style="margin-top: 50px; opacity: 0.5; font-size: 0.8em; letter-spacing: 1px;">
+            <a href="https://instagram.com/imaginey_mu" target="_blank" style="color: inherit; text-decoration: none;">Instagram @imaginey_mu</a>
         </div>
     </div>
 
-    <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="fixed-cta">💌 사연 신청하기</a>
+    <div id="deck-screen" class="container" style="display:none;">
+        <h2 id="mode-title" class="res-title" style="margin-bottom: 40px;">Choose Your Card</h2>
+        <div class="card-grid" id="card-deck"></div>
+        <button class="btn" onclick="goHome()">Back to Home</button>
+    </div>
+
+    <div id="result-screen" class="container" style="display:none;">
+        <div class="result-box">
+            <h2 id="res-title" class="res-title"></h2>
+            <p id="res-text" class="res-text"></p>
+            <div id="yt-embed"></div>
+            <button class="btn" onclick="goHome()">Another Reading</button>
+        </div>
+    </div>
+
+    <a href="https://forms.gle/ucA3YKMtKUrEXBpH6" target="_blank" class="fixed-cta">📝 사연 신청하기</a>
 
     <script>
-        // [샌드박스 스캐닝 데이터 이식]
+        // [샌드박스 스캐닝 기반 리딩 데이터 - Innermyu 전용]
         const masterData = {
             daily: [
+                { title: "열쇠 (The Key)", text: "해결책은 이미 당신의 손안에 있습니다. 막혀있던 문을 열고 나아갈 운명의 열쇠를 쥐셨군요.", yt: "dQw4w9WgXcQ" },
                 { title: "태양 (The Sun)", text: "오늘 하루는 당신이 주인공입니다. 모든 일이 환하게 풀리고 긍정적인 에너지가 가득합니다.", yt: "dQw4w9WgXcQ" },
-                { title: "절제 (Temperance)", text: "균형이 필요한 하루입니다. 서두르지 말고 천천히 흐름을 따라가세요.", yt: "dQw4w9WgXcQ" }
+                { title: "절제 (Temperance)", text: "균형이 필요한 하루입니다. 서두르지 말고 천천히 흐름을 따라가세요.", yt: "dQw4w9WgXcQ" },
+                { title: "변화 (Change)", text: "새로운 흐름이 들어오고 있습니다. 익숙한 것을 버릴 때 더 큰 세상이 열립니다.", yt: "dQw4w9WgXcQ" }
             ],
             love: [
                 { title: "연인 (The Lovers)", text: "상대방과 강력한 감정적 유대감을 느끼게 될 것입니다. 솔직한 대화가 열쇠입니다.", yt: "dQw4w9WgXcQ" },
-                { title: "컵 2 (Two of Cups)", text: "마음이 통하는 사람과의 만남이 예견됩니다. 새로운 인연이나 깊어지는 관계를 기대하세요.", yt: "dQw4w9WgXcQ" }
+                { title: "컵 2 (Two of Cups)", text: "마음이 통하는 사람과의 만남이 예견됩니다. 깊어지는 관계를 기대하세요.", yt: "dQw4w9WgXcQ" },
+                { title: "은총 (Grace)", text: "보이지 않는 힘이 당신의 관계를 보호하고 있습니다. 두려움을 내려놓으세요.", yt: "dQw4w9WgXcQ" }
             ],
             work: [
-                { title: "펜타클 8 (8 of Pentacles)", text: "꾸준한 노력이 빛을 발합니다. 지금 하고 있는 일에 집중하면 큰 성과가 따릅니다.", yt: "dQw4w9WgXcQ" },
-                { title: "전차 (The Chariot)", text: "목표를 향해 거침없이 나아가세요. 추진력이 필요한 시기이며 승리는 당신의 것입니다.", yt: "dQw4w9WgXcQ" }
+                { title: "성공 (Success)", text: "당신의 노력이 드디어 결실을 맺습니다. 인정과 보상이 따르는 찬란한 시기입니다.", yt: "dQw4w9WgXcQ" },
+                { title: "전차 (The Chariot)", text: "목표를 향해 거침없이 나아가세요. 승리는 당신의 것입니다.", yt: "dQw4w9WgXcQ" },
+                { title: "펜타클 8", text: "꾸준한 노력이 빛을 발합니다. 지금 하고 있는 일에 집중하면 큰 성과가 따릅니다.", yt: "dQw4w9WgXcQ" }
             ],
             yesno: [
-                { title: "YES!", text: "하늘이 돕고 있습니다. 고민하지 말고 바로 실행에 옮기세요.", yt: "dQw4w9WgXcQ" },
-                { title: "NO", text: "지금은 위험 요소가 많습니다. 한 걸음 물러나 재검토가 필요합니다.", yt: "dQw4w9WgXcQ" }
+                { title: "YES", text: "하늘이 돕고 있습니다. 고민하지 말고 바로 실행에 옮기세요.", yt: "dQw4w9WgXcQ" },
+                { title: "NO", text: "지금은 위험 요소가 많습니다. 한 걸음 물러나 재검토가 필요합니다.", yt: "dQw4w9WgXcQ" },
+                { title: "WAIT", text: "상황을 조금 더 지켜보세요. 신중함이 최고의 전략입니다.", yt: "dQw4w9WgXcQ" }
             ]
         };
 
@@ -94,14 +206,13 @@
             currentMode = mode;
             document.getElementById('home-screen').style.display = 'none';
             document.getElementById('deck-screen').style.display = 'block';
-            const titleMap = { daily: 'Daily Luck', love: 'Love Reading', work: 'Work & Money', yesno: 'Yes or No' };
-            document.getElementById('mode-title').innerText = titleMap[mode];
-            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
             const deck = document.getElementById('card-deck');
             deck.innerHTML = '';
-            for(let i=0; i<12; i++) {
+            for(let i=1; i<=12; i++) {
                 const card = document.createElement('div');
-                card.className = 'card'; card.innerHTML = '?';
+                card.className = 'card'; card.innerHTML = '<span>?</span>';
                 card.onclick = () => showResult();
                 deck.appendChild(card);
             }
