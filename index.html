@@ -29,12 +29,22 @@ body{
 .subtitle{opacity:.8;margin-bottom:40px}
 
 /* 메뉴 */
-.menu-grid{
-  max-width:900px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+  .menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 140px;
+  padding: 26px;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 .menu-btn.gold {
@@ -57,30 +67,12 @@ body{
 }
 
 /* 쇠질감 하이라이트 */
-.menu-btn.gold::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background:
-    linear-gradient(
-      120deg,
-      rgba(255,255,255,0.25) 0%,
-      rgba(255,255,255,0.05) 40%,
-      rgba(255,255,255,0) 60%
-    );
-  transform: rotate(8deg);
-  pointer-events: none;
+.menu-btn.gold {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.menu-btn.gold:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,0.7),
-    0 14px 32px rgba(0,0,0,0.6);
-}
 
 /* 텍스트 */
 .menu-btn.gold .menu-title {
@@ -184,6 +176,11 @@ body{
       <div class="menu-title">🌙 유니버셜 타로 메이저</div>
     </div>
 
+  <a class="menu-btn" href="#" onclick="startMode('today')">
+  <div class="menu-title">🌙 오늘의 운세</div>
+  <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
+</a>
+    
     <a href="YOUTUBE_PLAYLIST_LINK" target="_blank" class="menu-btn music-btn">
       <div class="menu-title">🎧 뮤너의 음악듣기</div>
     </a>
