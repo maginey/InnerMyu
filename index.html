@@ -29,40 +29,41 @@ body{
 .subtitle{opacity:.8;margin-bottom:40px}
 
 /* 메뉴 */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 28px;
-  max-width: 900px;
-  margin: 0 auto;
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  max-width:900px;
+  margin:0 auto 80px;
 }
 
-  .menu-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 140px;
-  padding: 26px;
-  box-sizing: border-box;
-  text-decoration: none;
+.menu-btn{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:140px;
+  padding:26px;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.25);
+  text-decoration:none;
+  color:#fff;
+  transition:.3s;
+}
+.menu-btn:hover{
+  transform:translateY(-6px);
+  border-color:#ffecd2;
 }
 
-  .menu-btn.music {
-  border: 1px solid #f5d36a;
-  box-shadow: 0 0 12px rgba(245,211,106,0.35);
+.menu-btn.music{
+  border:1px solid #f5d36a;
+  box-shadow:0 0 14px rgba(245,211,106,.45);
 }
 
-.menu-btn.dm {
-  background: linear-gradient(135deg, #ff416c, #ff9f43);
-  color: #000;
-}
-
-
-
-/* 음악 버튼 강조 */
-.music-btn{
-  border:1px solid #ffd966;
-  box-shadow:0 0 12px rgba(255,217,102,.5);
+.menu-btn.dm{
+  background:linear-gradient(135deg,#ff416c,#ff9f43);
+  color:#000;
+  font-weight:600;
 }
 
 /* 카드 스프레드 */
@@ -78,7 +79,7 @@ body{
   height:170px;
   background:#1a1a2e;
   border:2px solid #533483;
-  border-radius:12px;
+  border-radius:14px;
   cursor:pointer;
   transition:.3s;
 }
@@ -93,7 +94,7 @@ body{
   margin:auto;
   background:rgba(0,0,0,.35);
   padding:40px;
-  border-radius:20px;
+  border-radius:24px;
 }
 .res-title{
   font-family:'Cinzel',serif;
@@ -102,7 +103,7 @@ body{
 }
 .res-text{
   margin:30px 0;
-  line-height:1.8;
+  line-height:1.9;
 }
 
 /* 링크 버튼 */
@@ -111,7 +112,7 @@ body{
   margin:8px;
   padding:12px 26px;
   border-radius:30px;
-  background:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.15);
   color:#fff;
   text-decoration:none;
 }
@@ -141,52 +142,40 @@ body{
 
   <div class="menu-grid">
 
-  <a class="menu-btn" href="#" onclick="startMode('today')">
-    <div class="menu-title">🌙 오늘의 운세</div>
-    <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
-  </a>
+    <a class="menu-btn" href="#" onclick="startReading('belline')">
+      <div class="menu-title">🔮 이너뮤 벨린</div>
+      <div class="menu-desc">52장의 구슬이 전하는 조언</div>
+    </a>
 
-  <a class="menu-btn" href="#" onclick="startMode('oracle')">
-    <div class="menu-title">🔮 오라클 조언</div>
-    <div class="menu-desc">지금 내 고민에 대한 신비로운 답</div>
-  </a>
+    <a class="menu-btn" href="#" onclick="startReading('tarot')">
+      <div class="menu-title">🌙 타로 메이저</div>
+      <div class="menu-desc">22장의 영혼의 여정</div>
+    </a>
 
-  <a class="menu-btn" href="#" onclick="startMode('yesno')">
-    <div class="menu-title">⚖️ Yes or No</div>
-    <div class="menu-desc">할까 말까? 명쾌한 한 장의 대답</div>
-  </a>
+    <a class="menu-btn music" href="유튜브링크" target="_blank">
+      <div class="menu-title">🎧 뮤너의 음악듣기</div>
+      <div class="menu-desc">리딩과 함께 흐르는 선율</div>
+    </a>
 
-  <a class="menu-btn music"
-     href="유튜브링크"
-     target="_blank">
-    <div class="menu-title">🎧 뮤너의 음악듣기</div>
-    <div class="menu-desc">당신의 영혼을 달래줄 선율</div>
-  </a>
+    <a class="menu-btn dm" href="카톡링크" target="_blank">
+      <div class="menu-title">💌 1:1 리딩 요청</div>
+      <div class="menu-desc">뮤너에게 직접 묻기</div>
+    </a>
 
-  <a class="menu-btn dm"
-     href="카톡링크"
-     target="_blank">
-    <div class="menu-title">💌 1:1 리딩 요청</div>
-    <div class="menu-desc">더 깊은 상담을 원하시나요? (DM)</div>
-  </a>
-
-    </div>
   </div>
+</div>
 
-
-<!-- 카드 스프레드 -->
 <div id="deck-screen">
   <h2>카드를 한 장 선택하세요</h2>
   <div class="card-grid" id="cardGrid"></div>
 </div>
 
-<!-- 결과 -->
 <div id="result-screen">
   <div class="result-box">
     <h2 id="resultTitle" class="res-title"></h2>
     <p id="resultText" class="res-text"></p>
 
-    <a href="https://www.youtube.com/@InnerMyu" target="_blank" class="link-btn">🎥 관련 리딩 영상</a>
+    <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A" target="_blank" class="link-btn">🎥 관련 리딩 영상</a>
     <a href="https://open.kakao.com/me/Innermyu" target="_blank" class="link-btn">💬 1:1 리딩 요청</a>
 
     <div style="margin-top:30px">
@@ -195,94 +184,91 @@ body{
   </div>
 </div>
 
-<a href="https://forms.gle/ecdQzUz3xgpkwmXk8" target="_blank" class="floating-cta">🎬 뮤비 사연 신청하기</a>
+<a href="https://forms.gle/ecdQzUz3xgpkwmXk8" target="_blank" class="floating-cta">
+🎬 뮤비 사연 신청하기
+</a>
 
 <script>
 /* ======================
    카드 데이터
 ====================== */
 
-/* 🔮 벨린 카드 (예시 10장) */
+/* 🔮 벨린 52장 */
 const bellineDeck = [
-{title:"태양",text:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 이렇게 노래하고 있어요. 숨김없이 드러나는 진실, 더 이상 가릴 필요 없는 감정. 지금은 빛을 피하지 말고 정면으로 맞이하세요."},
-{title:"달",text:"구슬은 흔들리는 물결을 비춥니다. 불안과 직관이 동시에 깨어나는 시기. 혼란은 길을 잃었다는 뜻이 아니라, 감각이 열렸다는 신호예요."},
-{title:"별",text:"어둠 속에서도 꺼지지 않는 약속. 아직 멀어 보여도, 이 희망은 반드시 당신을 목적지로 데려갑니다."},
-{title:"열쇠",text:"이미 쥔 답을 믿으세요. 문은 바깥에 있지 않습니다. 당신의 선택이 잠금을 해제합니다."},
-{title:"탑",text:"무너짐은 벌이 아니라 해방입니다. 거짓 위에 쌓은 구조가 내려가야 진짜 기반이 드러나요."},
-{title:"꽃다발",text:"기쁨, 선물, 예기치 못한 호의. 지금의 흐름은 당신 편이에요."},
-{title:"뱀",text:"부드러운 말 속에 숨은 의도. 경계는 두려움이 아니라 지혜입니다."},
-{title:"책",text:"아직 열리지 않은 진실. 지금은 알지 못해도 괜찮아요. 타이밍이 있습니다."},
-{title:"아이",text:"새로운 시작, 그러나 보호가 필요한 씨앗. 순수함을 잃지 마세요."},
-{title:"십자가",text:"피할 수 없는 책임. 이 무게는 당신을 망가뜨리지 않고, 단단하게 만듭니다."},
-
-{title:"여자",text:"감정, 직관, 수용의 에너지. 자신에게 더 부드러워질 때입니다."},
-{title:"남자",text:"행동, 선택, 결단. 머뭇거림보다 한 걸음이 필요해요."},
-{title:"집",text:"안정과 기반. 돌아갈 수 있는 곳이 있다는 사실을 잊지 마세요."},
-{title:"길",text:"선택의 기로. 어느 쪽이든 틀린 길은 없습니다."},
-{title:"편지",text:"소식, 메시지, 진실의 전달. 곧 답장이 도착합니다."},
-{title:"말",text:"속도와 추진력. 지금은 기다림보다 움직임이 해답입니다."},
-{title:"반지",text:"약속, 계약, 인연의 고리. 쉽게 끊어지지 않는 연결."},
-{title:"관",text:"끝과 정리. 애도 후에야 새로운 숨이 들어옵니다."},
-{title:"개",text:"신뢰, 충성, 진짜 친구. 당신 곁에 남아 있는 존재를 보세요."},
-{title:"쥐",text:"서서히 새는 에너지. 작은 불편을 무시하지 마세요."},
-
-{title:"곰",text:"보호와 힘. 누군가 당신을 지켜보고 있습니다."},
-{title:"여우",text:"영리함과 계산. 솔직함이 필요한 순간입니다."},
-{title:"백합",text:"평온, 성숙, 고요한 기쁨. 급할 필요 없어요."},
-{title:"정원",text:"공개, 사회적 관계, 무대. 당신은 이미 보이고 있습니다."},
-{title:"산",text:"장애와 지연. 멈춤은 거절이 아니라 준비입니다."},
-{title:"나무",text:"치유와 성장. 시간은 당신 편이에요."},
-{title:"구름",text:"불확실성. 곧 걷힐 흐림입니다."},
-{title:"닻",text:"안정과 고착. 머물 이유와 떠날 이유를 구분하세요."},
-{title:"물고기",text:"풍요, 돈, 흐름. 받는 것을 두려워하지 마세요."},
-{title:"달빛",text:"감정의 파도. 오늘은 판단보다 느끼는 날입니다."},
-
-{title:"칼",text:"결단, 단절. 아픈 선택이지만 필요합니다."},
-{title:"촛불",text:"기도, 소망. 작은 불빛 하나가 길을 밝힙니다."},
-{title:"창문",text:"새로운 시야. 다른 각도에서 보세요."},
-{title:"문",text:"기회. 두드리면 열립니다."},
-{title:"사다리",text:"단계적 상승. 서두르지 않아도 돼요."},
-{title:"시계",text:"타이밍. 아직은 기다림."},
-{title:"우물",text:"깊은 감정과 진실. 표면만 보지 마세요."},
-{title:"배",text:"이동, 변화. 이미 항해는 시작되었습니다."},
-{title:"비",text:"정화. 울어도 괜찮은 날."},
-{title:"무지개",text:"갈등 후의 조화. 끝은 희망으로 이어집니다."},
-{title:"왕관",text:"자존, 권위. 스스로를 낮추지 마세요."},
-{title:"거울",text:"자기 인식. 답은 밖이 아니라 안에 있습니다."}
+{title:"태양",text:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 이렇게 노래하고 있어요. 숨김없이 드러나는 진실, 더 이상 가릴 필요 없는 감정."},
+{title:"달",text:"구슬은 흔들리는 물결을 비춥니다. 불안은 직관이 깨어났다는 신호예요."},
+{title:"별",text:"아직 멀어 보여도 이 빛은 꺼지지 않아요. 희망은 계속 당신을 부르고 있어요."},
+{title:"열쇠",text:"이미 답은 손에 쥐어져 있어요. 문을 여는 건 용기뿐입니다."},
+{title:"탑",text:"무너짐은 벌이 아니라 해방이에요."},
+{title:"꽃다발",text:"기쁨은 예상보다 가까운 곳에 있어요."},
+{title:"뱀",text:"부드러운 말 속에 숨은 의도를 살펴보세요."},
+{title:"책",text:"아직 열리지 않은 진실. 지금은 기다림의 시간."},
+{title:"아이",text:"새로운 시작, 보호가 필요한 씨앗."},
+{title:"십자가",text:"피할 수 없는 책임은 당신을 단단하게 만듭니다."},
+{title:"여자",text:"감정과 수용의 에너지."},
+{title:"남자",text:"행동과 결단의 시기."},
+{title:"집",text:"돌아갈 수 있는 기반."},
+{title:"길",text:"선택의 순간. 어느 쪽도 틀리지 않았어요."},
+{title:"편지",text:"곧 소식이 도착합니다."},
+{title:"말",text:"지금은 기다림보다 움직임."},
+{title:"반지",text:"끊어지지 않는 인연."},
+{title:"관",text:"끝은 새로운 숨을 데려옵니다."},
+{title:"개",text:"당신 곁의 진짜 친구."},
+{title:"쥐",text:"서서히 새는 에너지."},
+{title:"곰",text:"보호받고 있어요."},
+{title:"여우",text:"계산보다 진심을."},
+{title:"백합",text:"성숙한 평온."},
+{title:"정원",text:"당신은 이미 보이고 있어요."},
+{title:"산",text:"지연은 거절이 아닙니다."},
+{title:"나무",text:"시간은 당신 편이에요."},
+{title:"구름",text:"곧 걷힐 혼란."},
+{title:"닻",text:"머물 이유를 점검하세요."},
+{title:"물고기",text:"풍요는 흐름 속에 있습니다."},
+{title:"칼",text:"아픈 결단이 필요해요."},
+{title:"무지개",text:"갈등 뒤의 조화."},
+{title:"왕관",text:"자존을 잃지 마세요."},
+{title:"거울",text:"답은 안에 있어요."},
+{title:"문",text:"기회는 이미 열려 있어요."},
+{title:"사다리",text:"천천히 오르는 길."},
+{title:"시계",text:"아직은 기다림."},
+{title:"배",text:"항해는 시작됐어요."},
+{title:"비",text:"정화의 눈물."},
+{title:"촛불",text:"작은 소망이 길을 밝힙니다."},
+{title:"창문",text:"새로운 시야."},
+{title:"우물",text:"깊은 진실."},
+{title:"무덤",text:"완전한 종료."},
+{title:"종",text:"각성의 순간."},
+{title:"깃발",text:"선언의 때."},
+{title:"구슬",text:"운명은 움직이고 있어요."},
+{title:"별빛",text:"밤을 건너는 약속."},
+{title:"파도",text:"감정의 흐름을 믿으세요."},
+{title:"뿌리",text:"당신은 쉽게 흔들리지 않아요."}
 ];
 
-
-/* 👉 여기에 같은 형식으로 벨린 52장까지 계속 추가 */
-];
-
-/* 🌙 타로 메이저 (예시 5장) */
+/* 🌙 타로 메이저 22장 */
 const tarotDeck = [
-{title:"The Fool",text:"뮤너가 미소 지어요. 준비되지 않은 것이 아니라, 믿음이 앞선 상태. 두려움 없이 발을 내딛으세요."},
-{title:"The Magician",text:"구슬은 손끝을 비춥니다. 이미 모든 도구는 당신 앞에 있어요."},
-{title:"The High Priestess",text:"침묵 속 진실. 지금은 묻기보다 느끼세요."},
-{title:"The Empress",text:"풍요와 양육. 당신이 키운 것은 반드시 자랍니다."},
-{title:"The Emperor",text:"질서와 구조. 안정은 통제에서 오지 않습니다."},
-{title:"The Hierophant",text:"전통과 가르침. 이미 답은 배워온 길에 있어요."},
-{title:"The Lovers",text:"선택과 결합. 사랑은 결정의 다른 이름입니다."},
-{title:"The Chariot",text:"전진. 흔들려도 멈추지 마세요."},
-{title:"Strength",text:"부드러운 힘. 억누르지 말고 길들이세요."},
-{title:"The Hermit",text:"고독한 탐색. 답은 혼자 있을 때 들립니다."},
-{title:"Wheel of Fortune",text:"전환점. 흐름이 바뀌고 있어요."},
-{title:"Justice",text:"균형과 책임. 모든 선택에는 파장이 따릅니다."},
-{title:"The Hanged Man",text:"멈춤과 관점 전환. 내려놓을 때 보입니다."},
-{title:"Death",text:"끝과 재탄생. 이것은 파괴가 아닙니다."},
-{title:"Temperance",text:"조율과 치유. 극단을 피하세요."},
-{title:"The Devil",text:"집착과 속박. 진짜 사슬은 마음에 있어요."},
-{title:"The Tower",text:"충격적 깨달음. 거짓은 유지될 수 없습니다."},
-{title:"The Star",text:"회복과 희망. 다시 믿어도 괜찮아요."},
-{title:"The Moon",text:"불안과 환영. 모든 감정이 사실은 아닙니다."},
-{title:"The Sun",text:"기쁨과 명료함. 숨길 필요 없어요."},
-{title:"Judgement",text:"각성. 과거는 끝났습니다."},
-{title:"The World",text:"완성. 당신은 여기까지 왔어요."}
-];
-
-
-/* 👉 여기에 메이저 22장까지 추가 */
+{title:"The Fool",text:"뮤너가 미소 지어요. 준비되지 않은 게 아니라, 믿음이 앞선 상태예요."},
+{title:"The Magician",text:"이미 모든 도구는 당신 손에 있어요."},
+{title:"The High Priestess",text:"침묵 속 진실을 들으세요."},
+{title:"The Empress",text:"당신이 키운 것은 자랍니다."},
+{title:"The Emperor",text:"질서 속 안정."},
+{title:"The Hierophant",text:"배워온 길을 믿으세요."},
+{title:"The Lovers",text:"사랑은 선택입니다."},
+{title:"The Chariot",text:"멈추지 말고 전진하세요."},
+{title:"Strength",text:"부드러운 힘."},
+{title:"The Hermit",text:"고독 속 답."},
+{title:"Wheel of Fortune",text:"흐름이 바뀝니다."},
+{title:"Justice",text:"균형을 맞추세요."},
+{title:"The Hanged Man",text:"관점 전환."},
+{title:"Death",text:"끝은 시작이에요."},
+{title:"Temperance",text:"조율의 시간."},
+{title:"The Devil",text:"집착을 놓으세요."},
+{title:"The Tower",text:"거짓은 무너집니다."},
+{title:"The Star",text:"다시 믿어도 돼요."},
+{title:"The Moon",text:"모든 감정이 사실은 아닙니다."},
+{title:"The Sun",text:"숨길 필요 없어요."},
+{title:"Judgement",text:"과거는 끝났어요."},
+{title:"The World",text:"완성. 여기까지 왔어요."}
 ];
 
 let currentDeck=[];
@@ -318,6 +304,7 @@ function pickCard(){
 }
 
 function goHome(){
+  document.getElementById('deck-screen').style.display='none';
   document.getElementById('result-screen').style.display='none';
   document.getElementById('home-screen').style.display='block';
 }
@@ -325,4 +312,5 @@ function goHome(){
 
 </body>
 </html>
+
 
