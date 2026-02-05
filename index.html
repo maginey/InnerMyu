@@ -41,8 +41,12 @@ body{
   background:rgba(0,0,0,.35);
   border:1px solid rgba(255,255,255,.15);
   border-radius:18px;
+  padding:22px 24px;
+  min-height:120px;        /* ⬅️ 이 줄이 핵심 */
+  box-sizing:border-box;
   transition:.25s ease;
 }
+
 
 .menu-btn:hover{
   transform:translateY(-4px);
@@ -58,28 +62,29 @@ body{
 .menu-btn.dm{
   background:linear-gradient(
     135deg,
-    #f5e28a 0%,
+    #f7e7a1 0%,
     #e6c75f 45%,
-    #c9a227 100%
+    #b8922b 100%
   );
   color:#000;
   border:none;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.5),
-    0 6px 18px rgba(201,162,39,.45);
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 0 -1px 0 rgba(0,0,0,.2),
+    0 8px 20px rgba(201,162,39,.45);
 }
 
 
-  .menu-title{
-  font-size:1.15em;     /* 타이틀은 또렷하게 */
+.menu-title{
+  font-size:1.15em;
   font-weight:600;
-  margin-bottom:8px;
+  margin-bottom:10px;   /* ⬅️ 여백 조금 증가 */
 }
 
 .menu-desc{
-  font-size:0.9em;     /* 서브는 작고 부드럽게 */
-  opacity:0.75;
-  line-height:1.4;
+  font-size:0.88em;     /* ⬅️ 살짝 더 작게 */
+  opacity:0.7;
+  line-height:1.5;
 }
 
 
