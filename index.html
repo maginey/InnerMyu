@@ -41,15 +41,16 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  min-height:140px;
-  padding:26px;
-  border-radius:20px;
+  min-height:110px;              /* ⬅️ 140 → 110 */
+  padding:18px 22px;             /* ⬅️ 줄임 */
+  border-radius:18px;
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.25);
   text-decoration:none;
   color:#fff;
   transition:.3s;
 }
+
 .menu-btn:hover{
   transform:translateY(-6px);
   border-color:#ffecd2;
@@ -61,10 +62,25 @@ body{
 }
 
 .menu-btn.dm{
-  background:linear-gradient(135deg,#ff416c,#ff9f43);
-  color:#000;
+  background:linear-gradient(
+    135deg,
+    #f6e27a 0%,
+    #e7c65c 30%,
+    #c_toggle{content: '';
+  }
+
+  .menu-title{
+  font-size:1.05rem;     /* 타이틀은 또렷하게 */
   font-weight:600;
+  margin-bottom:6px;
 }
+
+.menu-desc{
+  font-size:0.85rem;     /* 서브는 작고 부드럽게 */
+  opacity:0.75;
+  line-height:1.4;
+}
+
 
 /* 카드 스프레드 */
 #deck-screen,#result-screen{display:none;padding:60px 20px}
