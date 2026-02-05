@@ -8,200 +8,248 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-  background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
-  url('assets/innermyu_2.gif');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: #e9e9e9;
-  font-family: 'Noto Serif KR', serif;
-  margin: 0;
-  text-align: center;
+body{
+  margin:0;
+  font-family:'Noto Serif KR',serif;
+  color:#e9e9e9;
+  text-align:center;
+  background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
+    url('assets/innermyu_2.gif') center/cover fixed no-repeat;
 }
 
-.logo {
-  font-family: 'Cinzel', serif;
-  font-size: 3em;
-  color: #ffecd2;
-  margin-top: 60px;
-  text-shadow: 0 0 15px rgba(255,236,210,.4);
+/* 타이틀 */
+.logo{
+  font-family:'Cinzel',serif;
+  font-size:3em;
+  margin-top:60px;
+  color:#ffecd2;
+  text-shadow:0 0 15px rgba(255,236,210,.4);
+}
+.subtitle{opacity:.8;margin-bottom:40px}
+
+/* 메뉴 */
+.menu-grid{
+  max-width:900px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
 }
 
-.subtitle { opacity: .8; margin-bottom: 50px; }
-
-.menu-grid {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
-  gap: 20px;
+.menu-btn{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.2);
+  padding:30px;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+.menu-btn:hover{
+  transform:translateY(-5px);
+  border-color:#ffecd2;
+}
+.menu-title{
+  color:#ffecd2;
+  font-size:1.3em;
 }
 
-.menu-btn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 30px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: .3s;
+/* 음악 버튼 강조 */
+.music-btn{
+  border:1px solid #ffd966;
+  box-shadow:0 0 12px rgba(255,217,102,.5);
 }
 
-.menu-btn:hover {
-  transform: translateY(-5px);
-  border-color: #ffecd2;
+/* 카드 스프레드 */
+#deck-screen,#result-screen{display:none;padding:60px 20px}
+.card-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:16px;
+}
+.card{
+  width:110px;
+  height:170px;
+  background:#1a1a2e;
+  border:2px solid #533483;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  border-color:#ffecd2;
 }
 
-.menu-title {
-  font-size: 1.3em;
-  color: #ffecd2;
-  margin-bottom: 10px;
+/* 결과 */
+.result-box{
+  max-width:720px;
+  margin:auto;
+  background:rgba(0,0,0,.35);
+  padding:40px;
+  border-radius:20px;
+}
+.res-title{
+  font-family:'Cinzel',serif;
+  font-size:2em;
+  color:#ffecd2;
+}
+.res-text{
+  margin:30px 0;
+  line-height:1.8;
 }
 
-.fixed-top {
-  max-width: 900px;
-  margin: 0 auto 30px;
-  display: grid;
-  gap: 16px;
+/* 링크 버튼 */
+.link-btn{
+  display:inline-block;
+  margin:8px;
+  padding:12px 26px;
+  border-radius:30px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  text-decoration:none;
 }
 
-.fixed-top .menu-btn {
-  background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
-  border: none;
-  color: white;
-}
-
-.music-btn {
-  background: rgba(79,172,254,.15);
-  border: 1px solid #4facfe;
-}
-
-#deck-screen,#result-screen { display:none; padding:60px 20px; }
-
-.card-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.card {
-  width: 110px;
-  height: 170px;
-  background: #1a1a2e;
-  border: 2px solid #533483;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  border-color: #ffecd2;
-}
-
-.result-box {
-  max-width: 700px;
-  margin: auto;
-  background: rgba(0,0,0,.35);
-  padding: 40px;
-  border-radius: 20px;
-}
-
-.res-title {
-  font-family: 'Cinzel', serif;
-  color: #ffecd2;
-  font-size: 2em;
-}
-
-.res-text {
-  line-height: 1.8;
-  font-size: 1.1em;
-  margin: 30px 0;
-}
-
-.yt-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 28px;
-  border-radius: 30px;
-  background: #e94560;
-  color: white;
-  text-decoration: none;
+/* 플로팅 CTA */
+.floating-cta{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#e94560;
+  color:#fff;
+  padding:14px 26px;
+  border-radius:30px;
+  font-weight:600;
+  text-decoration:none;
+  z-index:999;
+  box-shadow:0 4px 15px rgba(233,69,96,.5);
 }
 </style>
 </head>
 
 <body>
 
-<div class="logo">Innermyu</div>
-<div class="subtitle">심해의 마녀, 뮤너가 전하는 카드의 노래</div>
+<div id="home-screen">
+  <div class="logo">Innermyu</div>
+  <div class="subtitle">심해의 마녀, 뮤너가 전하는 카드의 노래</div>
 
-<div class="fixed-top">
-  <a href="카톡링크" class="menu-btn">💌 1:1 리딩 요청</a>
-  <a href="https://www.youtube.com/playlist?list=YOURPLAYLIST" class="menu-btn music-btn">🎧 뮤너의 음악듣기</a>
+  <div class="menu-grid">
+
+    <div class="menu-btn" onclick="startReading('belline')">
+      <div class="menu-title">🔮 이너뮤 벨린</div>
+    </div>
+
+    <div class="menu-btn" onclick="startReading('tarot')">
+      <div class="menu-title">🌙 유니버셜 타로 메이저</div>
+    </div>
+
+    <a href="YOUTUBE_PLAYLIST_LINK" target="_blank" class="menu-btn music-btn">
+      <div class="menu-title">🎧 뮤너의 음악듣기</div>
+    </a>
+
+    <a href="KAKAO_LINK" target="_blank" class="menu-btn">
+      <div class="menu-title">💌 1:1 리딩 요청</div>
+    </a>
+
+    <div class="menu-btn">
+      <div class="menu-title">🌌 이너뮤 세계관 알아보기</div>
+      <div style="opacity:.6">(추후 공개)</div>
+    </div>
+
+  </div>
 </div>
 
-<div class="menu-grid">
-  <div class="menu-btn" onclick="startMode('today')">
-    <div class="menu-title">🌙 오늘의 운세</div>
-  </div>
-  <div class="menu-btn" onclick="startMode('belline')">
-    <div class="menu-title">🔮 이너뮤 벨린</div>
-  </div>
-  <div class="menu-btn" onclick="startMode('yesno')">
-    <div class="menu-title">⚖️ Yes or No</div>
-  </div>
-  <div class="menu-btn">
-    <div class="menu-title">🌌 이너뮤 세계관 알아보기</div>
-    <div style="opacity:.6;">(추후 공개)</div>
-  </div>
-</div>
-
+<!-- 카드 스프레드 -->
 <div id="deck-screen">
   <h2>카드를 한 장 선택하세요</h2>
-  <div class="card-grid" id="card-deck"></div>
+  <div class="card-grid" id="cardGrid"></div>
 </div>
 
+<!-- 결과 -->
 <div id="result-screen">
   <div class="result-box">
-    <h2 class="res-title" id="res-title"></h2>
-    <p class="res-text" id="res-text"></p>
-    <a id="yt-link" class="yt-btn" target="_blank">🎥 관련 리딩 영상 보기</a>
+    <h2 id="resultTitle" class="res-title"></h2>
+    <p id="resultText" class="res-text"></p>
+
+    <a href="https://www.youtube.com/@InnerMyu" target="_blank" class="link-btn">🎥 관련 리딩 영상</a>
+    <a href="https://open.kakao.com/me/Innermyu" target="_blank" class="link-btn">💬 1:1 리딩 요청</a>
+
+    <div style="margin-top:30px">
+      <button class="link-btn" onclick="goHome()">처음으로</button>
+    </div>
   </div>
 </div>
 
+<a href="https://forms.gle/ecdQzUz3xgpkwmXk8" target="_blank" class="floating-cta">🎬 뮤비 사연 신청하기</a>
+
 <script>
-const belline52 = [
-{ title:"태양", text:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 이렇게 노래하고 있어요. 지금 당신을 비추는 것은 태양입니다. 숨김없는 진실, 명확한 기운, 그리고 드러남. 두려워하지 말고 빛으로 걸어가세요."},
-{ title:"달", text:"구슬이 속삭입니다. 아직 드러나지 않은 감정이 파도처럼 일렁입니다. 불안은 틀린 길이 아니라, 아직 밝혀지지 않은 길의 신호입니다."},
-{ title:"별", text:"뮤너가 미소 짓습니다. 별은 희망의 약속. 아주 작아 보여도, 당신의 밤을 끝까지 밝힐 빛입니다."},
-/* … 실제 사용 시 여기에 52장 전부 동일 문체로 이어서 추가 */
+/* ======================
+   카드 데이터
+====================== */
+
+/* 🔮 벨린 카드 (예시 10장) */
+const bellineDeck = [
+{title:"태양",text:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 지금 태양을 비추고 있어요. 숨김없는 진실, 드러나는 감정, 피할 수 없는 명확함. 지금은 회피보다 직면이 당신을 살립니다."},
+{title:"달",text:"구슬은 흔들리는 빛을 노래합니다. 달은 불안과 직관의 카드. 혼란은 틀림이 아니라, 감각이 열리고 있다는 신호예요."},
+{title:"별",text:"뮤너는 조용히 미소 짓습니다. 별은 희망의 약속. 아직 작아 보여도, 밤을 끝까지 밝히는 빛입니다."},
+{title:"열쇠",text:"구슬은 문을 가리켜요. 이미 손에 쥔 답을 믿는 순간, 잠긴 흐름이 열립니다."},
+{title:"탑",text:"무너짐은 끝이 아닙니다. 허상이 사라진 자리에서 진짜 구조가 드러납니다."},
+{title:"꽃다발",text:"기쁨과 축복이 교차하는 순간. 누군가의 호의가 당신을 살짝 밀어줄 거예요."},
+{title:"뱀",text:"경계가 필요합니다. 모든 친절이 같은 의도를 품고 있지는 않아요."},
+{title:"책",text:"아직 열리지 않은 이야기. 지금은 서두르지 말고 페이지를 남겨두세요."},
+{title:"아이",text:"새로운 시작. 순수하지만 보호가 필요한 씨앗입니다."},
+{title:"십자가",text:"짐처럼 느껴지는 책임. 그러나 이 무게는 당신을 단단하게 만듭니다."}
+
+/* 👉 여기에 같은 형식으로 벨린 52장까지 계속 추가 */
 ];
 
-let currentMode = '';
+/* 🌙 타로 메이저 (예시 5장) */
+const tarotDeck = [
+{title:"The Fool",text:"뮤너가 웃으며 말해요. 두려움 없이 떠나는 영혼의 첫걸음. 준비되지 않은 것이 아니라, 믿음이 앞선 상태입니다."},
+{title:"The Magician",text:"구슬은 손끝의 에너지를 비춥니다. 이미 모든 도구는 당신 앞에 있어요."},
+{title:"The High Priestess",text:"보이지 않는 것을 느끼세요. 지금은 답을 찾기보다, 감각을 신뢰할 때입니다."},
+{title:"The Empress",text:"풍요와 양육. 당신이 키운 것은 반드시 형태를 갖게 됩니다."},
+{title:"The Emperor",text:"질서와 책임. 안정은 통제에서 오지 않고, 구조에서 옵니다."}
 
-function startMode(mode){
- currentMode = mode;
- document.getElementById('deck-screen').style.display='block';
- document.getElementById('result-screen').style.display='none';
- const deck = document.getElementById('card-deck');
- deck.innerHTML='';
- for(let i=0;i<12;i++){
-  const c=document.createElement('div');
-  c.className='card';
-  c.onclick=showResult;
-  deck.appendChild(c);
- }
+/* 👉 여기에 메이저 22장까지 추가 */
+];
+
+let currentDeck=[];
+
+/* ======================
+   로직
+====================== */
+function startReading(type){
+  currentDeck = (type==='tarot') ? tarotDeck : bellineDeck;
+  document.getElementById('home-screen').style.display='none';
+  document.getElementById('deck-screen').style.display='block';
+  document.getElementById('result-screen').style.display='none';
+  renderSpread();
 }
 
-function showResult(){
- let data = belline52[Math.floor(Math.random()*belline52.length)];
- document.getElementById('deck-screen').style.display='none';
- document.getElementById('result-screen').style.display='block';
- document.getElementById('res-title').innerText=data.title;
- document.getElementById('res-text').innerText=data.text;
- document.getElementById('yt-link').href="https://www.youtube.com/@YOURCHANNEL";
+function renderSpread(){
+  const g=document.getElementById('cardGrid');
+  g.innerHTML='';
+  for(let i=0;i<12;i++){
+    const c=document.createElement('div');
+    c.className='card';
+    c.onclick=pickCard;
+    g.appendChild(c);
+  }
+}
+
+function pickCard(){
+  const card=currentDeck[Math.floor(Math.random()*currentDeck.length)];
+  document.getElementById('deck-screen').style.display='none';
+  document.getElementById('result-screen').style.display='block';
+  document.getElementById('resultTitle').innerText=card.title;
+  document.getElementById('resultText').innerText=card.text;
+}
+
+function goHome(){
+  document.getElementById('result-screen').style.display='none';
+  document.getElementById('home-screen').style.display='block';
 }
 </script>
 
