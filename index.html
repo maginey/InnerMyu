@@ -47,6 +47,17 @@ body{
   text-decoration: none;
 }
 
+  .menu-btn.music {
+  border: 1px solid #f5d36a;
+  box-shadow: 0 0 12px rgba(245,211,106,0.35);
+}
+
+.menu-btn.dm {
+  background: linear-gradient(135deg, #ff416c, #ff9f43);
+  color: #000;
+}
+
+
 .menu-btn.gold {
   background:
     linear-gradient(
@@ -166,35 +177,39 @@ body{
   <div class="logo">Innermyu</div>
   <div class="subtitle">심해의 마녀, 뮤너가 전하는 카드의 노래</div>
 
-  <div class="menu-grid">
-
-    <div class="menu-btn" onclick="startReading('belline')">
-      <div class="menu-title">🔮 이너뮤 벨린</div>
-    </div>
-
-    <div class="menu-btn" onclick="startReading('tarot')">
-      <div class="menu-title">🌙 유니버셜 타로 메이저</div>
-    </div>
+<div class="menu-grid">
 
   <a class="menu-btn" href="#" onclick="startMode('today')">
-  <div class="menu-title">🌙 오늘의 운세</div>
-  <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
-</a>
-    
-    <a href="YOUTUBE_PLAYLIST_LINK" target="_blank" class="menu-btn music-btn">
-      <div class="menu-title">🎧 뮤너의 음악듣기</div>
-    </a>
-
-  <a href="KAKAO_LINK" target="_blank" class="menu-btn gold">
-    <div class="menu-title">💌 1:1 리딩 요청</div>
-    <div class="menu-desc">심해의 마녀, 뮤너의 개인 의식</div>
+    <div class="menu-title">🌙 오늘의 운세</div>
+    <div class="menu-desc">오늘 하루 나에게 필요한 기운은?</div>
   </a>
 
+  <a class="menu-btn" href="#" onclick="startMode('oracle')">
+    <div class="menu-title">🔮 오라클 조언</div>
+    <div class="menu-desc">지금 내 고민에 대한 신비로운 답</div>
+  </a>
 
-    <div class="menu-btn">
-      <div class="menu-title">🌌 이너뮤 세계관 알아보기</div>
-      <div style="opacity:.6">(추후 공개)</div>
-    </div>
+  <a class="menu-btn" href="#" onclick="startMode('yesno')">
+    <div class="menu-title">⚖️ Yes or No</div>
+    <div class="menu-desc">할까 말까? 명쾌한 한 장의 대답</div>
+  </a>
+
+  <a class="menu-btn music"
+     href="https://www.youtube.com/playlist?list=PLVHQVjb061BhLKhBFilofYFlbilqxWqAJ"
+     target="_blank">
+    <div class="menu-title">🎧 뮤너의 음악듣기</div>
+    <div class="menu-desc">당신의 영혼을 달래줄 선율</div>
+  </a>
+
+  <a class="menu-btn dm"
+     href="https://open.kakao.com/me/Innermyu"
+     target="_blank">
+    <div class="menu-title">💌 1:1 리딩 요청</div>
+    <div class="menu-desc">더 깊은 상담을 원하시나요? (DM)</div>
+  </a>
+
+</div>
+
 
   </div>
 </div>
