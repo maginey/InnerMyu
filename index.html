@@ -28,7 +28,13 @@ body{
 }
 .subtitle{opacity:.8;margin-bottom:40px}
 
+  
 /* 메뉴 */
+  a{
+  text-decoration:none;
+  color:inherit;
+}
+  
 .menu-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -38,13 +44,14 @@ body{
 }
 
 .menu-btn{
-  background:rgba(0,0,0,.35);
-  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.12); /* ⬅️ 밝은 흰색 */
+  border:1px solid rgba(255,255,255,.35);
   border-radius:18px;
-  padding:22px 24px;
-  min-height:120px;        /* ⬅️ 이 줄이 핵심 */
+  padding:20px 22px;
+  min-height:110px;
   box-sizing:border-box;
   transition:.25s ease;
+  backdrop-filter: blur(6px);
 }
 
 
@@ -55,36 +62,38 @@ body{
 
 
 .menu-btn.music{
-  border:1px solid #f5d36a;
-  box-shadow:0 0 14px rgba(245,211,106,.45);
+  background:rgba(255,255,255,.14);
+  border:1.5px solid #f1d46a;
+  box-shadow:0 0 12px rgba(241,212,106,.35);
 }
 
 .menu-btn.dm{
   background:linear-gradient(
     135deg,
-    #f7e7a1 0%,
-    #e6c75f 45%,
-    #b8922b 100%
+    #e9d58a 0%,
+    #d1b24b 45%,
+    #9f7f1f 100%
   );
-  color:#000;
+  color:#1a1200;
   border:none;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.6),
-    inset 0 -1px 0 rgba(0,0,0,.2),
-    0 8px 20px rgba(201,162,39,.45);
+    inset 0 1px 0 rgba(255,255,255,.5),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 6px 16px rgba(180,140,40,.35);
 }
+
 
 
 .menu-title{
-  font-size:1.15em;
+  font-size:1.05em;
   font-weight:600;
-  margin-bottom:10px;   /* ⬅️ 여백 조금 증가 */
+  margin-bottom:8px;   /* ⬅️ 여백 조금 증가 */
 }
 
 .menu-desc{
-  font-size:0.88em;     /* ⬅️ 살짝 더 작게 */
-  opacity:0.7;
-  line-height:1.5;
+  font-size:0.82em;     /* ⬅️ 살짝 더 작게 */
+  opacity:0.75;
+  line-height:1.4;
 }
 
 
