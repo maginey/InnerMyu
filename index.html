@@ -672,17 +672,32 @@ function renderSpread(){
 }
 
 function pickCard(){
-  const card=currentDeck[Math.floor(Math.random()*currentDeck.length)];
-  document.getElementById('deck-screen').style.display='none';
-  document.getElementById('result-screen').style.display='block';
-  document.getElementById('resultTitle').innerText=card.title;
-  document.getElementById('resultText').innerText = card.text;
-  document.getElementById('loveText').innerText =
-  "💞 연애에서의 의미\n" + card.love;
-  document.getElementById('actionText').innerText =
-  "🕯 지금의 행동 조언\n" + card.action;
+  const card = currentDeck[Math.floor(Math.random()*currentDeck.length)];
 
+  document.getElementById('deck-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+
+  document.getElementById('resultTitle').innerText = card.title;
+
+  document.getElementById('resultText').innerHTML = `
+    <p style="margin-bottom:22px; line-height:1.9;">
+      ${card.main}
+    </p>
+
+    <hr style="border:none; border-top:1px solid rgba(255,255,255,.15); margin:26px 0;">
+
+    <p style="opacity:.85; line-height:1.7;">
+      💗 <b>연애에서의 의미</b><br>
+      ${card.love}
+    </p>
+
+    <p style="opacity:.85; line-height:1.7; margin-top:16px;">
+      ✨ <b>지금 행동 조언</b><br>
+      ${card.action}
+    </p>
+  `;
 }
+
 
 function goHome(){
   document.getElementById('deck-screen').style.display='none';
