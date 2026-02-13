@@ -115,7 +115,10 @@ body{
 
 
 /* 카드 스프레드 */
-#deck-screen,#result-screen{display:none;padding:60px 20px}
+#deck-screen,#result-screen{display:none;
+                            padding:60px 20px 
+                              overflow-y: auto;   /* ← 이 줄 추가 */
+                           }
 .card-grid{
   display:flex;
   flex-wrap:wrap;
@@ -219,6 +222,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="menu-title">💌 1:1 리딩 요청</div>
       <div class="menu-desc">뮤너에게 직접 묻기</div>
     </a>
+
+    <a class="menu-btn" href="#" onclick="goRoulette()">
+  <div class="menu-title">🎡 오늘의 룰렛</div>
+  <div class="menu-desc">운명의 색을 돌려보세요</div>
+  </a>
+
 
   </div>
 </div>
@@ -733,6 +742,13 @@ function pickCard(){
     </p>
   `;
 }
+  
+  function goRoulette() {
+  document.getElementById("home-screen").style.display = "none";
+  document.getElementById("result-screen").style.display = "none";
+  document.getElementById("roulette-screen").style.display = "block";
+}
+
 
 
 function goHome(){
