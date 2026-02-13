@@ -185,6 +185,33 @@ body{
   z-index:999;
   box-shadow:0 4px 15px rgba(233,69,96,.5);
 }
+  #obang-wrapper{
+  margin-top:60px;
+  text-align:center;
+}
+
+.roulette-container{
+  position:relative;
+  display:inline-block;
+}
+
+#spinBtn{
+  margin-top:20px;
+  padding:10px 18px;
+  border-radius:30px;
+  border:none;
+  background:#111;
+  color:white;
+  cursor:pointer;
+  font-size:14px;
+}
+
+#rouletteResult{
+  margin-top:20px;
+  font-size:14px;
+  opacity:.85;
+}
+
 </style>
 </head>
 
@@ -242,6 +269,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top:30px">
       <button class="link-btn" onclick="goHome()">처음으로</button>
     </div>
+    <div id="obang-wrapper">
+      
+  <div class="roulette-container">
+    <canvas id="rouletteCanvas" width="300" height="300"></canvas>
+    <button id="spinBtn">오방색 룰렛 돌리기</button>
+  </div>
+  <p id="rouletteResult"></p>
+</div>
+
   </div>
 </div>
 
@@ -659,6 +695,60 @@ const tarotDeck = [
   action: "스스로를 인정하세요."
 }
 ];
+
+  const canvas = document.getElementById("rouletteCanvas");
+const ctx = canvas.getContext("2d");
+
+const segments = [
+  {color:"#c43c39", label:"Red 🔴"},
+  {color:"#2f8f4e", label:"Green 🟢"},
+  {color:"#d6a300", label:"Yellow 🟡"},
+  {color:"#f4f4f4", label:"White ⚪"},
+  {color:"#2c5fd6", label:"Blue 🔵"}
+];
+
+let currentAngle = 0;
+
+function drawRoulette(){
+  const arc = Math.PI * 2 / segments.length;
+  for(let i=0;i<segments.length;i++){
+    ctx.beginPath();
+    ctx.moveTo(150,150);
+    ctx.arc(150,150,150,i*arc,(i+1)*arc);
+    ctx.fillStyle = segments[i].color;
+    ctx.fill();
+    ctx.strokeStyle="#000";
+    ctx.stroke();
+
+    // 카드 아이콘 모양 (간단한 카드 실루엣)
+    ctx.save();
+    ctx.translate(150,150);
+    ctx.rotate(i*arc + arc/2);
+    ctx.fillStyle = segments[i].color === "#f4f4f4" ? "#000" : "#fff";
+    ctx.fillRect(70,-15,30,40);
+    ctx.restore();
+  }
+}
+
+drawRoulette();
+
+document.getElementById("spinBtn").addEventListener("click", function(){
+  const spinAngle = Math.random()*360 + 720;
+  currentAngle += spinAngle;
+
+  canvas.style.transition="transform 3s ease-out";
+  canvas.style.transform=`rotate(${currentAngle}deg)`;
+
+  setTimeout(()=>{
+    const actualDeg = currentAngle % 360;
+    const segmentDeg = 360 / segments.length;
+    const index = Math.floor((360 - actualDeg) / segmentDeg) % segments.length;
+
+    document.getElementById("rouletteResult").innerText =
+      "오늘의 오방색 기운은: " + segments[index].label;
+  },3000);
+});
+
 
 
 
