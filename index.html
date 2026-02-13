@@ -271,10 +271,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div id="obang-wrapper">
       
-  <div class="roulette-container">
-    <canvas id="rouletteCanvas" width="300" height="300"></canvas>
-    <button id="spinBtn">오방색 룰렛 돌리기</button>
-  </div>
+<div style="margin-top:60px; text-align:center;">
+  <canvas id="rouletteCanvas" width="300" height="300"></canvas>
+  <br><br>
+  <button id="spinBtn">오방색 룰렛 돌리기</button>
   <p id="rouletteResult"></p>
 </div>
 
@@ -696,57 +696,66 @@ const tarotDeck = [
 }
 ];
 
+document.addEventListener("DOMContentLoaded", function(){
+
   const canvas = document.getElementById("rouletteCanvas");
-const ctx = canvas.getContext("2d");
+  if(!canvas) return;
 
-const segments = [
-  {color:"#c43c39", label:"Red 🔴"},
-  {color:"#2f8f4e", label:"Green 🟢"},
-  {color:"#d6a300", label:"Yellow 🟡"},
-  {color:"#f4f4f4", label:"White ⚪"},
-  {color:"#2c5fd6", label:"Blue 🔵"}
-];
+  const ctx = canvas.getContext("2d");
 
-let currentAngle = 0;
+  const colors = [
+    "#c43c39", // 빨강
+    "#2f8f4e", // 초록
+    "#d6a300", // 노랑
+    "#f4f4f4", // 하양
+    "#2c5fd6"  // 파랑
+  ];
 
-function drawRoulette(){
-  const arc = Math.PI * 2 / segments.length;
-  for(let i=0;i<segments.length;i++){
-    ctx.beginPath();
-    ctx.moveTo(150,150);
-    ctx.arc(150,150,150,i*arc,(i+1)*arc);
-    ctx.fillStyle = segments[i].color;
-    ctx.fill();
-    ctx.strokeStyle="#000";
-    ctx.stroke();
+  const labels = [
+    "Red 🔴",
+    "Green 🟢",
+    "Yellow 🟡",
+    "White ⚪",
+    "Blue 🔵"
+  ];
 
-    // 카드 아이콘 모양 (간단한 카드 실루엣)
-    ctx.save();
-    ctx.translate(150,150);
-    ctx.rotate(i*arc + arc/2);
-    ctx.fillStyle = segments[i].color === "#f4f4f4" ? "#000" : "#fff";
-    ctx.fillRect(70,-15,30,40);
-    ctx.restore();
+  let currentAngle = 0;
+
+  function drawWheel(){
+    const arc = Math.PI * 2 / colors.length;
+
+    for(let i=0;i<colors.length;i++){
+      ctx.beginPath();
+      ctx.moveTo(150,150);
+      ctx.arc(150,150,150,i*arc,(i+1)*arc);
+      ctx.closePath();
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+      ctx.stroke();
+    }
   }
-}
 
-drawRoulette();
+  drawWheel();
 
-document.getElementById("spinBtn").addEventListener("click", function(){
-  const spinAngle = Math.random()*360 + 720;
-  currentAngle += spinAngle;
+  document.getElementById("spinBtn").addEventListener("click", function(){
 
-  canvas.style.transition="transform 3s ease-out";
-  canvas.style.transform=`rotate(${currentAngle}deg)`;
+    const spin = Math.random()*360 + 720;
+    currentAngle += spin;
 
-  setTimeout(()=>{
-    const actualDeg = currentAngle % 360;
-    const segmentDeg = 360 / segments.length;
-    const index = Math.floor((360 - actualDeg) / segmentDeg) % segments.length;
+    canvas.style.transition = "transform 3s ease-out";
+    canvas.style.transform = "rotate(" + currentAngle + "deg)";
 
-    document.getElementById("rouletteResult").innerText =
-      "오늘의 오방색 기운은: " + segments[index].label;
-  },3000);
+    setTimeout(function(){
+      const finalDeg = currentAngle % 360;
+      const segment = 360 / colors.length;
+      const index = Math.floor((360 - finalDeg) / segment) % colors.length;
+
+      document.getElementById("rouletteResult").innerText =
+        "오늘의 기운: " + labels[index];
+    },3000);
+
+  });
+
 });
 
 
