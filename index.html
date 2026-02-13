@@ -711,6 +711,7 @@ function startReading(type){
   document.getElementById('home-screen').style.display='none';
   document.getElementById('deck-screen').style.display='block';
   document.getElementById('result-screen').style.display='none';
+  document.getElementById('roulette-screen').style.display='none'; 
   renderSpread();
 }
 
@@ -753,8 +754,9 @@ document.getElementById('roulette-screen').style.display = 'none';
   `;
 }
   
-  function goRoulette() {
+function goRoulette() {
   document.getElementById("home-screen").style.display = "none";
+  document.getElementById("deck-screen").style.display = "none";
   document.getElementById("result-screen").style.display = "none";
   document.getElementById("roulette-screen").style.display = "block";
 }
