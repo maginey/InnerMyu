@@ -268,6 +268,7 @@ background:conic-gradient(
 ); transition: transform 3s cubic-bezier(.17,.67,.83,.67);">
   <button class="link-btn" onclick="spinRoulette()">돌리기</button>
   </div>
+    <p id="rouletteResult" style="margin-top:25px; font-size:18px;"></p>
 <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A" 
    target="_blank" 
    class="link-btn">
@@ -759,9 +760,29 @@ function pickCard(){
 
 function spinRoulette(){
   const wheel = document.getElementById("rouletteWheel");
-  const randomDeg = Math.floor(Math.random() * 360) + 720; 
+  const resultText = document.getElementById("rouletteResult");
+
+  const randomDeg = Math.floor(Math.random() * 360) + 720;
   wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+  resultText.innerText = "🔮 운명의 색이 결정되는 중...";
+  // 3초 뒤 결과 계산 (CSS transition이 3초니까)
+  setTimeout(() => {
+
+    const finalDeg = randomDeg % 360;
+    let color = "";
+
+    if(finalDeg < 72) color = "빨강 🔴";
+    else if(finalDeg < 144) color = "초록 🟢";
+    else if(finalDeg < 216) color = "노랑 🟡";
+    else if(finalDeg < 288) color = "하양 ⚪";
+    else color = "파랑 🔵";
+
+    resultText.innerText = `✨ 오늘 당신의 색은 ${color} 입니다.`;
+
+  }, 3000);
 }
+
 
 function goHome(){
   document.getElementById('deck-screen').style.display='none';
