@@ -185,33 +185,6 @@ body{
   z-index:999;
   box-shadow:0 4px 15px rgba(233,69,96,.5);
 }
-  #obang-wrapper{
-  margin-top:60px;
-  text-align:center;
-}
-
-.roulette-container{
-  position:relative;
-  display:inline-block;
-}
-
-#spinBtn{
-  margin-top:20px;
-  padding:10px 18px;
-  border-radius:30px;
-  border:none;
-  background:#111;
-  color:white;
-  cursor:pointer;
-  font-size:14px;
-}
-
-#rouletteResult{
-  margin-top:20px;
-  font-size:14px;
-  opacity:.85;
-}
-
 </style>
 </head>
 
@@ -269,15 +242,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="margin-top:30px">
       <button class="link-btn" onclick="goHome()">처음으로</button>
     </div>
-    <div id="obang-wrapper">
-      
-<div style="margin-top:60px; text-align:center;">
-  <canvas id="rouletteCanvas" width="300" height="300"></canvas>
-  <br><br>
-  <button id="spinBtn">오방색 룰렛 돌리기</button>
-  <p id="rouletteResult"></p>
-</div>
-
   </div>
 </div>
 
@@ -696,69 +660,6 @@ const tarotDeck = [
 }
 ];
 
-document.addEventListener("DOMContentLoaded", function(){
-
-  const canvas = document.getElementById("rouletteCanvas");
-  if(!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-
-  const colors = [
-    "#c43c39", // 빨강
-    "#2f8f4e", // 초록
-    "#d6a300", // 노랑
-    "#f4f4f4", // 하양
-    "#2c5fd6"  // 파랑
-  ];
-
-  const labels = [
-    "Red 🔴",
-    "Green 🟢",
-    "Yellow 🟡",
-    "White ⚪",
-    "Blue 🔵"
-  ];
-
-  let currentAngle = 0;
-
-  function drawWheel(){
-    const arc = Math.PI * 2 / colors.length;
-
-    for(let i=0;i<colors.length;i++){
-      ctx.beginPath();
-      ctx.moveTo(150,150);
-      ctx.arc(150,150,150,i*arc,(i+1)*arc);
-      ctx.closePath();
-      ctx.fillStyle = colors[i];
-      ctx.fill();
-      ctx.stroke();
-    }
-  }
-
-  drawWheel();
-
-  document.getElementById("spinBtn").addEventListener("click", function(){
-
-    const spin = Math.random()*360 + 720;
-    currentAngle += spin;
-
-    canvas.style.transition = "transform 3s ease-out";
-    canvas.style.transform = "rotate(" + currentAngle + "deg)";
-
-    setTimeout(function(){
-      const finalDeg = currentAngle % 360;
-      const segment = 360 / colors.length;
-      const index = Math.floor((360 - finalDeg) / segment) % colors.length;
-
-      document.getElementById("rouletteResult").innerText =
-        "오늘의 기운: " + labels[index];
-    },3000);
-
-  });
-
-});
-
-
 
 
 
@@ -823,5 +724,4 @@ function goHome(){
 
 </body>
 </html>
-
 
