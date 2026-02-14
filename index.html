@@ -998,19 +998,12 @@ function spinRoulette(){
   resultText.innerText = "🔮 운명의 색이 결정되는 중...";
 
   setTimeout(() => {
-    // 최종 각도
-    const finalAngle = currentRotation % 360;
+    const finalRotation = currentRotation % 360;
     
-    // 🎯 정확한 공식:
-    // 화살표는 12시 위치에서 아래(6시)를 가리킴 = 180도
-    // conic-gradient는 3시(0도)부터 시작
-    // 룰렛이 시계방향 finalAngle도 회전
-    // 화살표가 가리키는 실제 위치 = (180 - finalAngle)
-    
-    let pointerAngle = (180 - finalAngle) % 360;
+    // 화살표는 위쪽 룰렛의 12시 위치를 가리킴
+    let pointerAngle = (90 - finalRotation) % 360;
     if (pointerAngle < 0) pointerAngle += 360;
     
-    // 오방색 판별
     let colorName = "";
     let colorEmoji = "";
     let colorMessage = "";
