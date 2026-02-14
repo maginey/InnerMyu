@@ -987,34 +987,30 @@ function spinRoulette(){
   const resultText = document.getElementById("rouletteResult");
   const spinButton = document.getElementById("spinButton");
   
-  // 버튼 비활성화 (중복 클릭 방지)
   spinButton.disabled = true;
 
-  // 랜덤 회전 각도 계산 (최소 5바퀴 + 랜덤)
   const minSpins = 5;
   const randomDegree = Math.floor(Math.random() * 360);
   const totalRotation = (minSpins * 360) + randomDegree;
   
-  // 누적 회전값에 추가
   currentRotation += totalRotation;
-
-  // 룰렛 회전
   wheel.style.transform = `rotate(${currentRotation}deg)`;
   resultText.innerText = "🔮 운명의 색이 결정되는 중...";
 
-  // 4초 후 결과 계산 (CSS transition이 4초)
   setTimeout(() => {
-    // 최종 회전 각도 (0-360도 범위)
-    const finalRotation = currentRotation % 360;
+    // 최종 각도
+    const finalAngle = currentRotation % 360;
     
-// 포인터는 12시 방향 (270도 위치)
-// 룰렛이 시계방향으로 회전하므로, 실제 포인터가 가리키는 각도 계산
-// 270도(12시) - 회전각도 = 포인터가 가리키는 실제 각도
-let pointerAngle = (270 - finalRotation) % 360;
-if (pointerAngle < 0) pointerAngle += 360;
+    // 🎯 정확한 공식:
+    // 화살표는 12시 위치에서 아래(6시)를 가리킴 = 180도
+    // conic-gradient는 3시(0도)부터 시작
+    // 룰렛이 시계방향 finalAngle도 회전
+    // 화살표가 가리키는 실제 위치 = (180 - finalAngle)
     
-    // 오방색 섹션 판별 (각 72도)
-    // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
+    let pointerAngle = (180 - finalAngle) % 360;
+    if (pointerAngle < 0) pointerAngle += 360;
+    
+    // 오방색 판별
     let colorName = "";
     let colorEmoji = "";
     let colorMessage = "";
@@ -1041,7 +1037,6 @@ if (pointerAngle < 0) pointerAngle += 360;
       colorMessage = "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다.";
     }
 
-    // 결과 표시
     resultText.innerHTML = `
       <div style="font-size:1.5em; margin-bottom:10px;">
         ${colorEmoji} ${colorName}
@@ -1051,12 +1046,10 @@ if (pointerAngle < 0) pointerAngle += 360;
       </div>
     `;
     
-    // 버튼 다시 활성화
     spinButton.disabled = false;
 
   }, 4000);
 }
-
 
 function goHome(){
   document.getElementById('deck-screen').style.display='none';
