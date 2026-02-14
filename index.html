@@ -1007,10 +1007,11 @@ function spinRoulette(){
     // 최종 회전 각도 (0-360도 범위)
     const finalRotation = currentRotation % 360;
     
-    // 포인터는 12시 방향(위쪽)에 고정
-    // conic-gradient는 3시 방향(0도)부터 시작
-    // 룰렛이 시계방향으로 회전했으므로, 포인터가 가리키는 실제 각도는:
-    const pointerAngle = (360 - finalRotation + 90) % 360;
+// 포인터는 12시 방향 (270도 위치)
+// 룰렛이 시계방향으로 회전하므로, 실제 포인터가 가리키는 각도 계산
+// 270도(12시) - 회전각도 = 포인터가 가리키는 실제 각도
+let pointerAngle = (270 - finalRotation) % 360;
+if (pointerAngle < 0) pointerAngle += 360;
     
     // 오방색 섹션 판별 (각 72도)
     // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
