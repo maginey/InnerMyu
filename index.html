@@ -441,7 +441,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <p id="rouletteResult"></p>
 
-  <div style="margin-top:40px;">
+  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px;">
     <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
        target="_blank"
        class="link-btn">🎥 유튜브 타로 보기</a>
@@ -987,23 +987,32 @@ function spinRoulette(){
   const resultText = document.getElementById("rouletteResult");
   const spinButton = document.getElementById("spinButton");
   
+  // 버튼 비활성화 (중복 클릭 방지)
   spinButton.disabled = true;
 
+  // 랜덤 회전 각도 계산 (최소 5바퀴 + 랜덤)
   const minSpins = 5;
   const randomDegree = Math.floor(Math.random() * 360);
   const totalRotation = (minSpins * 360) + randomDegree;
   
+  // 누적 회전값에 추가
   currentRotation += totalRotation;
+
+  // 룰렛 회전
   wheel.style.transform = `rotate(${currentRotation}deg)`;
   resultText.innerText = "🔮 운명의 색이 결정되는 중...";
 
+  // 4초 후 결과 계산 (CSS transition이 4초)
   setTimeout(() => {
+    // 최종 회전 각도 (0-360도 범위로 정규화)
     const finalRotation = currentRotation % 360;
     
-    // 화살표는 위쪽 룰렛의 12시 위치를 가리킴
-    let pointerAngle = (90 - finalRotation) % 360;
-    if (pointerAngle < 0) pointerAngle += 360;
+    // 🎯 정확한 공식:
+    // 화살표가 가리키는 위치
+    let pointerAngle = finalRotation;
     
+    // 오방색 섹션 (conic-gradient의 0도는 3시 방향)
+    // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
     let colorName = "";
     let colorEmoji = "";
     let colorMessage = "";
@@ -1030,6 +1039,7 @@ function spinRoulette(){
       colorMessage = "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다.";
     }
 
+    // 결과 표시
     resultText.innerHTML = `
       <div style="font-size:1.5em; margin-bottom:10px;">
         ${colorEmoji} ${colorName}
@@ -1039,10 +1049,12 @@ function spinRoulette(){
       </div>
     `;
     
+    // 버튼 다시 활성화
     spinButton.disabled = false;
 
   }, 4000);
 }
+
 
 function goHome(){
   document.getElementById('deck-screen').style.display='none';
