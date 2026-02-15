@@ -426,14 +426,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="roulette-subtitle">심해의 마녀가 당신의 색을 점칩니다</p>
 
   <div class="roulette-container">
-    <!-- 포인터 (화살표) -->
-    <div class="roulette-pointer"></div>
-    
-    <!-- 룰렛 휠 -->
-    <div id="rouletteWheel">
-      <!-- 중앙 장식 -->
-      <div class="roulette-center">🔮</div>
-    </div>
+    <!-- Canvas 기반 룰렛 (화살표 + 휠 모두 포함) -->
+    <canvas id="rouletteCanvas" width="350" height="350" style="border-radius:50%; box-shadow: 0 0 30px rgba(255,236,210,.3);"></canvas>
   </div>
 
   <button class="spin-btn" id="spinButton" onclick="spinRoulette()">
@@ -920,7 +914,7 @@ const tarotDeck = [
 
 
 let currentDeck=[];
-let currentRotation = 0;  // 룰렛 누적 회전 각도
+let currentDeck=[];
 
 /* ======================
    로직
@@ -952,7 +946,7 @@ function pickCard(){
   document.getElementById('result-screen').style.display = 'block';
 
   document.getElementById('resultTitle').innerText = card.title;
-document.getElementById('roulette-screen').style.display = 'none';
+  document.getElementById('roulette-screen').style.display = 'none';
 
   document.getElementById('resultText').innerHTML = `
     <p style="margin-bottom:22px; line-height:1.9;">
@@ -978,82 +972,219 @@ function goRoulette() {
   document.getElementById("deck-screen").style.display = "none";
   document.getElementById("result-screen").style.display = "none";
   document.getElementById("roulette-screen").style.display = "block";
+  // Canvas 초기 그리기
+  if (rouletteCtx && !isSpinning) {
+    drawRoulette(currentRotation);
+  }
 }
 
 /* ==========================================
-   🎡 룰렛 로직 - 여기가 핵심 수정 부분
+   🎡 Canvas 기반 정밀 룰렛
 ========================================== */
-function spinRoulette(){
-  const wheel = document.getElementById("rouletteWheel");
-  const resultText = document.getElementById("rouletteResult");
-  const spinButton = document.getElementById("spinButton");
+
+// Canvas 초기화
+const rouletteCanvas = document.getElementById('rouletteCanvas');
+const rouletteCtx = rouletteCanvas ? rouletteCanvas.getContext('2d') : null;
+
+const canvasSize = 350;
+const rouletteCenterX = canvasSize / 2;
+const rouletteCenterY = canvasSize / 2;
+const wheelRadius = 150;
+
+let currentRotation = 0;
+let isSpinning = false;
+
+// 오방색 정의
+const obangsaek = [
+  { name: "빨강 (적색)", emoji: "🔴", hex: "#c43c39", rgb: [196, 60, 57], start: 0, end: 72,
+    message: "남쪽을 상징하는 빨강색! 불의 기운이 당신에게 열정과 활력을 불어넣을 것입니다." },
+  { name: "초록 (청색)", emoji: "🟢", hex: "#2f8f4e", rgb: [47, 143, 78], start: 72, end: 144,
+    message: "동쪽을 상징하는 초록색! 나무의 기운이 당신에게 새로운 시작과 성장을 가져다줄 것입니다." },
+  { name: "노랑 (황색)", emoji: "🟡", hex: "#d6a300", rgb: [214, 163, 0], start: 144, end: 216,
+    message: "중앙을 상징하는 노란색! 땅의 기운이 당신에게 안정과 풍요를 가져다줄 것입니다." },
+  { name: "하양 (백색)", emoji: "⚪", hex: "#f4f4f4", rgb: [244, 244, 244], start: 216, end: 288,
+    message: "서쪽을 상징하는 하얀색! 금의 기운이 당신에게 맑고 순수한 마음을 선물할 것입니다." },
+  { name: "파랑 (현색)", emoji: "🔵", hex: "#2c5fd6", rgb: [44, 95, 214], start: 288, end: 360,
+    message: "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다." }
+];
+
+// Canvas에 전체 그리기 (화살표 + 룰렛)
+function drawRoulette(wheelRotation) {
+  if (!rouletteCtx) return;
   
-  // 버튼 비활성화 (중복 클릭 방지)
-  spinButton.disabled = true;
-
-  // 랜덤 회전 각도 계산 (최소 5바퀴 + 랜덤)
-  const minSpins = 5;
-  const randomDegree = Math.floor(Math.random() * 360);
-  const totalRotation = (minSpins * 360) + randomDegree;
+  const ctx = rouletteCtx;
   
-  // 누적 회전값에 추가
-  currentRotation += totalRotation;
+  // 배경 지우기
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
+  
+  // === 룰렛 그리기 (회전) ===
+  ctx.save();
+  ctx.translate(rouletteCenterX, rouletteCenterY);
+  ctx.rotate((wheelRotation * Math.PI) / 180);
+  ctx.translate(-rouletteCenterX, -rouletteCenterY);
+  
+  // 각 색상 섹션
+  obangsaek.forEach(color => {
+    ctx.fillStyle = color.hex;
+    ctx.beginPath();
+    ctx.moveTo(rouletteCenterX, rouletteCenterY);
+    ctx.arc(rouletteCenterX, rouletteCenterY, wheelRadius,
+            (color.start * Math.PI) / 180,
+            (color.end * Math.PI) / 180);
+    ctx.closePath();
+    ctx.fill();
+  });
+  
+  ctx.restore();
+  
+  // 중앙 검은 원
+  ctx.fillStyle = 'rgba(26,26,46,.95)';
+  ctx.beginPath();
+  ctx.arc(rouletteCenterX, rouletteCenterY, 40, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#ffecd2';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  
+  // 중앙 이모티콘
+  ctx.font = 'bold 35px Arial';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('🔮', rouletteCenterX, rouletteCenterY);
+  
+  // === 화살표 그리기 (고정, 회전 안 함) ===
+  const arrowY = rouletteCenterY - wheelRadius - 25;
+  
+  ctx.save();
+  ctx.fillStyle = '#ffecd2';
+  ctx.strokeStyle = '#ffecd2';
+  ctx.lineWidth = 2;
+  
+  // 화살표 삼각형 (아래를 가리킴)
+  ctx.beginPath();
+  ctx.moveTo(rouletteCenterX, arrowY + 30);      // 아래 꼭지점
+  ctx.lineTo(rouletteCenterX - 18, arrowY);      // 왼쪽 위
+  ctx.lineTo(rouletteCenterX + 18, arrowY);      // 오른쪽 위
+  ctx.closePath();
+  ctx.fill();
+  
+  // 발광 효과
+  ctx.shadowColor = 'rgba(255, 236, 210, 0.8)';
+  ctx.shadowBlur = 12;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  ctx.restore();
+}
 
-  // 룰렛 회전
-  wheel.style.transform = `rotate(${currentRotation}deg)`;
-  resultText.innerText = "🔮 운명의 색이 결정되는 중...";
-
-  // 4초 후 결과 계산 (CSS transition이 4초)
-  setTimeout(() => {
-    // 최종 회전 각도 (0-360도 범위로 정규화)
-    const finalRotation = currentRotation % 360;
+// RGB 값으로 색상 판별
+function getColorFromRGB(r, g, b) {
+  let minDistance = Infinity;
+  let closestColor = obangsaek[0];
+  
+  obangsaek.forEach(color => {
+    const distance = Math.sqrt(
+      Math.pow(r - color.rgb[0], 2) +
+      Math.pow(g - color.rgb[1], 2) +
+      Math.pow(b - color.rgb[2], 2)
+    );
     
-    // 🎯 정확한 공식: finalAngle 그대로!
-    // 화살표가 가리키는 위치 = 회전한 각도
-    let pointerAngle = finalRotation;
-    
-    // 오방색 섹션 (conic-gradient의 0도는 3시 방향)
-    // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
-    let colorName = "";
-    let colorEmoji = "";
-    let colorMessage = "";
-    
-    if (pointerAngle >= 0 && pointerAngle < 72) {
-      colorName = "빨강 (적색)";
-      colorEmoji = "🔴";
-      colorMessage = "남쪽을 상징하는 빨강색! 불의 기운이 당신에게 열정과 활력을 불어넣을 것입니다.";
-    } else if (pointerAngle >= 72 && pointerAngle < 144) {
-      colorName = "초록 (청색)";
-      colorEmoji = "🟢";
-      colorMessage = "동쪽을 상징하는 초록색! 나무의 기운이 당신에게 새로운 시작과 성장을 가져다줄 것입니다.";
-    } else if (pointerAngle >= 144 && pointerAngle < 216) {
-      colorName = "노랑 (황색)";
-      colorEmoji = "🟡";
-      colorMessage = "중앙을 상징하는 노란색! 땅의 기운이 당신에게 안정과 풍요를 가져다줄 것입니다.";
-    } else if (pointerAngle >= 216 && pointerAngle < 288) {
-      colorName = "하양 (백색)";
-      colorEmoji = "⚪";
-      colorMessage = "서쪽을 상징하는 하얀색! 금의 기운이 당신에게 맑고 순수한 마음을 선물할 것입니다.";
-    } else {
-      colorName = "파랑 (현색)";
-      colorEmoji = "🔵";
-      colorMessage = "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다.";
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestColor = color;
     }
+  });
+  
+  return closestColor;
+}
 
-    // 결과 표시
-    resultText.innerHTML = `
-      <div style="font-size:1.5em; margin-bottom:10px;">
-        ${colorEmoji} ${colorName}
-      </div>
-      <div style="font-size:1em; opacity:0.9; line-height:1.6;">
-        ${colorMessage}
-      </div>
-    `;
+// 화살표 끝점의 색상 감지
+function detectColorAtArrow() {
+  if (!rouletteCtx) return obangsaek[0];
+  
+  // 화살표 끝점 위치
+  const arrowTipX = rouletteCenterX;
+  const arrowTipY = rouletteCenterY - wheelRadius - 25 + 30;
+  
+  // 화살표 바로 아래 룰렛 부분
+  const detectY = arrowTipY + 5;
+  
+  // 픽셀 색상 읽기
+  const imageData = rouletteCtx.getImageData(arrowTipX, detectY, 1, 1);
+  const r = imageData.data[0];
+  const g = imageData.data[1];
+  const b = imageData.data[2];
+  
+  return getColorFromRGB(r, g, b);
+}
+
+// 룰렛 돌리기
+function spinRoulette() {
+  if (isSpinning || !rouletteCtx) return;
+  
+  const spinButton = document.getElementById("spinButton");
+  const resultText = document.getElementById("rouletteResult");
+  
+  isSpinning = true;
+  spinButton.disabled = true;
+  resultText.innerText = "🔮 운명의 색이 결정되는 중...";
+  
+  // 랜덤 회전
+  const extraSpins = 5 + Math.floor(Math.random() * 3);
+  const randomAngle = Math.floor(Math.random() * 360);
+  const totalRotation = (extraSpins * 360) + randomAngle;
+  
+  const targetRotation = currentRotation + totalRotation;
+  const duration = 4000;
+  const startTime = Date.now();
+  const startRotation = currentRotation;
+  
+  // 애니메이션
+  function animate() {
+    const now = Date.now();
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
     
-    // 버튼 다시 활성화
-    spinButton.disabled = false;
+    // Easing (cubic-bezier)
+    const easeProgress = progress < 0.5
+      ? 2 * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+    
+    currentRotation = startRotation + (totalRotation * easeProgress);
+    drawRoulette(currentRotation);
+    
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      // 회전 완료
+      currentRotation = targetRotation % 360;
+      drawRoulette(currentRotation);
+      
+      // 색상 감지
+      setTimeout(() => {
+        const detectedColor = detectColorAtArrow();
+        
+        resultText.innerHTML = `
+          <div style="font-size:1.5em; margin-bottom:10px;">
+            ${detectedColor.emoji} ${detectedColor.name}
+          </div>
+          <div style="font-size:1em; opacity:0.9; line-height:1.6;">
+            ${detectedColor.message}
+          </div>
+        `;
+        
+        isSpinning = false;
+        spinButton.disabled = false;
+      }, 200);
+    }
+  }
+  
+  animate();
+}
 
-  }, 4000);
+// 페이지 로드 시 초기 그리기
+if (rouletteCtx) {
+  drawRoulette(0);
 }
 
 
