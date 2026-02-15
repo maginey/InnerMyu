@@ -165,7 +165,9 @@ body{
 
 /* 링크 버튼 */
 .link-btn{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   margin:8px;
   padding:12px 26px;
   border-radius:30px;
@@ -176,10 +178,14 @@ body{
   cursor:pointer;
   font-family:'Noto Serif KR',serif;
   font-size:1em;
+  line-height:1.2;
+  vertical-align:middle;
+  transition:all 0.3s ease;
 }
 
 .link-btn:hover{
   background:rgba(255,255,255,.25);
+  transform:translateY(-1px);
 }
 
 /* 플로팅 CTA */
@@ -205,6 +211,8 @@ body{
   text-align:center;
   padding:60px 20px;
   overflow-y:auto;
+  width:100%;
+  box-sizing:border-box;
 }
 
 .roulette-title {
@@ -223,15 +231,16 @@ body{
 
 /* 룰렛 컨테이너 */
 .roulette-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  width:350px;
+  height:350px;
+  margin:40px auto;
+  position:relative;
 }
 
-.roulette-container canvas {
-  max-width: 100%;
-  max-height: 100%;
+#rouletteCanvas {
+  display:block;
+  border-radius:50%;
+  box-shadow:0 0 30px rgba(255,236,210,.3);
 }
 
 /* 포인터 (화살표) */
@@ -299,8 +308,8 @@ body{
   background:linear-gradient(135deg, #d1b24b, #9f7f1f);
   color:#1a1200;
   border:none;
-  padding:16px 40px;
-  font-size:1.2em;
+  padding:15px 35px;
+  font-size:1.15em;
   font-family:'Noto Serif KR',serif;
   font-weight:600;
   border-radius:30px;
@@ -309,7 +318,16 @@ body{
     inset 0 1px 0 rgba(255,255,255,.5),
     0 6px 20px rgba(180,140,40,.4);
   transition:.25s ease;
-  margin-top:16px;
+  margin:20px auto 0;
+  display:inline-block;
+  text-align:center;
+  min-width:180px;
+}
+
+.spin-btn span {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .spin-btn:hover {
@@ -336,23 +354,51 @@ body{
 
 /* 모바일 반응형 */
 @media (max-width:768px) {
+  #roulette-screen {
+    padding:30px 0;
+  }
+  .roulette-title {
+    font-size:1.8em;
+    padding:0 15px;
+  }
+  .roulette-subtitle {
+    font-size:0.95em;
+    margin-bottom:25px;
+    padding:0 15px;
+  }
   .roulette-container {
-    width: 90vw;
-    height: 90vw;
-    max-width: 300px;
-    max-height: 300px;
+    width:280px;
+    height:280px;
+    margin:25px auto;
   }
-  
+  #rouletteCanvas {
+    width:280px !important;
+    height:280px !important;
+  }
   .spin-btn {
-    padding: 13px 28px;
-    font-size: 1.05em;
-    min-width: 160px;
+    padding:13px 28px;
+    font-size:1.05em;
+    margin:15px 0 0;
   }
-  
+  .spin-btn span {
+    gap:6px;
+  }
+  .spin-btn span span:first-child {
+    font-size:1em;
+  }
+  #rouletteResult {
+    font-size:0.95em;
+    padding:0 15px;
+    margin-top:20px;
+  }
+  #rouletteResult > div:first-child {
+    font-size:1.3em !important;
+  }
   .link-btn {
-    font-size: 0.95em;
-    min-width: 140px;
+    font-size:0.95em;
+    padding:11px 22px;
   }
+}
 }
 </style>
 </head>
@@ -432,19 +478,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="roulette-container">
     <!-- Canvas 기반 룰렛 (화살표 + 휠 모두 포함) -->
-    <canvas id="rouletteCanvas" width="350" height="350" style="border-radius:50%; box-shadow: 0 0 30px rgba(255,236,210,.3);"></canvas>
+    <canvas id="rouletteCanvas" width="350" height="350"></canvas>
   </div>
 
   <button class="spin-btn" id="spinButton" onclick="spinRoulette()">
-    🎡 룰렛 돌리기
+    <span style="display:inline-flex; align-items:center; gap:8px;">
+      <span style="font-size:1.1em;">🔮</span>
+      <span>룰렛 돌리기</span>
+    </span>
   </button>
 
   <p id="rouletteResult"></p>
 
-  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px;">
+  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px; width:100%;">
     <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
        target="_blank"
-       class="link-btn">🎥 유튜브 타로 보기</a>
+       class="link-btn">
+       <span style="display:inline-flex; align-items:center; gap:6px;">
+         <span>🎥</span>
+         <span>유튜브 타로 보기</span>
+       </span>
+    </a>
     
     <button class="link-btn" onclick="goHome()">처음으로</button>
   </div>
@@ -986,14 +1040,44 @@ function goRoulette() {
    🎡 Canvas 기반 정밀 룰렛
 ========================================== */
 
-// Canvas 초기화
+// Canvas 초기화 및 설정
 const rouletteCanvas = document.getElementById('rouletteCanvas');
 const rouletteCtx = rouletteCanvas ? rouletteCanvas.getContext('2d') : null;
 
-const canvasSize = 350;
-const rouletteCenterX = canvasSize / 2;
-const rouletteCenterY = canvasSize / 2;
-const wheelRadius = 150;
+// 고정 크기 사용 (더 확실한 중앙 정렬)
+let canvasSize = 350;
+let rouletteCenterX = canvasSize / 2;
+let rouletteCenterY = canvasSize / 2;
+let wheelRadius = canvasSize * 0.43;
+
+// 모바일 대응
+function updateCanvasSize() {
+  if (!rouletteCanvas) return;
+  
+  if (window.innerWidth <= 768) {
+    canvasSize = 280;
+  } else {
+    canvasSize = 350;
+  }
+  
+  rouletteCanvas.width = canvasSize;
+  rouletteCanvas.height = canvasSize;
+  rouletteCenterX = canvasSize / 2;
+  rouletteCenterY = canvasSize / 2;
+  wheelRadius = canvasSize * 0.43;
+  
+  if (!isSpinning) {
+    drawRoulette(currentRotation);
+  }
+}
+
+// 윈도우 리사이즈 감지
+window.addEventListener('resize', updateCanvasSize);
+
+// 초기 설정
+if (rouletteCanvas) {
+  updateCanvasSize();
+}
 
 let currentRotation = 0;
 let isSpinning = false;
@@ -1190,17 +1274,6 @@ function spinRoulette() {
 if (rouletteCtx) {
   drawRoulette(0);
 }
-
-  // 화면 크기에 따라 Canvas 크기 자동 조정
-function getCanvasSize() {
-  if (window.innerWidth <= 768) {
-    return Math.min(window.innerWidth * 0.9, 300);
-  }
-  return 350;
-}
-
-// 윈도우 리사이즈 감지
-window.addEventListener('resize', updateCanvasSize);
 
 
 function goHome(){
