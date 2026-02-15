@@ -1,180 +1,1040 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WNPSJBSP22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WNPSJBSP22');
+</script>
+  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>완벽한 룰렛 - Canvas 100%</title>
+<title>Innermyu | 심해의 마녀 뮤너</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-body {
-  margin: 0;
-  padding: 40px;
-  font-family: 'Noto Sans KR', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-align: center;
-}
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-h1 { margin-bottom: 30px; }
-
-#canvasContainer {
-  position: relative;
-  width: 450px;
-  height: 450px;
-  margin: 40px auto;
+body{
+  margin:0;
+  font-family:'Noto Serif KR',serif;
+  color:#e9e9e9;
+  text-align:center;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.65) 0%,
+      rgba(0,0,0,.45) 30%,
+      rgba(0,0,0,.45) 70%,
+      rgba(0,0,0,.65) 100%
+    ),
+    url('assets/innermyu_2.gif') center/cover fixed no-repeat;
 }
 
-canvas {
-  display: block;
-  margin: 0 auto;
+/* 타이틀 */
+.logo{
+  font-family:'Cinzel',serif;
+  font-size:3em;
+  margin-top:60px;
+  color:#ffecd2;
+  text-shadow:0 0 15px rgba(255,236,210,.4);
+}
+.subtitle{opacity:.8;margin-bottom:40px}
+
+  
+/* 메뉴 */
+  a{
+  text-decoration:none;
+  color:inherit;
+}
+  
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  max-width:900px;
+  margin:0 auto 80px;
 }
 
-button {
-  background: gold;
-  color: black;
-  border: none;
-  padding: 15px 40px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 20px 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  transition: all 0.3s;
+.menu-btn{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:18px;
+  padding:20px 22px;
+  min-height:110px;
+  box-sizing:border-box;
+  transition:.25s ease;
+  backdrop-filter: blur(2px);
 }
 
-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
-button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-#result {
-  margin-top: 30px;
-  padding: 25px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 15px;
-  font-size: 1.3em;
-  min-height: 100px;
+.menu-btn:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
 }
 
-.info {
-  margin-top: 20px;
-  padding: 20px;
-  background: rgba(0,0,0,0.3);
-  border-radius: 10px;
-  font-size: 14px;
+
+.menu-btn.music{
+  background:rgba(255,255,255,.05);
+  border:1.5px solid #f1d46a;
+  box-shadow:0 0 12px rgba(241,212,106,.35);
+}
+
+.menu-btn.dm{
+  background:linear-gradient(
+    135deg,
+    #e9d58a 0%,
+    #d1b24b 45%,
+    #9f7f1f 100%
+  );
+  color:#1a1200;
+  border:none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 6px 16px rgba(180,140,40,.35);
+}
+
+
+
+.menu-title{
+  font-size:1.08em;
+  font-weight:600;
+  margin-bottom:6px;
+  margin-top:6px;
+}
+
+.menu-desc{
+  font-size:0.8em;
+  opacity:0.75;
+  line-height:1.4;
+}
+
+
+/* 카드 스프레드 */
+#deck-screen,#result-screen{display:none;
+                            padding:60px 20px;
+                              overflow-y: auto;
+                           }
+.card-grid{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:16px;
+}
+.card{
+  width:110px;
+  height:170px;
+  background:#1a1a2e;
+  border:2px solid #533483;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  border-color:#ffecd2;
+}
+
+/* 결과 */
+.result-box{
+  max-width:720px;
+  margin:auto;
+  background:rgba(0,0,0,.22);
+  padding:40px;
+  border-radius:24px;
+}
+.res-title{
+  font-family:'Cinzel',serif;
+  font-size:2em;
+  color:#ffecd2;
+}
+.res-text{
+  margin:30px 0;
+  line-height:1.9;
+}
+  .res-sub{
+  margin-top:22px;
+  line-height:1.7;
+  opacity:.9;
+}
+
+
+/* 링크 버튼 */
+.link-btn{
+  display:inline-block;
+  margin:8px;
+  padding:12px 26px;
+  border-radius:30px;
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  font-family:'Noto Serif KR',serif;
+  font-size:1em;
+}
+
+.link-btn:hover{
+  background:rgba(255,255,255,.25);
+}
+
+/* 플로팅 CTA */
+.floating-cta{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#e94560;
+  color:#fff;
+  padding:14px 26px;
+  border-radius:30px;
+  font-weight:600;
+  text-decoration:none;
+  z-index:999;
+  box-shadow:0 4px 15px rgba(233,69,96,.5);
+}
+
+/* ==========================================
+   🎡 룰렛 스타일 - 여기부터 수정됨
+========================================== */
+#roulette-screen {
+  display:none;
+  text-align:center;
+  padding:60px 20px;
+  overflow-y:auto;
+}
+
+.roulette-title {
+  font-family:'Cinzel',serif;
+  font-size:2.5em;
+  color:#ffecd2;
+  margin-bottom:10px;
+  text-shadow:0 0 15px rgba(255,236,210,.4);
+}
+
+.roulette-subtitle {
+  opacity:.8;
+  margin-bottom:40px;
+  font-size:1.1em;
+}
+
+/* 룰렛 컨테이너 */
+.roulette-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.roulette-container canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* 포인터 (화살표) */
+.roulette-pointer {
+  position:absolute;
+  top:-30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+  border-top:35px solid #ffecd2;
+  filter:drop-shadow(0 0 8px rgba(255,236,210,.6));
+  z-index:10;
+  animation:bounce-pointer 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce-pointer {
+  0%, 100% { transform:translateX(-50%) translateY(0); }
+  50% { transform:translateX(-50%) translateY(5px); }
+}
+
+/* 룰렛 휠 - 오방색 */
+#rouletteWheel {
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:conic-gradient(
+    from 0deg,
+    #c43c39 0deg 72deg,    /* 빨강: 0-72도 */
+    #2f8f4e 72deg 144deg,  /* 초록: 72-144도 */
+    #d6a300 144deg 216deg, /* 노랑: 144-216도 */
+    #f4f4f4 216deg 288deg, /* 하양: 216-288도 */
+    #2c5fd6 288deg 360deg  /* 파랑: 288-360도 */
+  );
+  box-shadow:
+    0 0 30px rgba(255,236,210,.3),
+    inset 0 0 40px rgba(0,0,0,.3);
+  transition:transform 4s cubic-bezier(.17,.67,.12,.99);
+  position:relative;
+}
+
+/* 중앙 장식 */
+.roulette-center {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:rgba(26,26,46,.95);
+  border:3px solid #ffecd2;
+  box-shadow:0 0 20px rgba(255,236,210,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.5em;
+  z-index:5;
+}
+
+/* 룰렛 버튼 */
+.spin-btn {
+  background:linear-gradient(135deg, #d1b24b, #9f7f1f);
+  color:#1a1200;
+  border:none;
+  padding:16px 40px;
+  font-size:1.2em;
+  font-family:'Noto Serif KR',serif;
+  font-weight:600;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 6px 20px rgba(180,140,40,.4);
+  transition:.25s ease;
+  margin-top:16px;
+}
+
+.spin-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 8px 25px rgba(180,140,40,.6);
+}
+
+.spin-btn:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* 결과 표시 */
+#rouletteResult {
+  margin-top:30px;
+  font-size:1.0em;
+  min-height:60px;
+  line-height:1.6;
+  color:#ffecd2;
+}
+
+/* 모바일 반응형 */
+@media (max-width:768px) {
+  .roulette-container {
+    width: 90vw;
+    height: 90vw;
+    max-width: 300px;
+    max-height: 300px;
+  }
+  
+  .spin-btn {
+    padding: 13px 28px;
+    font-size: 1.05em;
+    min-width: 160px;
+  }
+  
+  .link-btn {
+    font-size: 0.95em;
+    min-width: 140px;
+  }
 }
 </style>
 </head>
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PK39LR79"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <body>
 
-<div class="container">
-  <h1>🔮 완벽한 오방색 룰렛</h1>
-  <p style="opacity:0.9; margin-bottom: 20px;">
-    Canvas 100% - 화살표 끝점을 정확히 감지합니다
-  </p>
+<div id="home-screen">
+  <div class="logo">Innermyu</div>
+  <div class="subtitle">심해의 마녀, 뮤너가 전하는 카드의 노래</div>
 
-  <div id="canvasContainer">
-    <canvas id="rouletteCanvas" width="450" height="450"></canvas>
-  </div>
+  <div class="menu-grid">
 
-  <button id="spinBtn" onclick="spinRoulette()">🎡 룰렛 돌리기</button>
-  
-  <div id="result">룰렛을 돌려보세요</div>
+    <a class="menu-btn" href="#" onclick="startReading('belline')">
+      <div class="menu-title">🔮 이너뮤 벨린</div>
+      <div class="menu-desc">52장의 구슬이 전하는 조언</div>
+    </a>
 
-  <div class="info">
-    <strong>✨ 작동 원리:</strong><br>
-    1. 화살표와 룰렛 모두 Canvas에 그립니다<br>
-    2. 화살표 끝점의 정확한 좌표를 계산합니다<br>
-    3. 룰렛이 멈추면 그 지점의 색상을 읽습니다<br>
-    → <strong style="color:gold;">100% 정확 보장!</strong>
+    <a class="menu-btn" href="#" onclick="startReading('tarot')">
+      <div class="menu-title">🌙 타로 메이저</div>
+      <div class="menu-desc">22장의 영혼의 여정</div>
+    </a>
+
+    <a class="menu-btn music" href="https://www.youtube.com/playlist?list=PLVHQVjb061BhLKhBFilofYFlbilqxWqAJ" target="_blank">
+      <div class="menu-title">🎧 뮤너의 음악듣기</div>
+      <div class="menu-desc">리딩과 함께 흐르는 선율</div>
+    </a>
+
+    <a class="menu-btn dm" href="https://open.kakao.com/me/Innermyu" target="_blank">
+      <div class="menu-title">💌 1:1 리딩 요청</div>
+      <div class="menu-desc">뮤너에게 직접 묻기</div>
+    </a>
+
+    <a class="menu-btn" href="#" onclick="goRoulette()">
+      <div class="menu-title">🔮 오늘의 룰렛</div>
+      <div class="menu-desc">운명의 색을 돌려보세요</div>
+    </a>
+
   </div>
 </div>
 
-<script>
-const canvas = document.getElementById('rouletteCanvas');
-const ctx = canvas.getContext('2d');
+<div id="deck-screen">
+  <h2>카드를 한 장 선택하세요</h2>
+  <div class="card-grid" id="cardGrid"></div>
+</div>
 
-const canvasSize = 450;
-const centerX = canvasSize / 2;
-const centerY = canvasSize / 2;
-const wheelRadius = 180; // 룰렛 반지름
+<div id="result-screen">
+  <div class="result-box">
+    <h2 id="resultTitle" class="res-title"></h2>
+    <p id="resultText" class="res-text"></p>
+
+    <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
+       target="_blank"
+       class="link-btn">🎥 관련 리딩 영상</a>
+
+    <a href="https://open.kakao.com/me/Innermyu"
+       target="_blank"
+       class="link-btn">💬 1:1 리딩 요청</a>
+
+    <div style="margin-top:30px;">
+      <button class="link-btn" onclick="goHome()">처음으로</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     🎡 룰렛 화면 - 여기가 업그레이드됨
+========================================== -->
+<div id="roulette-screen">
+  
+  <h2 class="roulette-title">🔮 뮤너의 운명 룰렛</h2>
+  <p class="roulette-subtitle">심해의 마녀가 당신의 색을 점칩니다</p>
+
+  <div class="roulette-container">
+    <!-- Canvas 기반 룰렛 (화살표 + 휠 모두 포함) -->
+    <canvas id="rouletteCanvas" width="350" height="350" style="border-radius:50%; box-shadow: 0 0 30px rgba(255,236,210,.3);"></canvas>
+  </div>
+
+  <button class="spin-btn" id="spinButton" onclick="spinRoulette()">
+    🎡 룰렛 돌리기
+  </button>
+
+  <p id="rouletteResult"></p>
+
+  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px;">
+    <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
+       target="_blank"
+       class="link-btn">🎥 유튜브 타로 보기</a>
+    
+    <button class="link-btn" onclick="goHome()">처음으로</button>
+  </div>
+
+</div>
+
+
+<a href="https://forms.gle/ecdQzUz3xgpkwmXk8" target="_blank" class="floating-cta">
+🎬 뮤비 사연 신청하기
+</a>
+
+<script>
+/* ======================
+   카드 데이터
+====================== */
+
+/* 🔮 벨린 52장 */
+const bellineDeck = [
+{
+  title:"태양",
+  main:"심해의 마녀, 뮤너가 전해드립니다. 구슬은 눈부신 빛을 노래해요. 숨김없이 드러나는 진실, 더 이상 미뤄둘 수 없는 감정. 지금은 스스로를 작게 만들 필요가 없어요.",
+  love:"연애에서는 마음이 명확해지는 카드예요. 상대도 당신의 진심을 이미 느끼고 있습니다.",
+  action:"지금은 표현해도 괜찮아요. 웃고, 말하고, 먼저 손을 내밀어 보세요."
+},
+{
+  title:"달",
+  main:"구슬은 흔들리는 물결을 비춥니다. 불안과 직관이 동시에 떠오르는 밤. 혼란은 길을 잃었다는 뜻이 아니라 감각이 열렸다는 신호예요.",
+  love:"상대의 말보다 분위기와 태도를 보세요. 오해가 생기기 쉬운 시기입니다.",
+  action:"확답을 요구하지 말고 한 박자 쉬어가세요."
+},
+{
+  title:"별",
+  main:"어둠 속에서도 꺼지지 않는 약속. 지금은 멀어 보여도 이 빛은 당신을 정확히 인도하고 있어요.",
+  love:"관계 회복, 새로운 인연 모두 가능성이 열려 있습니다.",
+  action:"포기 대신 한 번 더 부드러운 선택을 해보세요."
+},
+{
+  title:"열쇠",
+  main:"답은 이미 손안에 있어요. 문은 밖에 있지 않습니다. 당신의 선택이 잠금을 풉니다.",
+  love:"상대의 마음을 여는 열쇠는 태도와 타이밍입니다.",
+  action:"정답을 찾으려 애쓰기보다 지금 할 수 있는 선택을 하세요."
+},
+{
+  title:"탑",
+  main:"무너짐은 벌이 아니라 해방입니다. 오래 버텨온 구조가 내려가야 숨을 쉴 수 있어요.",
+  love:"연애에서 충격적인 깨달음이 있을 수 있어요. 하지만 이 변화는 필요했습니다.",
+  action:"집착을 내려놓고 새로운 기준을 세우세요."
+},
+{
+  title:"꽃다발",
+  main:"구슬은 예상치 못한 기쁨을 비춥니다. 지금의 흐름은 당신 편이에요.",
+  love:"호감, 선물, 기쁜 제안이 들어올 수 있습니다.",
+  action:"받는 것을 미안해하지 말고 기쁘게 받아들이세요."
+},
+{
+  title:"뱀",
+  main:"부드러운 말 속에 숨은 의도를 구슬이 속삭입니다. 모든 친절이 같은 깊이는 아니에요.",
+  love:"상대의 말보다 행동을 보세요. 감정은 숨길 수 있어도 태도는 거짓말하지 않아요.",
+  action:"직감이 불편하다면 일단 한 발짝 물러나세요."
+},
+{
+  title:"개",
+  main:"충성과 신뢰. 곁을 지키는 존재.",
+  love:"진심은 말이 아니라 시간으로 증명됩니다.",
+  action:"의심보다 믿음을 선택하세요."
+},
+{
+  title:"새",
+  main:"소식과 변화. 기다리던 연락.",
+  love:"멀리 있던 마음이 돌아옵니다.",
+  action:"열린 마음으로 받아들이세요."
+},
+{
+  title:"다리",
+  main:"연결과 이동. 중간지대.",
+  love:"관계의 전환점.",
+  action:"건너기를 망설이지 마세요."
+},
+{
+  title:"배신",
+  main:"이중성과 거짓. 감춰진 진실.",
+  love:"보고 싶은 것만 보고 있진 않나요?",
+  action:"사실을 마주하세요."
+},
+{
+  title:"선물",
+  main:"예상치 못한 기쁨. 받을 준비.",
+  love:"호의는 진심일 수 있어요.",
+  action:"감사히 받으세요."
+},
+{
+  title:"질투",
+  main:"비교와 불안. 소유욕.",
+  love:"집착은 사랑을 멀어지게 합니다.",
+  action:"놓으면 돌아와요."
+},
+{
+  title:"길",
+  main:"선택과 방향. 갈림길.",
+  love:"둘 다 가질 순 없어요.",
+  action:"마음이 가는 쪽을 따르세요."
+},
+{
+  title:"병",
+  main:"정체와 막힘. 내면의 독.",
+  love:"쌓인 감정을 풀어내야 해요.",
+  action:"솔직한 대화가 필요합니다."
+},
+{
+  title:"항해",
+  main:"모험과 출발. 익숙함을 벗어남.",
+  love:"새로운 관계, 새로운 단계.",
+  action:"두려움을 넘어서세요."
+},
+{
+  title:"추락",
+  main:"갑작스러운 변화. 예상치 못한 끝.",
+  love:"무너질 것 같아도 견딜 수 있어요.",
+  action:"일어서는 법을 배우세요."
+},
+{
+  title:"불",
+  main:"정화와 파괴. 타오르는 열정.",
+  love:"격렬하지만 지속 가능한가요?",
+  action:"식히거나 태우거나."
+},
+{
+  title:"얼음",
+  main:"얼어붙은 감정. 차가운 거리.",
+  love:"관계가 정지돼 있어요.",
+  action:"녹이거나 놓아주세요."
+},
+{
+  title:"빛",
+  main:"희망과 각성. 어둠의 끝.",
+  love:"진심이 드러나는 순간.",
+  action:"더 이상 숨기지 마세요."
+},
+{
+  title:"그림자",
+  main:"숨겨진 면. 보고 싶지 않은 진실.",
+  love:"상대의 또 다른 얼굴.",
+  action:"있는 그대로 보세요."
+},
+{
+  title:"문지기",
+  main:"경계와 보호. 들어갈 수 없는 마음.",
+  love:"상대가 벽을 쌓고 있어요.",
+  action:"강요하지 말고 기다리세요."
+},
+{
+  title:"마법사",
+  main:"변화와 창조. 손끝의 힘.",
+  love:"관계는 당신이 만들어가는 것.",
+  action:"주도권을 쥐세요."
+},
+{
+  title:"거울",
+  main:"반사와 진실. 스스로를 보는 것.",
+  love:"상대가 아니라 자신의 마음을 확인하세요.",
+  action:"솔직해지세요."
+},
+{
+  title:"가면",
+  main:"감춤과 연기. 진짜가 아닌 것.",
+  love:"상대도 당신도 가면을 쓰고 있어요.",
+  action:"벗어도 괜찮아요."
+},
+{
+  title:"손",
+  main:"도움과 연결. 함께.",
+  love:"혼자가 아니에요.",
+  action:"손을 내밀거나 잡으세요."
+},
+{
+  title:"눈물",
+  main:"슬픔과 정화. 흘려내야 할 것.",
+  love:"울어야 풀립니다.",
+  action:"참지 마세요."
+},
+{
+  title:"웃음",
+  main:"기쁨과 가벼움. 긴장의 해소.",
+  love:"진지함 대신 유머를.",
+  action:"웃으며 대화하세요."
+},
+{
+  title:"칼",
+  main:"단절과 정리. 끊어야 할 것.",
+  love:"미련을 자르세요.",
+  action:"깔끔하게 정리하세요."
+},
+{
+  title:"심장",
+  main:"사랑과 진심. 뛰는 마음.",
+  love:"감정은 거짓말하지 않아요.",
+  action:"마음을 따르세요."
+},
+{
+  title:"뿌리",
+  main:"근원과 토대. 시작.",
+  love:"관계의 기반을 보세요.",
+  action:"뿌리부터 돌아보세요."
+},
+{
+  title:"날개",
+  main:"자유와 해방. 떠남.",
+  love:"붙잡지 말고 날려보내세요.",
+  action:"가볍게 풀어주세요."
+},
+{
+  title:"문",
+  main:"입구와 기회. 열림.",
+  love:"새로운 시작.",
+  action:"들어가세요."
+},
+{
+  title:"창",
+  main:"시야와 관점. 보는 법.",
+  love:"다르게 보면 답이 보여요.",
+  action:"시선을 바꾸세요."
+},
+{
+  title:"벽",
+  main:"막힘과 경계. 넘을 수 없는 것.",
+  love:"상대는 준비가 안 됐어요.",
+  action:"억지로 부수지 마세요."
+},
+{
+  title:"닻",
+  main:"머무름과 고착. 안정의 무게.",
+  love:"익숙함이 사랑을 대신할 수 있어요.",
+  action:"계속 머물 이유를 점검하세요."
+},
+{
+  title:"물고기",
+  main:"풍요와 흐름. 받을 준비가 되었나요?",
+  love:"감정과 관계가 자연스럽게 흘러옵니다.",
+  action:"기회를 거절하지 마세요."
+},
+{
+  title:"칼",
+  main:"결단과 단절. 아프지만 필요한 선택.",
+  love:"관계를 명확히 해야 할 시기.",
+  action:"미련을 자르세요."
+},
+{
+  title:"무지개",
+  main:"갈등 후의 조화. 끝은 희망으로 이어집니다.",
+  love:"화해와 회복의 가능성.",
+  action:"먼저 손을 내밀어도 돼요."
+},
+{
+  title:"왕관",
+  main:"자존과 권위. 스스로를 낮추지 마세요.",
+  love:"존중받아야 할 관계.",
+  action:"기준을 지키세요."
+},
+{
+  title:"거울",
+  main:"답은 밖이 아니라 안에 있습니다.",
+  love:"상대보다 자신의 마음을 보세요.",
+  action:"솔직해지세요."
+},
+{
+  title:"문",
+  main:"기회는 이미 열려 있어요.",
+  love:"새로운 인연의 문.",
+  action:"망설이지 말고 들어가세요."
+},
+{
+  title:"사다리",
+  main:"단계적 상승. 서두르지 않아도 돼요.",
+  love:"관계가 한 단계씩 발전합니다.",
+  action:"지금 단계에 충실하세요."
+},
+{
+  title:"시계",
+  main:"타이밍. 아직은 기다림.",
+  love:"지금은 때가 아닐 수 있어요.",
+  action:"조급해하지 마세요."
+},
+{
+  title:"배",
+  main:"이동과 변화. 항해는 시작됐습니다.",
+  love:"관계의 환경이 바뀔 수 있어요.",
+  action:"변화를 받아들이세요."
+},
+{
+  title:"비",
+  main:"정화의 물결. 울어도 괜찮아요.",
+  love:"감정 해소가 필요합니다.",
+  action:"감정을 억누르지 마세요."
+},
+{
+  title:"촛불",
+  main:"작은 불빛 하나가 길을 밝힙니다.",
+  love:"희미하지만 진짜 감정.",
+  action:"그 불씨를 보호하세요."
+},
+{
+  title:"창문",
+  main:"새로운 시야. 다른 각도.",
+  love:"관계를 새롭게 보게 됩니다.",
+  action:"시선을 바꿔보세요."
+},
+{
+  title:"우물",
+  main:"깊은 감정과 진실. 표면만 보지 마세요.",
+  love:"숨겨진 감정이 있습니다.",
+  action:"천천히 내려다보세요."
+},
+{
+  title:"종",
+  main:"각성의 순간. 더 이상 모를 수 없어요.",
+  love:"결정의 시간이 옵니다.",
+  action:"깨달음을 행동으로 옮기세요."
+},
+{
+  title:"깃발",
+  main:"선언과 결단. 입장을 분명히 할 때.",
+  love:"관계의 방향이 정해집니다.",
+  action:"애매함을 끝내세요."
+},
+{
+  title:"구슬",
+  main:"운명은 지금도 움직이고 있어요.",
+  love:"보이지 않는 연결.",
+  action:"흐름을 믿으세요."
+}
+];
+
+
+/* 🌙 타로 메이저 22장 – Innermyu / 뮤너 문체 풀버전 */
+
+const tarotDeck = [
+{
+  title: "0. The Fool",
+  main: "심해의 마녀, 뮤너가 전해드립니다. 구슬은 이렇게 노래하고 있어요. 이 카드는 무모함이 아니라 신뢰를 말합니다. 아직 모든 것이 정리되지 않았어도 괜찮아요. 당신의 영혼은 이미 '가야 할 방향'을 알고 있고, 지금은 안전함보다 진실함을 택해야 할 때입니다.",
+  love: "연애에서는 새로운 인연, 혹은 관계를 다시 시작하라는 메시지예요. 계산보다 마음이 먼저 움직일 수 있어요.",
+  action: "완벽해질 때까지 기다리지 마세요. 작은 한 걸음이 흐름을 바꿉니다."
+},
+{
+  title: "1. The Magician",
+  main: "뮤너는 손끝에 모인 빛을 보여줍니다. 이미 필요한 재료는 모두 당신 앞에 있어요. 문제는 '없음'이 아니라 '믿지 않음'입니다. 지금 당신은 창조자의 자리 위에 서 있습니다.",
+  love: "연애에서는 주도권이 당신에게 있어요. 표현하지 않으면 상대는 알 수 없어요.",
+  action: "지금 할 수 있는 가장 작은 실행을 바로 시작하세요."
+},
+{
+  title: "2. The High Priestess",
+  main: "구슬은 깊은 침묵 속에서 흔들립니다. 답은 아직 말의 형태가 아니에요. 이 카드는 기다림과 직관을 의미합니다. 모든 진실은 드러날 시간이 있습니다.",
+  love: "연애에서는 숨겨진 감정, 혹은 말하지 않은 마음이 존재해요.",
+  action: "지금은 움직이기보다 관찰하세요. 느낌을 무시하지 마세요."
+},
+{
+  title: "3. The Empress",
+  main: "뮤너는 풍요로운 숨결을 느낍니다. 이 카드는 돌봄과 성장의 에너지. 당신이 쏟은 애정은 헛되지 않았어요. 곧 형태를 갖추게 됩니다.",
+  love: "연애에서는 안정, 배려, 따뜻한 연결이 강조돼요.",
+  action: "스스로를 돌보는 일을 우선하세요."
+},
+{
+  title: "4. The Emperor",
+  main: "구슬은 단단한 기반을 비춥니다. 이 카드는 책임과 구조. 감정에 휘둘리기보다 기준을 세워야 할 때입니다.",
+  love: "연애에서는 관계의 틀과 약속이 중요해져요.",
+  action: "경계를 분명히 하고 결정하세요."
+},
+{
+  title: "5. The Hierophant",
+  main: "뮤너는 오래된 지혜의 목소리를 듣습니다. 이 카드는 전통과 배움. 이미 배워온 것 안에 답이 있어요.",
+  love: "연애에서는 진지한 관계, 혹은 가치관의 일치가 핵심이에요.",
+  action: "익숙한 방식이 지금은 정답입니다."
+},
+{
+  title: "6. The Lovers",
+  main: "구슬은 두 개의 길을 비춥니다. 사랑은 감정이 아니라 선택입니다. 이 카드는 당신의 진심이 어디에 있는지를 묻습니다.",
+  love: "연애에서는 중요한 선택의 순간이에요.",
+  action: "타인의 기대보다 자신의 마음을 기준으로 선택하세요."
+},
+{
+  title: "7. The Chariot",
+  main: "뮤너는 빠르게 흐르는 물살을 봅니다. 이 카드는 전진과 승리. 흔들려도 멈추지 않는 것이 핵심이에요.",
+  love: "연애에서는 관계를 밀고 나가야 할 때입니다.",
+  action: "주저하지 말고 속도를 내세요."
+},
+{
+  title: "8. Strength",
+  main: "구슬은 부드러운 힘을 비춥니다. 억누르는 것이 아니라 이해하는 것. 진짜 강함은 온기에서 나옵니다.",
+  love: "연애에서는 다그치기보다 품어주세요.",
+  action: "감정을 통제하지 말고 조율하세요."
+},
+{
+  title: "9. The Hermit",
+  main: "뮤너는 고요한 어둠 속에서 빛을 찾습니다. 이 카드는 고독한 탐색. 혼자 있는 시간이 필요합니다.",
+  love: "연애에서는 잠시 거리 두기가 필요할 수 있어요.",
+  action: "외부의 소음에서 벗어나세요."
+},
+{
+  title: "10. Wheel of Fortune",
+  main: "구슬이 회전합니다. 흐름이 바뀌고 있어요. 통제할 수 없는 변화이지만, 거부할 필요는 없습니다.",
+  love: "연애에서는 예상치 못한 전개가 있을 수 있어요.",
+  action: "흐름을 거스르지 말고 타세요."
+},
+{
+  title: "11. Justice",
+  main: "뮤너는 저울을 듭니다. 모든 선택에는 책임이 따릅니다. 지금은 감정보다 균형이 필요해요.",
+  love: "연애에서는 공정한 대화가 필요합니다.",
+  action: "사실을 있는 그대로 보세요."
+},
+{
+  title: "12. The Hanged Man",
+  main: "구슬은 거꾸로 세상을 비춥니다. 멈춤은 패배가 아닙니다. 다른 시야가 열리는 순간이에요.",
+  love: "연애에서는 인내가 필요해요.",
+  action: "억지로 움직이지 마세요."
+},
+{
+  title: "13. Death",
+  main: "뮤너는 끝의 문을 엽니다. 이것은 파괴가 아니라 정리입니다. 새로운 숨이 들어오기 위한 공간.",
+  love: "연애에서는 한 챕터의 종료를 의미할 수 있어요.",
+  action: "놓아야 할 것을 놓으세요."
+},
+{
+  title: "14. Temperance",
+  main: "구슬은 두 흐름을 섞습니다. 극단을 피하고 중간을 찾으세요.",
+  love: "연애에서는 조율과 이해가 핵심이에요.",
+  action: "천천히 균형을 맞추세요."
+},
+{
+  title: "15. The Devil",
+  main: "뮤너는 보이지 않는 사슬을 봅니다. 집착은 사랑이 아닙니다.",
+  love: "연애에서는 의존이나 집착을 점검하세요.",
+  action: "스스로를 묶고 있는 생각을 풀어내세요."
+},
+{
+  title: "16. The Tower",
+  main: "구슬이 산산이 부서집니다. 진실 앞에서 거짓은 유지될 수 없어요.",
+  love: "연애에서는 충격적인 깨달음이 있을 수 있어요.",
+  action: "무너짐을 두려워하지 마세요."
+},
+{
+  title: "17. The Star",
+  main: "뮤너는 밤하늘의 약속을 가리킵니다. 이 카드는 회복과 희망.",
+  love: "연애에서는 다시 믿을 수 있는 흐름이에요.",
+  action: "희망을 놓지 마세요."
+},
+{
+  title: "18. The Moon",
+  main: "구슬은 흔들리는 그림자를 비춥니다. 모든 감정이 사실은 아닙니다.",
+  love: "연애에서는 오해와 불안이 섞여 있을 수 있어요.",
+  action: "확인되지 않은 상상에 휘둘리지 마세요."
+},
+{
+  title: "19. The Sun",
+  main: "뮤너는 밝게 웃습니다. 이 카드는 명료함과 기쁨.",
+  love: "연애에서는 솔직함이 관계를 밝힙니다.",
+  action: "숨기지 말고 드러내세요."
+},
+{
+  title: "20. Judgement",
+  main: "구슬이 울립니다. 과거는 끝났고, 새로운 부름이 시작돼요.",
+  love: "연애에서는 중요한 결단의 순간이에요.",
+  action: "과거의 자신을 놓아주세요."
+},
+{
+  title: "21. The World",
+  main: "뮤너는 고개를 끄덕입니다. 완성의 자리. 여기까지 잘 왔어요.",
+  love: "연애에서는 안정과 성취를 의미해요.",
+  action: "스스로를 인정하세요."
+}
+];
+
+
+
+
+let currentDeck=[];
+
+/* ======================
+   로직
+====================== */
+function startReading(type){
+  currentDeck = (type==='tarot') ? tarotDeck : bellineDeck;
+  document.getElementById('home-screen').style.display='none';
+  document.getElementById('deck-screen').style.display='block';
+  document.getElementById('result-screen').style.display='none';
+  document.getElementById('roulette-screen').style.display='none'; 
+  renderSpread();
+}
+
+function renderSpread(){
+  const g=document.getElementById('cardGrid');
+  g.innerHTML='';
+  for(let i=0;i<12;i++){
+    const c=document.createElement('div');
+    c.className='card';
+    c.onclick=pickCard;
+    g.appendChild(c);
+  }
+}
+
+function pickCard(){
+  const card = currentDeck[Math.floor(Math.random()*currentDeck.length)];
+
+  document.getElementById('deck-screen').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+
+  document.getElementById('resultTitle').innerText = card.title;
+  document.getElementById('roulette-screen').style.display = 'none';
+
+  document.getElementById('resultText').innerHTML = `
+    <p style="margin-bottom:22px; line-height:1.9;">
+      ${card.main}
+    </p>
+
+    <hr style="border:none; border-top:1px solid rgba(255,255,255,.15); margin:26px 0;">
+
+    <p style="opacity:.85; line-height:1.7;">
+      💗 <b>연애에서의 의미</b><br>
+      ${card.love}
+    </p>
+
+    <p style="opacity:.85; line-height:1.7; margin-top:16px;">
+      ✨ <b>지금 행동 조언</b><br>
+      ${card.action}
+    </p>
+  `;
+}
+  
+function goRoulette() {
+  document.getElementById("home-screen").style.display = "none";
+  document.getElementById("deck-screen").style.display = "none";
+  document.getElementById("result-screen").style.display = "none";
+  document.getElementById("roulette-screen").style.display = "block";
+  // Canvas 초기 그리기
+  if (rouletteCtx && !isSpinning) {
+    drawRoulette(currentRotation);
+  }
+}
+
+/* ==========================================
+   🎡 Canvas 기반 정밀 룰렛
+========================================== */
+
+// Canvas 초기화
+const rouletteCanvas = document.getElementById('rouletteCanvas');
+const rouletteCtx = rouletteCanvas ? rouletteCanvas.getContext('2d') : null;
+
+const canvasSize = 350;
+const rouletteCenterX = canvasSize / 2;
+const rouletteCenterY = canvasSize / 2;
+const wheelRadius = 150;
 
 let currentRotation = 0;
 let isSpinning = false;
 
 // 오방색 정의
 const obangsaek = [
-  { 
-    name: "빨강 (적색)", 
-    emoji: "🔴", 
-    hex: "#c43c39", 
-    rgb: [196, 60, 57], 
-    start: 0, 
-    end: 72,
-    message: "남쪽을 상징하는 빨강색! 불의 기운이 당신에게 열정과 활력을 불어넣을 것입니다."
-  },
-  { 
-    name: "녹색 (청색)", 
-    emoji: "🟢", 
-    hex: "#2f8f4e", 
-    rgb: [47, 143, 78], 
-    start: 72, 
-    end: 144,
-    message: "동쪽을 상징하는 녹색! 나무의 기운이 당신에게 새로운 시작과 성장을 가져다줄 것입니다."
-  },
-  { 
-    name: "노랑 (황색)", 
-    emoji: "🟡", 
-    hex: "#d6a300", 
-    rgb: [214, 163, 0], 
-    start: 144, 
-    end: 216,
-    message: "중앙을 상징하는 노란색! 땅의 기운이 당신에게 안정과 풍요를 가져다줄 것입니다."
-  },
-  { 
-    name: "하양 (백색)", 
-    emoji: "⚪", 
-    hex: "#f4f4f4", 
-    rgb: [244, 244, 244], 
-    start: 216, 
-    end: 288,
-    message: "서쪽을 상징하는 하얀색! 금의 기운이 당신에게 맑고 순수한 마음을 선물할 것입니다."
-  },
-  { 
-    name: "청색 (현색)", 
-    emoji: "🔵", 
-    hex: "#2c5fd6", 
-    rgb: [44, 95, 214], 
-    start: 288, 
-    end: 360,
-    message: "북쪽을 상징하는 청색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다."
-  }
+  { name: "빨강 (적색)", emoji: "🔴", hex: "#c43c39", rgb: [196, 60, 57], start: 0, end: 72,
+    message: "남쪽을 상징하는 빨강색! 불의 기운이 당신에게 열정과 활력을 불어넣을 것입니다." },
+  { name: "초록 (녹색)", emoji: "🟢", hex: "#2f8f4e", rgb: [47, 143, 78], start: 72, end: 144,
+    message: "동쪽을 상징하는 초록색! 나무의 기운이 당신에게 새로운 시작과 성장을 가져다줄 것입니다." },
+  { name: "노랑 (황색)", emoji: "🟡", hex: "#d6a300", rgb: [214, 163, 0], start: 144, end: 216,
+    message: "중앙을 상징하는 노란색! 땅의 기운이 당신에게 안정과 풍요를 가져다줄 것입니다." },
+  { name: "하양 (백색)", emoji: "⚪", hex: "#f4f4f4", rgb: [244, 244, 244], start: 216, end: 288,
+    message: "서쪽을 상징하는 하얀색! 금의 기운이 당신에게 맑고 순수한 마음을 선물할 것입니다." },
+  { name: "파랑 (청색)", emoji: "🔵", hex: "#2c5fd6", rgb: [44, 95, 214], start: 288, end: 360,
+    message: "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다." }
 ];
 
-// 전체 Canvas 그리기 (화살표 + 룰렛)
-function drawEverything(wheelRotation) {
+// Canvas에 전체 그리기 (화살표 + 룰렛)
+function drawRoulette(wheelRotation) {
+  if (!rouletteCtx) return;
+  
+  const ctx = rouletteCtx;
+  
   // 배경 지우기
   ctx.clearRect(0, 0, canvasSize, canvasSize);
   
-  // === 1. 룰렛 그리기 (회전) ===
+  // === 룰렛 그리기 (회전) ===
   ctx.save();
-  ctx.translate(centerX, centerY);
+  ctx.translate(rouletteCenterX, rouletteCenterY);
   ctx.rotate((wheelRotation * Math.PI) / 180);
-  ctx.translate(-centerX, -centerY);
+  ctx.translate(-rouletteCenterX, -rouletteCenterY);
   
   // 각 색상 섹션
   obangsaek.forEach(color => {
     ctx.fillStyle = color.hex;
     ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
-    ctx.arc(
-      centerX, 
-      centerY, 
-      wheelRadius, 
-      (color.start * Math.PI) / 180, 
-      (color.end * Math.PI) / 180
-    );
+    ctx.moveTo(rouletteCenterX, rouletteCenterY);
+    ctx.arc(rouletteCenterX, rouletteCenterY, wheelRadius,
+            (color.start * Math.PI) / 180,
+            (color.end * Math.PI) / 180);
     ctx.closePath();
     ctx.fill();
   });
@@ -182,22 +1042,22 @@ function drawEverything(wheelRotation) {
   ctx.restore();
   
   // 중앙 검은 원
-  ctx.fillStyle = 'rgba(26, 26, 46, 0.95)';
+  ctx.fillStyle = 'rgba(26,26,46,.95)';
   ctx.beginPath();
-  ctx.arc(centerX, centerY, 50, 0, Math.PI * 2);
+  ctx.arc(rouletteCenterX, rouletteCenterY, 40, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = '#ffecd2';
   ctx.lineWidth = 3;
   ctx.stroke();
   
   // 중앙 이모티콘
-  ctx.font = 'bold 40px Arial';
+  ctx.font = 'bold 35px Arial';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('🔮', centerX, centerY);
+  ctx.fillText('🔮', rouletteCenterX, rouletteCenterY);
   
-  // === 2. 화살표 그리기 (고정, 회전 안 함) ===
-  const arrowY = centerY - wheelRadius - 30; // 룰렛 위쪽
+  // === 화살표 그리기 (고정, 회전 안 함) ===
+  const arrowY = rouletteCenterY - wheelRadius - 25;
   
   ctx.save();
   ctx.fillStyle = '#ffecd2';
@@ -206,16 +1066,15 @@ function drawEverything(wheelRotation) {
   
   // 화살표 삼각형 (아래를 가리킴)
   ctx.beginPath();
-  ctx.moveTo(centerX, arrowY + 35);        // 아래 꼭지점
-  ctx.lineTo(centerX - 20, arrowY);        // 왼쪽 위
-  ctx.lineTo(centerX + 20, arrowY);        // 오른쪽 위
+  ctx.moveTo(rouletteCenterX, arrowY + 30);      // 아래 꼭지점
+  ctx.lineTo(rouletteCenterX - 18, arrowY);      // 왼쪽 위
+  ctx.lineTo(rouletteCenterX + 18, arrowY);      // 오른쪽 위
   ctx.closePath();
   ctx.fill();
-  ctx.stroke();
   
   // 발광 효과
   ctx.shadowColor = 'rgba(255, 236, 210, 0.8)';
-  ctx.shadowBlur = 15;
+  ctx.shadowBlur = 12;
   ctx.fill();
   ctx.shadowBlur = 0;
   
@@ -245,34 +1104,34 @@ function getColorFromRGB(r, g, b) {
 
 // 화살표 끝점의 색상 감지
 function detectColorAtArrow() {
-  // 화살표 끝점 위치
-  const arrowTipX = centerX;
-  const arrowTipY = centerY - wheelRadius - 30 + 35; // 화살표 아래 꼭지점
+  if (!rouletteCtx) return obangsaek[0];
   
-  // 실제로는 화살표 바로 아래 룰렛 부분을 읽어야 함
-  const detectY = arrowTipY + 5; // 화살표 끝에서 약간 아래
+  // 화살표 끝점 위치
+  const arrowTipX = rouletteCenterX;
+  const arrowTipY = rouletteCenterY - wheelRadius - 25 + 30;
+  
+  // 화살표 바로 아래 룰렛 부분
+  const detectY = arrowTipY + 5;
   
   // 픽셀 색상 읽기
-  const imageData = ctx.getImageData(arrowTipX, detectY, 1, 1);
+  const imageData = rouletteCtx.getImageData(arrowTipX, detectY, 1, 1);
   const r = imageData.data[0];
   const g = imageData.data[1];
   const b = imageData.data[2];
-  
-  console.log(`감지 위치: (${arrowTipX}, ${detectY}), RGB: (${r}, ${g}, ${b})`);
   
   return getColorFromRGB(r, g, b);
 }
 
 // 룰렛 돌리기
 function spinRoulette() {
-  if (isSpinning) return;
+  if (isSpinning || !rouletteCtx) return;
   
-  const spinBtn = document.getElementById('spinBtn');
-  const resultDiv = document.getElementById('result');
+  const spinButton = document.getElementById("spinButton");
+  const resultText = document.getElementById("rouletteResult");
   
   isSpinning = true;
-  spinBtn.disabled = true;
-  resultDiv.textContent = '🔮 운명의 색이 결정되는 중...';
+  spinButton.disabled = true;
+  resultText.innerText = "🔮 운명의 색이 결정되는 중...";
   
   // 랜덤 회전
   const extraSpins = 5 + Math.floor(Math.random() * 3);
@@ -296,33 +1155,30 @@ function spinRoulette() {
       : 1 - Math.pow(-2 * progress + 2, 2) / 2;
     
     currentRotation = startRotation + (totalRotation * easeProgress);
-    drawEverything(currentRotation);
+    drawRoulette(currentRotation);
     
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
       // 회전 완료
       currentRotation = targetRotation % 360;
-      drawEverything(currentRotation);
+      drawRoulette(currentRotation);
       
       // 색상 감지
       setTimeout(() => {
         const detectedColor = detectColorAtArrow();
         
-        resultDiv.innerHTML = `
-          <div style="font-size: 3em; margin-bottom: 15px;">
-            ${detectedColor.emoji}
+        resultText.innerHTML = `
+          <div style="font-size:1.5em; margin-bottom:10px;">
+            ${detectedColor.emoji} ${detectedColor.name}
           </div>
-          <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 15px;">
-            ${detectedColor.name}
-          </div>
-          <div style="font-size: 1em; opacity: 0.9; line-height: 1.6;">
+          <div style="font-size:1em; opacity:0.9; line-height:1.6;">
             ${detectedColor.message}
           </div>
         `;
         
         isSpinning = false;
-        spinBtn.disabled = false;
+        spinButton.disabled = false;
       }, 200);
     }
   }
@@ -330,8 +1186,29 @@ function spinRoulette() {
   animate();
 }
 
-// 초기 그리기
-drawEverything(0);
+// 페이지 로드 시 초기 그리기
+if (rouletteCtx) {
+  drawRoulette(0);
+}
+
+  // 화면 크기에 따라 Canvas 크기 자동 조정
+function getCanvasSize() {
+  if (window.innerWidth <= 768) {
+    return Math.min(window.innerWidth * 0.9, 300);
+  }
+  return 350;
+}
+
+// 윈도우 리사이즈 감지
+window.addEventListener('resize', updateCanvasSize);
+
+
+function goHome(){
+  document.getElementById('deck-screen').style.display='none';
+  document.getElementById('result-screen').style.display='none';
+  document.getElementById('roulette-screen').style.display='none';
+  document.getElementById('home-screen').style.display='block';
+}
 </script>
 
 </body>
