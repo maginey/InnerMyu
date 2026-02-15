@@ -1079,22 +1079,13 @@ function getColorFromRGB(r, g, b) {
   return closestColor;
 }
 
-// 화살표 끝점의 색상 감지
-function detectColorAtPointer() {
-  if (!rouletteCtx) return obangsaek[0];
-  
-  const canvas = rouletteCanvas;
-  const centerX = canvas.width / 2;
-  
-  // 화살표 끝점: 캔버스 위쪽 중앙에서 약간 아래
-  const pointerX = centerX;
-  const pointerY = 5; // 위에서 5px 아래
-  
-  // 해당 위치의 픽셀 색상 읽기
-  const imageData = rouletteCtx.getImageData(pointerX, pointerY, 1, 1);
-  const r = imageData.data[0];
-  const g = imageData.data[1];
-  const b = imageData.data[2];
+// 화살표 끝점 위치
+const arrowTipX = centerX;              // 중앙
+const arrowTipY = centerY - wheelRadius - 30 + 35;
+
+// 화살표 바로 아래 룰렛 색상 읽기
+const detectY = arrowTipY + 5;
+const pixel = ctx.getImageData(arrowTipX, detectY, 1, 1);
   
   return getColorFromRGB(r, g, b);
 }
