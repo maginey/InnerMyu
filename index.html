@@ -257,11 +257,12 @@ body{
   height:100%;
   border-radius:50%;
   background:conic-gradient(
-    #c43c39 0% 20%,    /* 빨강 */
-    #2f8f4e 20% 40%,   /* 초록 */
-    #d6a300 40% 60%,   /* 노랑 */
-    #f4f4f4 60% 80%,   /* 하양 */
-    #2c5fd6 80% 100%   /* 파랑 */
+    from 0deg,
+    #c43c39 0deg 72deg,    /* 빨강: 0-72도 */
+    #2f8f4e 72deg 144deg,  /* 초록: 72-144도 */
+    #d6a300 144deg 216deg, /* 노랑: 144-216도 */
+    #f4f4f4 216deg 288deg, /* 하양: 216-288도 */
+    #2c5fd6 288deg 360deg  /* 파랑: 288-360도 */
   );
   box-shadow:
     0 0 30px rgba(255,236,210,.3),
@@ -436,7 +437,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <button class="spin-btn" id="spinButton" onclick="spinRoulette()">
-    🎡 룰렛 돌리기
+    🔮 룰렛 돌리기
   </button>
 
   <p id="rouletteResult"></p>
@@ -1008,8 +1009,9 @@ function spinRoulette(){
     const finalRotation = currentRotation % 360;
     
     // 🎯 정확한 공식:
-    // 화살표가 가리키는 위치
-    let pointerAngle = finalRotation;
+    // 9시가 계속 나온다 = 180도 빼기
+    let pointerAngle = (finalRotation - 180) % 360;
+    if (pointerAngle < 0) pointerAngle += 360;
     
     // 오방색 섹션 (conic-gradient의 0도는 3시 방향)
     // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
@@ -1022,7 +1024,7 @@ function spinRoulette(){
       colorEmoji = "🔴";
       colorMessage = "남쪽을 상징하는 빨강색! 불의 기운이 당신에게 열정과 활력을 불어넣을 것입니다.";
     } else if (pointerAngle >= 72 && pointerAngle < 144) {
-      colorName = "초록 (녹색)";
+      colorName = "초록 (청색)";
       colorEmoji = "🟢";
       colorMessage = "동쪽을 상징하는 초록색! 나무의 기운이 당신에게 새로운 시작과 성장을 가져다줄 것입니다.";
     } else if (pointerAngle >= 144 && pointerAngle < 216) {
@@ -1034,7 +1036,7 @@ function spinRoulette(){
       colorEmoji = "⚪";
       colorMessage = "서쪽을 상징하는 하얀색! 금의 기운이 당신에게 맑고 순수한 마음을 선물할 것입니다.";
     } else {
-      colorName = "파랑 (청색)";
+      colorName = "파랑 (현색)";
       colorEmoji = "🔵";
       colorMessage = "북쪽을 상징하는 파란색! 물의 기운이 당신에게 지혜와 통찰력을 가져다줄 것입니다.";
     }
