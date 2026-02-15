@@ -1008,10 +1008,9 @@ function spinRoulette(){
     // 최종 회전 각도 (0-360도 범위로 정규화)
     const finalRotation = currentRotation % 360;
     
-    // 🎯 정확한 공식:
-    // 9시가 계속 나온다 = 180도 빼기
-    let pointerAngle = (finalRotation - 180) % 360;
-    if (pointerAngle < 0) pointerAngle += 360;
+    // 🎯 정확한 공식: finalAngle 그대로!
+    // 화살표가 가리키는 위치 = 회전한 각도
+    let pointerAngle = finalRotation;
     
     // 오방색 섹션 (conic-gradient의 0도는 3시 방향)
     // 빨강: 0-72, 초록: 72-144, 노랑: 144-216, 하양: 216-288, 파랑: 288-360
