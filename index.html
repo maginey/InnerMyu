@@ -337,8 +337,124 @@ body{
   color:#ffecd2;
 }
 
+/* 오늘의 운세 3카드 스프레드 */
+#daily-fortune-screen {
+  display: none;
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.daily-title {
+  font-size: 2em;
+  color: #ffecd2;
+  margin-bottom: 10px;
+}
+
+.daily-subtitle {
+  opacity: 0.8;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+}
+
+.three-card-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.card-position {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 236, 210, 0.3);
+  border-radius: 15px;
+  padding: 25px 20px;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+.card-position:hover {
+  border-color: rgba(255, 236, 210, 0.6);
+  box-shadow: 0 0 20px rgba(255, 236, 210, 0.2);
+}
+
+.position-label {
+  font-size: 0.9em;
+  color: #ffecd2;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.card-name {
+  font-size: 1.3em;
+  color: #ffecd2;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.card-meaning {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #e9e9e9;
+  opacity: 0.9;
+}
+
+.interpretation-box {
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 236, 210, 0.4);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 700px;
+  text-align: left;
+}
+
+.interpretation-title {
+  font-size: 1.4em;
+  color: #ffecd2;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.interpretation-text {
+  font-size: 1.05em;
+  line-height: 1.8;
+  color: #e9e9e9;
+  white-space: pre-line;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 236, 210, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffecd2;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* 모바일 반응형 */
 @media (max-width:768px) {
+  .three-card-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .card-position {
+    width: 90%;
+    max-width: 300px;
+  }
+  
+  .interpretation-box {
+    padding: 20px;
+  }
+  
   .roulette-container {
     width: 90vw;
     height: 90vw;
@@ -398,6 +514,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="menu-desc">운명의 색을 돌려보세요</div>
     </a>
 
+    <a class="menu-btn" href="#" onclick="startDailyFortune()">
+      <div class="menu-title">✨ 오늘의 운세</div>
+      <div class="menu-desc">3장의 카드로 보는 하루</div>
+    </a>
+
   </div>
 </div>
 
@@ -446,6 +567,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p id="rouletteResult"></p>
 
   <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px;">
+    <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
+       target="_blank"
+       class="link-btn">🎥 유튜브 타로 보기</a>
+    
+    <button class="link-btn" onclick="goHome()">처음으로</button>
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     ✨ 오늘의 운세 화면
+========================================== -->
+<div id="daily-fortune-screen">
+  
+  <h2 class="daily-title">✨ 오늘의 운세</h2>
+  <p class="daily-subtitle">심해의 마녀가 3장의 카드로 오늘의 흐름을 읽어드립니다</p>
+
+  <div class="three-card-container" id="threeCardContainer">
+    <!-- 카드 3장이 여기에 표시됩니다 -->
+  </div>
+
+  <div class="interpretation-box" id="interpretationBox" style="display: none;">
+    <h3 class="interpretation-title">🔮 뮤너의 해석</h3>
+    <div class="interpretation-text" id="interpretationText"></div>
+  </div>
+
+  <div style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:15px;">
+    <button class="spin-btn" onclick="startDailyFortune()">🔄 다시 보기</button>
+    
     <a href="https://www.youtube.com/channel/UCbu0x8dUeJCSgbyw-ap9Y3A"
        target="_blank"
        class="link-btn">🎥 유튜브 타로 보기</a>
@@ -1193,8 +1344,216 @@ function goHome(){
   document.getElementById('deck-screen').style.display='none';
   document.getElementById('result-screen').style.display='none';
   document.getElementById('roulette-screen').style.display='none';
+  document.getElementById('daily-fortune-screen').style.display='none';
   document.getElementById('home-screen').style.display='block';
 }
+
+/* ======================
+   오늘의 운세 - 3카드 스프레드
+====================== */
+
+function startDailyFortune() {
+  // 화면 전환
+  document.getElementById('home-screen').style.display='none';
+  document.getElementById('daily-fortune-screen').style.display='block';
+  
+  // 벨린 덱과 타로 덱을 합침 (더 다양한 해석)
+  const combinedDeck = [...bellineDeck, ...tarotDeck];
+  
+  // 랜덤하게 3장 선택 (중복 없이)
+  const selectedCards = [];
+  const usedIndices = new Set();
+  
+  while (selectedCards.length < 3) {
+    const randomIndex = Math.floor(Math.random() * combinedDeck.length);
+    if (!usedIndices.has(randomIndex)) {
+      usedIndices.add(randomIndex);
+      selectedCards.push(combinedDeck[randomIndex]);
+    }
+  }
+  
+  // 카드 표시
+  displayThreeCards(selectedCards);
+  
+  // AI 해석 생성
+  generateInterpretation(selectedCards);
+}
+
+function displayThreeCards(cards) {
+  const container = document.getElementById('threeCardContainer');
+  const positions = ['과거', '현재', '미래'];
+  const meanings = ['지나온 흐름', '지금 이 순간', '다가올 길'];
+  
+  container.innerHTML = '';
+  
+  cards.forEach((card, index) => {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card-position';
+    cardDiv.innerHTML = `
+      <div class="position-label">${positions[index]} · ${meanings[index]}</div>
+      <div class="card-name">${card.title}</div>
+      <div class="card-meaning">${card.main}</div>
+    `;
+    container.appendChild(cardDiv);
+  });
+}
+
+async function generateInterpretation(cards) {
+  const interpretationBox = document.getElementById('interpretationBox');
+  const interpretationText = document.getElementById('interpretationText');
+  
+  // 로딩 표시
+  interpretationBox.style.display = 'block';
+  interpretationText.innerHTML = '<div style="text-align: center;"><div class="loading-spinner"></div><br>심해의 마녀가 카드를 읽고 있어요...</div>';
+  
+  // 로컬에서 해석 생성 (API 불필요)
+  setTimeout(() => {
+    const interpretation = createLocalInterpretation(cards);
+    interpretationText.textContent = interpretation;
+  }, 1500); // 실제감을 위한 약간의 딜레이
+}
+
+function createLocalInterpretation(cards) {
+  // 카드에서 핵심 키워드 추출
+  const extractKeyword = (cardMain) => {
+    const keywords = cardMain.split('.')[0].split(',')[0];
+    return keywords.replace('심해의 마녀, 뮤너가 전해드립니다. 구슬은 ', '')
+                   .replace('구슬은 ', '')
+                   .replace('을 노래해요', '')
+                   .replace('을 비춥니다', '')
+                   .trim();
+  };
+  
+  // 시작 문구 (랜덤)
+  const openings = [
+    '심해의 마녀, 뮤너가 전해드립니다.',
+    '구슬이 오늘의 이야기를 들려주네요.',
+    '심해 깊은 곳에서 당신의 하루를 봅니다.'
+  ];
+  
+  // 흐름 연결 표현 (랜덤)
+  const flowConnectors = [
+    `${cards[0].title}에서 ${cards[1].title}로, 그리고 ${cards[2].title}로 이어지는 길`,
+    `${cards[0].title}가 만든 흐름 속에서 ${cards[1].title}를 지나 ${cards[2].title}로 향하는 여정`,
+    `${cards[0].title}의 기억과 ${cards[1].title}의 현재, ${cards[2].title}의 가능성`
+  ];
+  
+  // 과거 해석 표현
+  const pastPhrases = [
+    `과거의 ${cards[0].title}가 만든 흐름 속에서`,
+    `지나온 ${cards[0].title}의 시간이 당신을 여기까지 데려왔어요`,
+    `${cards[0].title}로 시작된 이야기는`
+  ];
+  
+  // 현재 해석 표현
+  const presentPhrases = [
+    `지금 당신은 ${cards[1].title}의 순간을 지나고 있어요`,
+    `현재 ${cards[1].title}의 에너지가 당신을 감싸고 있습니다`,
+    `이제 ${cards[1].title}의 순간이에요`
+  ];
+  
+  // 미래 해석 표현
+  const futurePhrases = [
+    `앞으로 펼쳐질 ${cards[2].title}는 이미 당신의 선택 안에 있습니다`,
+    `${cards[2].title}로 향하는 길이 보여요`,
+    `다가올 ${cards[2].title}는 당신이 만들어가는 것`
+  ];
+  
+  // 조언 표현 (카드 조합에 따라)
+  const adviceOptions = [
+    '오늘 하루, 있는 그대로의 흐름을 믿어보세요.',
+    '지금 이 순간에 집중하세요. 과거는 교훈이고 미래는 가능성이에요.',
+    '당신의 선택을 믿으세요. 길은 이미 열려 있어요.',
+    '조급해하지 마세요. 모든 것은 때가 되면 제자리를 찾아가요.',
+    '내면의 목소리에 귀 기울여보세요. 답은 이미 당신 안에 있어요.'
+  ];
+  
+  // 마무리 표현
+  const closings = [
+    '구슬은 당신의 내면이 이미 답을 알고 있다고 속삭입니다.',
+    '심해의 깊은 곳에서 뮤너가 응원할게요.',
+    '오늘 하루도 당신의 빛을 믿으세요.',
+    '당신의 여정을 뮤너가 지켜보고 있어요.'
+  ];
+  
+  // 랜덤 선택 함수
+  const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  
+  // 특별한 조합 해석 (선택적)
+  const specialInterpretation = getSpecialInterpretation(cards);
+  if (specialInterpretation) {
+    return `${random(openings)}\n\n${specialInterpretation}\n\n${random(closings)} ✨`;
+  }
+  
+  // 일반 해석 생성
+  const interpretation = `${random(openings)}
+
+구슬이 비추는 오늘의 흐름을 보니, ${random(flowConnectors)}이 보이네요.
+
+${random(pastPhrases)}, ${random(presentPhrases)}. ${random(futurePhrases)}.
+
+${random(adviceOptions)}
+
+${random(closings)} ✨`;
+  
+  return interpretation;
+}
+
+function getSpecialInterpretation(cards) {
+  const titles = cards.map(c => c.title);
+  
+  // 긍정적 조합 (태양, 별, 꽃다발 등)
+  const positiveCards = ['태양', '별', '꽃다발', '선물', '빛', '무지개', '웃음'];
+  const positiveCount = titles.filter(t => positiveCards.includes(t)).length;
+  
+  if (positiveCount >= 2) {
+    return `오늘은 특별히 밝은 에너지가 느껴지네요. ${titles[0]}, ${titles[1]}, ${titles[2]}... 이 세 카드의 조합은 긍정적인 흐름을 말해줍니다.
+
+과거의 ${titles[0]}가 만든 기반 위에서, 지금의 ${titles[1]}가 당신을 더 나은 곳으로 이끌고 있어요. 그리고 ${titles[2]}는 당신이 기대해도 좋을 미래를 약속합니다.
+
+오늘 하루, 마음을 열고 좋은 것들을 받아들이세요. 당신은 충분히 받을 자격이 있어요.`;
+  }
+  
+  // 도전적 조합 (탑, 배신, 추락 등)
+  const challengingCards = ['탑', '배신', '추락', '칼', '뱀', '그림자', '벽'];
+  const challengeCount = titles.filter(t => challengingCards.includes(t)).length;
+  
+  if (challengeCount >= 2) {
+    return `구슬이 보여주는 길이 쉽지만은 않네요. ${titles[0]}, ${titles[1]}, ${titles[2]}... 이 조합은 지금 당신이 중요한 전환점에 있다는 걸 말해줍니다.
+
+${titles[0]}의 시간을 지나 ${titles[1]}의 순간에 서 있는 지금, 아프고 힘들 수 있어요. 하지만 ${titles[2]}로 향하는 이 과정은 당신을 더 강하게 만들 거예요.
+
+어려움 속에서도 자신을 믿으세요. 바닥을 찍어야 다시 오를 수 있는 법이에요. 뮤너가 함께 있어요.`;
+  }
+  
+  // 변화의 조합 (다리, 길, 문, 항해 등)
+  const changeCards = ['다리', '길', '문', '항해', '새', '배', '날개'];
+  const changeCount = titles.filter(t => changeCards.includes(t)).length;
+  
+  if (changeCount >= 2) {
+    return `움직임과 변화의 에너지가 강하게 느껴지네요. ${titles[0]}, ${titles[1]}, ${titles[2]}... 이 카드들은 모두 전환을 이야기합니다.
+
+${titles[0]}가 시작을 알렸다면, ${titles[1]}는 지금 그 변화의 한가운데에 있음을 보여줍니다. 그리고 ${titles[2]}는 새로운 곳으로 향하는 길을 열어줄 거예요.
+
+변화를 두려워하지 마세요. 익숙한 곳을 떠나는 건 무섭지만, 그곳에 진짜 당신이 기다리고 있어요.`;
+  }
+  
+  // 내면의 조합 (거울, 우물, 심장 등)
+  const innerCards = ['거울', '우물', '심장', '뿌리', '가면', '그림자', '빛'];
+  const innerCount = titles.filter(t => innerCards.includes(t)).length;
+  
+  if (innerCount >= 2) {
+    return `오늘은 내면을 들여다보는 날이에요. ${titles[0]}, ${titles[1]}, ${titles[2]}... 이 카드들은 모두 자신과의 대화를 권합니다.
+
+${titles[0]}가 보여준 것을 ${titles[1]}에서 깊이 느끼고, ${titles[2]}로 이어지는 이 여정은 결국 자기 자신을 알아가는 과정이에요.
+
+밖을 보기보다 안을 들여다보세요. 당신이 찾는 답은 언제나 당신 안에 있어요.`;
+  }
+  
+  return null; // 특별한 조합이 아니면 일반 해석 사용
+}
+
+
 </script>
 
 </body>
